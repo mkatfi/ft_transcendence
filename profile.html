@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pingpong</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/all.min.css" />
+    <link rel="stylesheet" href="css/master.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <div class="page  d-flex  ">
+    
+    <div class="sidebar text-center  position-relative">
+      
+      <img class="logo-img img-fluid mt-0" src="image/PINGPONG.svg" alt="">
+      <ul>
+        <li>
+          <a class="active d-flex  p-3 align-items-center fs-5   rounded-2 mb-2 ms-3 " href="index.html" >
+            <i class="fa-solid fa-house  fa-fw"></i>
+            <span  >Home</span>
+          </a>
+        </li>
+        <li>
+          <a class=" d-flex  p-3 align-items-center fs-5  rounded-2 mb-2 ms-3 " href="games.html" >
+            <i class="fa-solid fa-gamepad fa-fw"></i>
+            <span>Games</span>
+          </a>
+        </li>
+        <li>
+          <a class=" d-flex  p-3 align-items-center fs-5  rounded-2 mb-2 ms-3  " href="profile.html" >
+            <i class="fa-solid fa-user  fa-fw"></i>
+            <span>Profile</span>
+          </a>
+        </li>
+        <li>
+          <a class=" d-flex  p-3 align-items-center fs-5  rounded-2 mb-2 ms-3  " href="tournament.html" >
+            <i class="fa-solid fa-trophy fa-fw"></i>
+            <span>Tournament</span>
+          </a>
+        </li>
+        <li>
+          <a class=" d-flex  p-3 align-items-center fs-5 rounded-2 mb-2 ms-3  " href="friends.html" >
+            <i class="fa-solid fa-user-group fa-fw"></i>
+            <span>Friends</span>
+          </a>
+        </li>
+
+        <li>
+          <a class=" d-flex  p-3 align-items-center fs-5 rounded-2 mb-2 ms-3  " href="tournament.html" >
+            <i class="fa-solid fa-ranking-star"></i>
+            <span>Leaderboard</span>
+          </a>
+        </li>
+
+        <li>
+          <a class=" d-flex  p-3 align-items-center fs-5 rounded-2 mb-2 ms-3  " href="settings.html" >
+            <i class="fa-solid fa-gear"></i>
+            <span>settings</span>
+          </a>
+        </li>
+        
+ 
+
+        
+      </ul>
+      <div class="position-absolute bottom-0 start-50 translate-middle-x">
+        
+        <form action="" method="post">
+          <p>
+            <button type="button" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i>
+              <span> Log out</span></button>
+            </p>
+            
+          </form> 
+        </div>
+        
+      </div>
+
+      <!-- START CONTENT PROFILE  -->
+      
+      <div class="content  ">
+        <header class="d-flex w-100  align-items-center justify-content-between  p-4">
+          <div class="search position-relative">
+            <input type="search" class="p-2  ps-5 rounded-3" placeholder="Type A Keyword">
+          </div>
+          <div class="icons d-flex align-items-center  ">
+            <span class="notf postion-relative">
+              <i class="fa-solid fa-bell fa-lg"></i>
+            </span>
+            <img src="image/avatar.png" class=" ms-3" alt="">
+          </div>
+        </header>
+        <div class="pr-welcome m-2 d-flex justify-content-between">
+          <p>  <i class="fa-solid fa-user  fa-fw"></i> Welcome,Orca </p> 
+            <div class="btn-settings">  <i class="fa-solid fa-gear"></i></div>
+        </div>
+        
+        <!-- <img class="bg-profile" src="image/e.jpg" alt=""> -->
+        <div class="user-profile d-grid     rounded-4 ms-3 me-3 mb-2 ">
+          <div class="position-relative avatar-profile d-flex justify-content-around flex-wrap align-items-center">
+            <div class="pr-img position-absolute top-0 start-50 translate-middle d-flex justify-content-center align-items-end">
+              <div class="image-container">
+                <img  class="avatar"  src="image/avatar.png" alt="">
+              </div>
+              <label for="id_avatar" class="small mb-1"><i class="fa-solid fa-pencil"></i></label>
+              <input type="file" name="avatar" class="form-control-file" accept="image/*" id="id_avatar">
+              <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+            </div>
+          
+            <div class="pr-name w-60 text-center">
+              <p  class="mt-5   text-uppercase fst-italic fw-bold" >Orca</p>
+            </div>
+
+          </div>
+          <div class="level-profile d-flex justify-content-center  flex-column m-5">
+            <h4>Level 25</h4>    
+            <div class="progress rounded-4 position-relative overflow-visible">
+              <span class="w-25 rounded-4 "></span>
+              
+              
+              <!-- <div class=" pos-lev text-center  position-absolute top-0 start-25 translate-middle fw-bold fs-4 ">
+                <p>25EXP</p>
+                <i class="fa-solid fa-caret-up"></i>
+              </div> -->
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- END CONTENT PROFILE  -->
+    </div>
+    
+    
+  </body>
+  <script>
+    let avatar = document.querySelector(".avatar")
+    let changeimg = document.getElementById("id_avatar")
+
+    // avatar.onclick = function () {
+    //   changeimg.click()
+    // } 
+
+
+    const imageContainer = document.querySelector('.image-container');
+    
+      imageContainer.addEventListener('mouseenter', () => {
+            avatar.style.filter = "blur(5px)";
+        });
+        imageContainer.addEventListener('mouseleave', () => {
+          avatar.style.filter = 'none';
+        });
+  </script>
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/all.min.js"></script>
+  
+  </html>

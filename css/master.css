@@ -7,7 +7,7 @@
     --op-dark-color:#2e314d;
     --gray-color:#9ea1b9;
     --violet-color:#c6f778;
-    --violet-color-op:#00000052;
+    --violet-color-op:#f011e5;
     --blue-color: #0da9e9;
     --dark-yellow-color :#F59401;
 }
@@ -267,14 +267,14 @@ font-size: 50px;
 .box1 {
   grid-area: box1;
   box-shadow: 0 0 10px rgb(51, 50, 50);
-  background: linear-gradient(180deg, rgba(181, 228, 51, 0.562) 0%, rgba(141, 60, 60, 0.486) 50%, rgba(130,57,45,0.3617822128851541) 100%);
+  background: linear-gradient(180deg, rgba(134, 238, 189, 0.63) 0%, rgba(222, 247, 3, 0.897) 50%, rgba(247, 36, 4, 0.603) 100%);
 
 }
 .box3 {
   grid-area: box3;
   box-shadow: 0 0 10px black;
-  /* background: linear-gradient(180deg, rgba(218,60,135,0.3477766106442577) 0%, rgba(0,0,0,0) 50%, rgba(130,57,45,0.3617822128851541) 100%); */
- box-shadow: inset 0px -109px 98px 43px #25aae7bd ,inset 0px -109px 98px 43px var(--violet-color-op);
+  background: linear-gradient(180deg, rgba(236, 30, 82, 0.945) 0%, rgb(255, 255, 255) 50%, rgba(5, 60, 238, 0.726) 100%);
+ /* box-shadow: inset 0px -100px 98px 30px #0267ffe7 ,inset 0px -100px 90px 30px var(--violet-color-op); */
 
 
 }

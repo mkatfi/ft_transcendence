@@ -14,52 +14,124 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet"> -->
 </head>
 <body>
-    <div class="wrapperr">
+    <div class="up">
+        <div class="wrapperr login-wr">
+            <form action="">
+                <h1>Login</h1>
+                <div class="input-box">
+                    <input type="text" placeholder="Uesrname" required>
+                    <i class='bx bxs-user'></i>
+                </div>
+                <div class="input-box">
+                    <input type="password" placeholder="Password" required>
+                    <i class='bx bxs-lock-alt'></i>
+                </div>
+                <div class="remember-forgot">
+                    <label>
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#">Forgot Password ?</a>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <div class="register-link">
+                    <p>Don`t have an account? <button class="btn-regist">Register</button> </p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="dawn">
+        <div class="pingpong">
+            <div class="table">
+                <div class="line"></div>
+                <div class="net-top"></div>
+                <div class="net-middle"></div>
+                <div class="net-bottom"></div>
+                <div class="net-shadow"></div>
+            </div>
+            <div class="c1">
+                <div class="b1"></div>
+            </div>
+            <div class="c2">
+                <div class="b2"></div>
+            </div>
+            <div class="c3">
+                <div class="b3"></div>
+            </div>
+            <div class="c4">
+                <div class="b4"></div>
+            </div>
+            <span class="ping"></span>
+            <span class="pong"></span>
+        </div>
+    </div>
+    <div class="wrapperr  register-wr">
         <form action="">
-            <h1>Login</h1>
+            <h1>SIGINUP</h1>
+            
+            
+            
             <div class="input-box">
-                <input type="text" placeholder="Uesrname" required>
-                <i class='bx bxs-user'></i>
+                <input type="text"
+                id="frist_name"
+                name="frist_name"
+                placeholder="Enter First Name"/>
             </div>
             <div class="input-box">
-                <input type="password" placeholder="Password" required>
-                <i class='bx bxs-lock-alt'></i>
+                <input type="text"
+                id="last_name"
+                name="last_name"
+                placeholder="Enter Last Name"/>
             </div>
-            <div class="remember-forgot">
-                <label>
-                    <input type="checkbox"> Remember me
-                </label>
-                <a href="#">Forgot Password ?</a>
+
+            <div class="input-box">
+                <input type="text"
+                id="username"
+                name="username"
+                placeholder="Enter Username"/>
             </div>
-            <button type="submit" class="btn">Login</button>
+
+            <div class="input-box">
+                <input type="email"
+                id="email"
+                name="email"
+                placeholder="Enter Email"/> 
+            </div>
+
+            <div class="input-box">
+                 <input type="password"
+                    id="password"
+                    name="password1"
+                    placeholder="Enter Password"/>
+            </div>
+            <div class="input-box">
+                <input type="password"
+                id="password2"
+                name="password2"
+                placeholder="Confirm Password"/>
+            </div>
+            <button type="submit" class="btn">Register</button>
             <div class="register-link">
-                <p>Don`t have an account? <a href="#"> Register</a> </p>
+                <button class="btn-login"> login</button>
             </div>
         </form>
     </div>
-
-    <!-- <div class="pingpong">
-        <div class="table">
-            <div class="line"></div>
-            <div class="net-top"></div>
-            <div class="net-middle"></div>
-            <div class="net-bottom"></div>
-            <div class="net-shadow"></div>
-        </div>
-        <div class="c1">
-            <div class="b1"></div>
-        </div>
-        <div class="c2">
-            <div class="b2"></div>
-        </div>
-        <div class="c3">
-            <div class="b3"></div>
-        </div>
-        <div class="c4">
-            <div class="b4"></div>
-        </div>
-        <span class="ping">PING</span>
-        <span class="pong">PONG</span>
-    </div> -->
+</div>
 </body>
+<script>
+    let btn_log =   document.querySelector(".btn-login");
+    let btn_regist =   document.querySelector(".btn-regist");
+    let wr_login = document.querySelector(".login-wr");
+    let wr_regist = document.querySelector(".register-wr");
+
+    btn_log.addEventListener("click",function (event) {
+
+        wr_login.style.display = "none";
+        wr_regist.style.display = "flex";
+    });
+    btn_regist.addEventListener("click",function (event) {
+
+        wr_login.style.display = "none";
+        wr_regist.style.display = "flex";
+    });
+</script>
 </html>

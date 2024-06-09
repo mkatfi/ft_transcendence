@@ -22,7 +22,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   background-color: rgb(79, 224, 224);
-  color: white;
+  /* color: white; */
   display: flex;
   height: 100vh;
 }
@@ -56,17 +56,16 @@ ul {
 }
 
 header {
-  background-color: rgba(29, 27, 27, 0.342);
+  background-color: rgba(0, 0, 0, 0.596);
   color: orangered;
 }
 
 header .search input {
   background-color: rgba(17, 17, 17, 0.342);;
   border: solid 3px var(--gray-color);
-  width: 280px;
+  width: 600px;
   font-weight: bold;
   color: var(--gray-color);
-  padding: 8px 15px;
   transition: 1s;
 }
 
@@ -98,6 +97,11 @@ header .icons img {
   border-radius: 50%;
   border: solid 3px rgb(78, 77, 77);
 }
+header .img-fluid{
+  width: 90px;
+  border-radius: 50%;
+  border: solid 3px white;
+}
 
 .d-flex {
   display: flex;
@@ -117,8 +121,9 @@ header .icons img {
   justify-content: flex-start;
   position: absolute;
   margin: auto;
-  /* top: 150px;
-  bottom: 50px; */
+  left: 7px;
+  top: 150px;
+  bottom: 50px;
 }
 
 .sidebar ul {
@@ -175,9 +180,10 @@ header .icons img {
   grid-template-areas: " box2 box2 box2 box2"
   "box1 box1 box3 box3";
 }
-
-
-@media (max-width: 992px) {
+.wrapper .box2 h3{
+  color: gold;
+}
+@media (max-width: 940px) {
   .wrapper {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3,250px);
@@ -187,11 +193,11 @@ header .icons img {
     "box4";
   }
   .wrapper .box2 p{
-    font-size: 20px;
+    font-size: 30px;
     color: rgb(26, 25, 25);
   }
   .wrapper .box2 h3{
-    font-size: 50px;
+    font-size: 60px;
     color: gold;
   }
   .user-profile {
@@ -199,6 +205,44 @@ header .icons img {
     grid-template-rows: repeat(2,300px)!important;
     grid-template-areas: "profile"
     "level"  !important;
+  }
+  .box2 .btn{
+    font-size: 20px;
+  }
+  header .search input{
+    width: 300px;
+  }
+  
+}
+@media (max-width: 740px) {
+ 
+  .wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3,250px);
+    grid-template-areas: "box2"
+    "box1"
+    "box3"
+    "box4";
+  }
+  .wrapper .box2 p{
+    font-size: 15px;
+    color: rgb(26, 25, 25);
+  }
+  .wrapper .box2 h3{
+    font-size: 20px;
+    color: gold;
+  }
+  .user-profile {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(2,300px)!important;
+    grid-template-areas: "profile"
+    "level"  !important;
+  }
+  .box2 .btn{
+    font-size: 10px;
+  }
+  header .search input{
+    width: 200px;
   }
   
 }
@@ -326,12 +370,11 @@ font-size: 50px;
 .user-profile {
  box-shadow: inset 0px 5px 10px 0px rgba(133,61,232, 0.7);
  box-shadow: inset 0px 5px 10px 0px rgba(220,60,139, 0.7);
- grid-template-rows: 400px  400px;
- grid-template-areas: "profile   level  level level";
+ grid-template-rows: 250px  500px;
+ grid-template-areas: ". profile  level level";
  margin-top: 100px;
  background-image: url("/image/e.jpg");
  background-size: cover;
-
 }
 .avatar-profile {
  grid-area: profile;
@@ -355,74 +398,74 @@ font-size: 50px;
  width: 30%;
  font-size: 20px;
 }
-   .progress {
-     background-color: rgba(0, 0, 0, 0.328);
-     border: solid 1px rgba(0, 0, 0, 0.328);
-   }
-   .progress  span{
-     background-image: url("/image/bg-y.png");
-     background-size: contain;
-   }
-   .level-profile {
-     grid-area: level;
-   }
-   .level-profile {
-     height: 50%;
-     padding: 20px;
-     border-left: solid 4px  var(--dark-yellow-color);
-     box-shadow: 0 0 10px black;
-   }
-   
-   .pr-img svg {
-     font-size: 30px;
-     filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
-     color: rgb(220, 60, 139);
-     
-     border-radius: 50%;
-     padding: 7px ;
-     border: solid 2px black;
-   }
-   .pr-img svg:hover {
-     font-size: 30px;
-     filter: drop-shadow(0px 0px 10px rgb(93, 222, 57));
-     color: rgb(93, 222, 57);
-   }
-   /* .bg-profile  {
-     max-width: 100%;
-     height: auto;
-   } */
+.progress {
+  background-color: rgba(0, 0, 0, 0.328);
+  border: solid 1px rgba(0, 0, 0, 0.328);
+}
+.progress  span{
+  background-image: url("/image/bg-y.png");
+  background-size: contain;
+}
+.level-profile {
+  grid-area: level;
+}
+.level-profile {
+  height: 50%;
+  padding: 20px;
+  border-left: solid 4px  var(--dark-yellow-color);
+  box-shadow: 0 0 10px black;
+}
 
-   .image-container {
-     position: relative;
-   }
+.pr-img svg {
+  font-size: 30px;
+  filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
+  color: rgb(220, 60, 139);
+  
+  border-radius: 50%;
+  padding: 7px ;
+  border: solid 2px black;
+}
+.pr-img svg:hover {
+  font-size: 30px;
+  filter: drop-shadow(0px 0px 10px rgb(93, 222, 57));
+  color: rgb(93, 222, 57);
+}
+/* .bg-profile  {
+  max-width: 100%;
+  height: auto;
+} */
 
-   .image-container:hover::before {
-   font-family: "Font Awesome 6 Free";
-   content: "\f303";
-   font-weight: bold;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
-   font-size: 30px;
-   filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
-   color: rgb(220, 60, 139);
-   z-index: 1000;
-   border: solid 2px black;
-   border-radius: 50%;
-   padding: 10px;
-   background-color: var(--dark-color);
-   }
+.image-container {
+  position: relative;
+}
+
+.image-container:hover::before {
+font-family: "Font Awesome 6 Free";
+content: "\f303";
+font-weight: bold;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+font-size: 30px;
+filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
+color: rgb(220, 60, 139);
+z-index: 1000;
+border: solid 2px black;
+border-radius: 50%;
+padding: 10px;
+background-color: var(--dark-color);
+}
    /* <-------------------------------------------------------------------------------THIS FOR PROFILE  */
    
    
    /* THIS FOR SETTINGS -------------------------------------------------------------------------------------------> */
-   .settings-all {
-     grid-template-columns: 1f;
-     grid-template-rows: repeat(3,900px);
-     grid-template-areas:  "box1"
-     "box2";
-   }
+.settings-all {
+  grid-template-columns: 1f;
+  grid-template-rows: repeat(3,900px);
+  grid-template-areas:  "box1"
+  "box2";
+}
 .settings-all .box1 { 
  box-shadow: inset 0px 5px 10px 0px rgba(133,61,232, 0.7);
  box-shadow: inset 0px 5px 10px 0px rgba(220,60,139, 0.7);
@@ -433,24 +476,24 @@ font-size: 50px;
 }
 .box1  .t-sett,
 .send-request-friend  .t-sett {
- border-width: 3px;
- border-style: solid;
- border-image: 
- linear-gradient(
-   to bottom, 
-   var(--violet-color), 
-   rgba(0, 0, 0, 0)
-   ) 1 100%;
-   padding: 10px;
- }
- .box1 svg ,
- .send-request-friend  .t-sett svg{
-   font-size: 40px;
-   filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
-   color: rgb(220, 60, 139);
-   
-   
- }
+  border-width: 3px;
+  border-style: solid;
+  border-image: 
+  linear-gradient(
+    to bottom, 
+      var(--violet-color), 
+    rgba(0, 0, 0, 0)
+    ) 1 100%;
+  padding: 10px;
+}
+.box1 svg ,
+.send-request-friend  .t-sett svg{
+  font-size: 40px;
+  filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
+  color: rgb(220, 60, 139);
+  
+  
+}
  .box1 h1,
  .send-request-friend  .t-sett h1 {
    
@@ -504,7 +547,6 @@ font-size: 50px;
    
  }
  .settings-all form button {
-   
    width: 150px;
    padding: 20px;
    border-radius: 20px;
@@ -515,7 +557,6 @@ font-size: 50px;
    background-color: var(--violet-color);
    letter-spacing: 2px;
    text-align: start;
-   
  }
  .settings-all form button:hover {
    color: var(--yallow-color);
@@ -603,8 +644,6 @@ background-color: green;
 font-family: "Jaro", system-ui;
 font-weight: bold;
 font-size: 40px;
-
-
 border-width: 3px;
  border-style: solid;
  border-image: 
@@ -616,11 +655,10 @@ border-width: 3px;
    padding: 10px;
 
 }
- /* <-------------------------------------------------------------------------------THIS FOR FRIENDS  */
- /* <-------------------------------------------------------------------------------THIS FOR requst-friend  */
+ /* <-----THIS FOR FRIENDS -------------------------------------------------------------------------- */
+ /* <----THIS FOR requst-friend---------------------------------------------------------------------------  */
 
  .message-request {
-
    width: 30%;
    padding: 30px;
    border-radius: 20px;
@@ -632,7 +670,7 @@ border-width: 3px;
 
  }
 
- /* <-------------------------------------------------------------------------------THIS FOR request-friend  */
+ /* <-------THIS FOR request-friend------------------------------------------------------------------------  */
 
 /*********************************/
 .text-center {
@@ -693,7 +731,7 @@ border-width: 3px;
       position: relative;
       width: 90px;
       top: 0;
-      left: 0;
+      left: 7px;
   }
   .wrapper{
     padding-left: 0;

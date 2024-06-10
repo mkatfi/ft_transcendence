@@ -352,60 +352,176 @@ font-size: 50px;
 
 /* THIS FOR PROFILE -------------------------------------------------------------------------------------------> */
 
+.content {
+  padding-left: 110px;
+  padding-top: 20px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
 
+.bg-profile-1 {
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.pr-welcome {
+  color: var(--green-color);
+}
+
+.btn-settings {
+  color: violet;
+  cursor: pointer;
+}
+
+.user-profile {
+  background-color: var(--section-color);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  height: 200px;
+}
+
+.profile-header {
+  text-align: left;
+  font-size: xx-large;
+  font-weight: bold;
+  color: var(--dark-color);
+}
+
+.profile-header p {
+  margin: 0;
+}
+
+.profile-header .level {
+  font-size: xx-large;
+  font-weight: bold;
+  color: var(--green-color);
+}
+.profile-header .level_1 {
+  margin: 30px;
+  width: 600px;
+  height: 20px;
+  background-image: linear-gradient(
+    to right,
+    #2980b9 20%,
+    #27ae60 20%,
+    #27ae60 40%,
+    #d35400 40%,
+    #d35400 60%,
+    #8e44ad 60%,
+    #8e44ad 80%,
+    #c0392b 80%
+  );
+}
+
+.avatar-profile {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content:flex-end;
+  align-items:flex-end;
+}
+
+.avatar-profile .image-container {
+  position: relative;
+  background-color: var(--gray-color);
+  width: 120px;
+  height: 120px;
+  border: 5px solid goldenrod;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.avatar-profile .image-container img {
+  width: 100%;
+  height: 100%;
+  /* object-fit: cover; */
+}
+@media (max-width: 990px) {
+
+  .profile-header .level_1 {
+    width: 400px;
+  }
+}
+@media (max-width: 790px) {
+
+  .content {
+    padding-left: 0;
+  }
+  .profile-header .level_1 {
+    width: 200px;
+  }
+}
+
+/*-----------test-------------------------*/
+
+/* .bg-profile-1{
+  margin-left: 90px;
+  border-radius: 20px;
+  position: relative;
+}
 .pr-welcome p{
- color: white;
+ color: rgb(138, 99, 245);
  font-family: "Jaro", system-ui;
  font-weight: bold;
  font-size: 40px;
- animation: raj3o2 1s ;
+ animation: raj3o2 1s;
 }
 
 .pr-welcome  .btn-settings svg  {
- filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
+ filter: drop-shadow(0px 0px 10px var(--dark-yellow-color) );
  font-size: 30px;
- color: #dc3c8b;
+ color: #d72add;
  
 }
 .user-profile {
  box-shadow: inset 0px 5px 10px 0px rgba(133,61,232, 0.7);
  box-shadow: inset 0px 5px 10px 0px rgba(220,60,139, 0.7);
  grid-template-rows: 250px  500px;
- grid-template-areas: ". profile  level level";
+ grid-template-areas: "profile  level level level";
  margin-top: 100px;
+ height: 50vh;
  background-image: url("/image/e.jpg");
  background-size: cover;
 }
 .avatar-profile {
  grid-area: profile;
- 
 }
 .avatar-profile  img {
- width: 200px;
- height: 200px;
- border-radius: 50%;
+ width: 100px;
+ height: 100px;
+ margin-top: -20px;
+ margin-left: -10px;
+ border-radius: 40%;
  border: solid 4px var( --dark-yellow-color);
  box-shadow: inset 0px 5px 10px 0px black;
- 
-}
-.pr-name ,
+} */
+
+/* .pr-name ,
 .level-profile h4{
  color: white;
+ width: 400px;
+ height: 10px;
+ margin-left: 90px;
 }
 .pr-name {
  color: white;
  border-bottom: solid 2px black;
  width: 30%;
  font-size: 20px;
-}
-.progress {
+} */
+
+/* .progress {
   background-color: rgba(0, 0, 0, 0.328);
   border: solid 1px rgba(0, 0, 0, 0.328);
 }
 .progress  span{
   background-image: url("/image/bg-y.png");
   background-size: contain;
-}
+} */
 .level-profile {
   grid-area: level;
 }
@@ -430,10 +546,11 @@ font-size: 50px;
   filter: drop-shadow(0px 0px 10px rgb(93, 222, 57));
   color: rgb(93, 222, 57);
 }
-/* .bg-profile  {
-  max-width: 100%;
-  height: auto;
-} */
+.bg-profile  {
+  width: 100%;
+  height: 90vh;
+  margin-left: 100px;
+}
 
 .image-container {
   position: relative;
@@ -444,15 +561,15 @@ font-family: "Font Awesome 6 Free";
 content: "\f303";
 font-weight: bold;
 position: absolute;
-top: 50%;
-left: 50%;
+top: 20px;
+left: 90px;
 transform: translate(-50%, -50%);
-font-size: 30px;
+font-size: 20px;
 filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
 color: rgb(220, 60, 139);
 z-index: 1000;
 border: solid 2px black;
-border-radius: 50%;
+border-radius: 60%;
 padding: 10px;
 background-color: var(--dark-color);
 }
@@ -678,7 +795,9 @@ border-width: 3px;
 }
 
 .m-2 {
-  margin: 10px;
+  font-size: xx-large;
+  color: white;
+  font-weight: bold;
 }
 
 .m-3 {

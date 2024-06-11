@@ -6,10 +6,10 @@
     font-family: "Poppins" sans-serif;
 }
 body{
-    /* background: url(../imag_1/); */
-    background: url('../imag_1/output_mrqqb3.gif');
+    background-color: #202443;
+    background-image: url('../imag_1/output-mrqqb3-unscreen.gif');
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: 70% 70%;
     background-position: center;
     height: 100vh;
     display: flex;
@@ -28,7 +28,7 @@ body{
 }
 .wrapperr{
     width: 400px;
-    background: transparent;
+    background: #25284A;
     /* border: 2px solid rgba(255, 255, 255, 2); */
     backdrop-filter: blur(20px);
     box-shadow: 0 0 10px  rgba(0, 0, 0, 0.2);
@@ -103,7 +103,7 @@ body{
 .wrapperr .btn{
     width: 100%;
     height: 45px;
-    background: #e64f4f;
+    background: #FC7785;
     border: none;
     outline: none;
     border-radius: 40px;
@@ -130,11 +130,11 @@ body{
     margin-left: 5px;
     font-weight: 600;
     border-radius: 20px;
-    background-color: rgba(209, 245, 5, 0.623);
+    background-color: #0DA9E9;
 }
 .register-link p .btn-regist:hover, .register-link p .btn-login:hover {
     background-color: rgba(100, 238, 7, 0.774);
-    box-shadow: 0 0 10px rgba(251, 255, 0, 0.685);
+    box-shadow: 0 0 10px #0DA9E9;
 }
 
 .register-link p a:hover{

@@ -13,9 +13,115 @@
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
+
     </head>
     <body>
-      <div class="page">
+      <div class="page d-flex">
+        <header class="d-flex justify-content-between align-items-center p-4">
+            <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="Pingpong Logo">
+            <div class="search position-relative">
+                <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+            </div>
+            <div class="icons d-flex align-items-center">
+                <span class="notf position-relative">
+                    <i class="fa-solid fa-bell fa-lg"></i>
+                </span>
+                <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
+            </div>
+        </header>
+        <div class="d-flex">
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
+                            <i class="fa-solid fa-gamepad fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
+                            <i class="fa-solid fa-user fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
+                            <i class="fa-solid fa-trophy fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
+                            <i class="fa-solid fa-user-group fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
+                            <i class="fa-solid fa-ranking-star"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+                            <i class="fa-solid fa-gear"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                    <button type="button" class="btn btn-secondary">
+                      <i class="fa-solid fa-right-from-bracket"></i></button>
+                </div>
+            </div>
+            <div class="content_profile ">
+                <!-- <h1 class="p-relative">Profile</h1> -->
+                <div class="pr-welcome m-2 d-flex justify-content-between">
+                  <p>  <i class="fa-solid fa-user  fa-fw"></i> My Profile </p> 
+                    <div class="btn-settings">
+                      <i class="fa-solid fa-gear"></i>
+                    </div>
+                </div>
+                <div class="profile-page m-20">
+                    <div class="overview  rad-10 d-flex align-center">
+                        <div class="avatar-box  p-20">
+                            <img decoding="async" class="rad-half mb-10" src="image/avatar.png" alt="Avatar" />
+                            <h3 class="m-0">Split abid monsif</h3>
+                            <p class="c-grey mt-10">Level 60</p>
+                            <div class="level  rad-6 bg-eee p-relative">
+                                <span></span>
+                            </div>
+                            <div class="rating mt-10 mb-10">
+                                <i class="fa-solid fa-star text-warning fs-13"></i>
+                                <i class="fa-solid fa-star text-warning  fs-13"></i>
+                                <i class="fa-solid fa-star text-warning  fs-13"></i>
+                                <i class="fa-solid fa-star text-secondary fs-13"></i>
+                                <i class="fa-solid fa-star text-secondary fs-13"></i>
+                            </div>
+                            <!-- <p class="c-grey m-0 fs-13">550 Rating</p> -->
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/all.min.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const welcomeMessage = document.querySelector('.welcome-message');
+            if (welcomeMessage) {
+                welcomeMessage.addEventListener('click', () => {
+                    alert('Welcome to Pingpong! Let\'s play!');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+      <!-- <div class="page">
         <header class="d-flex justify-content-between align-items-center p-4">
           <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
           <div class="search position-relative">
@@ -32,7 +138,7 @@
           <div class="sidebar">
             <ul>
               <li>
-                <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
+                <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
                   <i class="fa-solid fa-house fa-fw"></i>
                 </a>
               </li>
@@ -42,7 +148,7 @@
                 </a>
               </li>
               <li>
-                <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
+                <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
                   <i class="fa-solid fa-user fa-fw"></i>
                 </a>
               </li>
@@ -72,11 +178,39 @@
               <form action="" method="post">
                 <p>
                   <button type="button" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i>
-                    <!-- <span> Log out</span></button> -->
+                    <span> Log out</span></button>
                   </p>
                 </form> 
               </div>
-            </div>
+            </div> -->
+            <!-- <div class="pr-welcome m-2 d-flex justify-content-between">
+              <p>  <i class="fa-solid fa-user  fa-fw"></i> Welcome, Orca</p> 
+                <div class="btn-settings">
+                  <i class="fa-solid fa-gear"></i>
+                </div>
+            </div> -->
+            <!-- <h1 class="p-relative">Profile</h1>
+            <div class="profile-page m-20"> -->
+              <!-- Start Overview -->
+              <!-- <div class="overview bg-white rad-10 d-flex align-center">
+                <div class="avatar-box txt-c p-20">
+                  <img decoding="async" class="rad-half mb-10" src="image/avatar.png" alt="" />
+                  <h3 class="m-0">Osama Elzero</h3>
+                  <p class="c-grey mt-10">Level 20</p>
+                  <div class="level rad-6 bg-eee p-relative">
+                    <span style="width: 70%"></span>
+                  </div>
+                  <div class="rating mt-10 mb-10">
+                    <i class="fa-solid fa-star c-orange fs-13"></i>
+                    <i class="fa-solid fa-star c-orange fs-13"></i>
+                    <i class="fa-solid fa-star c-orange fs-13"></i>
+                    <i class="fa-solid fa-star c-orange fs-13"></i>
+                    <i class="fa-solid fa-star c-orange fs-13"></i>
+                  </div>
+                  <p class="c-grey m-0 fs-13">550 Rating</p>
+                </div>
+                <div class="info-box w-full txt-c-mobile"> -->
+          
             <!-- <div class="content  ">            
               <div class="bg-profile-1">
               <div class="pr-welcome m-2 d-flex justify-content-between">
@@ -116,7 +250,7 @@
                   
                 <!-- </div> -->
               <!-- </div> -->
-              <div class="content">            
+              <!-- <div class="content">            
                 <div class="bg-profile-1">
                   <div class="pr-welcome m-2 d-flex justify-content-between">
                     <p><i class="fa-solid fa-user fa-fw"></i> Welcome, Orca</p> 
@@ -124,8 +258,6 @@
                       <i class="fa-solid fa-gear"></i>
                     </div>
                   </div>
-          
-                  <!-- User Profile Section -->
                   <div class="user-profile p-3 bg-light rounded-4 m-3 position-relative">
                     <div class="profile-header position-absolute top-0 start-0 p-3">
                       <p class="text-uppercase fw-bold mb-0">Orca</p>
@@ -139,8 +271,8 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div>  -->
+            <!-- </div>
           </div>
           <script src="js/bootstrap.bundle.min.js"></script>
           <script src="js/all.min.js"></script>
@@ -157,4 +289,4 @@
         });
     </script>
 </body>
-</html>
+</html> -->

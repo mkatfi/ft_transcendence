@@ -32,7 +32,7 @@
       <div class="sidebar">
           <ul>
               <li>
-                  <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
+                  <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
                       <i class="fa-solid fa-house fa-fw"></i>
                   </a>
               </li>
@@ -62,7 +62,7 @@
                   </a>
               </li>
               <li>
-                  <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+                  <a class=" active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
                       <i class="fa-solid fa-gear"></i>
                   </a>
               </li>
@@ -79,20 +79,8 @@
       </div>
       <!-- START CONTENT SETTINGS  -->
       
-      <div class="content  ">
-        <!-- <header class="d-flex w-100  align-items-center justify-content-between  p-4">
-          <div class="search position-relative">
-            <input type="search" class="p-2  ps-5 rounded-3" placeholder="Type A Keyword">
-          </div>
-          <div class="icons d-flex align-items-center  ">
-            <span class="notf postion-relative">
-              <i class="fa-solid fa-bell fa-lg"></i>
-            </span>
-            <img src="image/avatar.png" class=" ms-3" alt="">
-          </div>
-        </header> -->
-        
-        <div class="settings-all d-grid     rounded-4 ms-3 me-3 mt-5 ">
+      <div class="content_setting  ">
+        <div class="settings-all d-grid rounded-4 ms-3 me-3 mt-5 ">
             <div class="box1 d-flex justify-content-between">
                 <div class="t-sett d-flex align-items-center">
                     <h1> Profile </h1>
@@ -101,21 +89,19 @@
                 <form method="post" enctype="multipart/form-data" action="" class="w-75 d-flex align-items-center">
                   <input type="hidden" name="csrfmiddlewaretoken" value="Kl0zquj4vm8dew2FcrE1qCZCe94tkePeFANs1a6iciaXwQWZ3XVvopvrZDl6W3W7">  
                           <div class="form-group m-3">
-                              <label   class="small mb-1">Username:</label>
-                                  <input type="text" name="username" value="sss" class="form-control" maxlength="100" required="" id="id_username">
-                              <label class="small mb-1">Email:</label>
-                                  <input type="text" name="email" value="sss@gamil.ocm" class="form-control" maxlength="320" required="" id="id_email">
+                            <label   class="small mb-1">Username:</label>
+                                <input type="text" name="username" value="sss" class="form-control" maxlength="100" required="" id="id_username">
+                            <label class="small mb-1">Email:</label>
+                                <input type="text" name="email" value="sss@gamil.ocm" class="form-control" maxlength="320" required="" id="id_email">
                           </div>
                           <div class="form-group w-100 m-3">
-                              <!-- <a href="#">Change Password</a>
-                              <hr> -->
-                              <label for="id_avatar" class="small mb-1">Change Avatar:</label>
+                              <label for="id_avatar" class="small mb-1">Change Avatar</label>
                               <input type="file" name="avatar" class="form-control-file" accept="image/*" id="id_avatar">
                               <label class="small mb-1 w-100">Bio:</label> 
                               <textarea name="bio" cols="40" rows="5" class="form-control" required="" id="id_bio"></textarea>
                           </div>
                   <br><br>
-                  <button type="submit" class="btn btn-dark btn-lg">Save Changes</button>
+                  <button type="submit" class="btn btn-dark btn-lg">Save</button>
                   <button type="reset" class="btn btn-dark btn-lg">Reset</button>
               </form>
               </div>

@@ -14,108 +14,229 @@
 </head>
 <body>
   
-  <div class="page  d-flex  ">
+<div class="page  d-flex  ">
     
-    <header class="d-flex justify-content-between align-items-center p-4">
-      <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
-      <div class="search position-relative">
-          <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+<header class="d-flex justify-content-between align-items-center p-4">
+  <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
+  <div class="search position-relative">
+      <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+  </div>
+  <div class="icons d-flex align-items-center">
+      <span class="notf position-relative">
+          <i class="fa-solid fa-bell fa-lg"></i>
+      </span>
+      <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
+  </div>
+</header>
+<div class="d-flex">
+  <div class="sidebar">
+      <ul>
+          <li>
+              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
+                  <i class="fa-solid fa-house fa-fw"></i>
+              </a>
+          </li>
+          <li>
+              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
+                  <i class="fa-solid fa-gamepad fa-fw"></i>
+              </a>
+          </li>
+          <li>
+              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
+                  <i class="fa-solid fa-user fa-fw"></i>
+              </a>
+          </li>
+          <li>
+              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
+                  <i class="fa-solid fa-trophy fa-fw"></i>
+              </a>
+          </li>
+          <li>
+              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
+                  <i class="fa-solid fa-user-group fa-fw"></i>
+              </a>
+          </li>
+          <li>
+              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
+                  <i class="fa-solid fa-ranking-star"></i>
+              </a>
+          </li>
+          <li>
+              <a class=" active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+                  <i class="fa-solid fa-gear"></i>
+              </a>
+          </li>
+      </ul>
+      <div class="position-absolute bottom-0 start-50 translate-middle-x">
+        <form action="" method="post">
+          <p>
+            <button type="button" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i>
+              <!-- <span> Log out</span></button> -->
+          </p>
+        </form> 
       </div>
-      <div class="icons d-flex align-items-center">
-          <span class="notf position-relative">
-              <i class="fa-solid fa-bell fa-lg"></i>
-          </span>
-          <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
-      </div>
-  </header>
-  <div class="d-flex">
-      <div class="sidebar">
-          <ul>
-              <li>
-                  <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
-                      <i class="fa-solid fa-house fa-fw"></i>
-                  </a>
-              </li>
-              <li>
-                  <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
-                      <i class="fa-solid fa-gamepad fa-fw"></i>
-                  </a>
-              </li>
-              <li>
-                  <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
-                      <i class="fa-solid fa-user fa-fw"></i>
-                  </a>
-              </li>
-              <li>
-                  <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
-                      <i class="fa-solid fa-trophy fa-fw"></i>
-                  </a>
-              </li>
-              <li>
-                  <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
-                      <i class="fa-solid fa-user-group fa-fw"></i>
-                  </a>
-              </li>
-              <li>
-                  <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
-                      <i class="fa-solid fa-ranking-star"></i>
-                  </a>
-              </li>
-              <li>
-                  <a class=" active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
-                      <i class="fa-solid fa-gear"></i>
-                  </a>
-              </li>
-          </ul>
-          <div class="position-absolute bottom-0 start-50 translate-middle-x">
+  </div>
+  <!-- START CONTENT SETTINGS  -->
   
-            <form action="" method="post">
-              <p>
-                <button type="button" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i>
-                  <!-- <span> Log out</span></button> -->
-              </p>
-            </form> 
+  <div class="content_setting">
+    <div class="settings-all d-grid rounded-4 ms-3 me-3 mt-5">
+      <h1 class="p-relative">Settings</h1>
+        <div class="settings-page m-20 d-grid gap-20">
+          <!-- Start Settings Box --> 
+
+          <div class="settings-box p-20 bg-white ">
+            <h2 class="mt-0 mb-10">Site Control</h2>
+            <p class="mt-0 mb-20 c-grey fs-15">Control The Website If There Is Maintenance</p>
+            <div class="mb-15 between-flex">
+              <div>
+                <span>Website Control</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Open/Close Website And Type The Reason</p>
+              </div>
+              <div>
+                <label>
+                  <input class="toggle-checkbox" type="checkbox" checked />
+                  <div class="toggle-switch"></div>
+                </label>
+              </div>
+            </div>
+            <textarea class="close-message p-10 rad-6 d-block w-full" placeholder="Close Message Content"></textarea>
           </div>
-      </div>
-      <!-- START CONTENT SETTINGS  -->
-      
-      <div class="content_setting  ">
-        <div class="settings-all d-grid rounded-4 ms-3 me-3 mt-5 ">
-            <div class="box1 d-flex justify-content-between">
-                <div class="t-sett d-flex align-items-center">
-                    <h1> Profile </h1>
-                    <i class="fa-solid fa-user  fa-fw"></i>
-                </div>
-                <form method="post" enctype="multipart/form-data" action="" class="w-75 d-flex align-items-center">
-                  <input type="hidden" name="csrfmiddlewaretoken" value="Kl0zquj4vm8dew2FcrE1qCZCe94tkePeFANs1a6iciaXwQWZ3XVvopvrZDl6W3W7">  
-                          <div class="form-group m-3">
-                            <label   class="small mb-1">Username:</label>
-                                <input type="text" name="username" value="sss" class="form-control" maxlength="100" required="" id="id_username">
-                            <label class="small mb-1">Email:</label>
-                                <input type="text" name="email" value="sss@gamil.ocm" class="form-control" maxlength="320" required="" id="id_email">
-                          </div>
-                          <div class="form-group w-100 m-3">
-                              <label for="id_avatar" class="small mb-1">Change Avatar</label>
-                              <input type="file" name="avatar" class="form-control-file" accept="image/*" id="id_avatar">
-                              <label class="small mb-1 w-100">Bio:</label> 
-                              <textarea name="bio" cols="40" rows="5" class="form-control" required="" id="id_bio"></textarea>
-                          </div>
-                  <br><br>
-                  <button type="submit" class="btn btn-dark btn-lg">Save</button>
-                  <button type="reset" class="btn btn-dark btn-lg">Reset</button>
-              </form>
+          
+          <!-- End Settings Box -->
+          <!-- Start Settings Box -->
+
+          <div class="settings-box p-20  bg-white ">
+            <h2 class="mt-0 mb-10">General Info</h2>
+            <p class="mt-0 mb-20 c-grey fs-15">General Information About Your Account</p>
+            <div class="mb-15">
+              <label class="fs-14 c-grey d-block mb-10" for="first">First Name</label>
+              <input
+                class="b-none border-ccc p-10 rad-6 d-block w-full"
+                type="text"
+                id="first"
+                placeholder="First Name"
+              />
+            </div>
+            <div class="mb-15">
+              <label class="fs-14 c-grey d-block mb-5" for="last">Last Name</label>
+              <input
+                class="b-none border-ccc p-10 rad-6 d-block w-full"
+                id="last"
+                type="text"
+                placeholder="Last Name"
+              />
+            </div>
+            <div>
+              <label class="fs-14 c-grey d-block mb-5" for="email">Email</label>
+              <input
+                class="email b-none border-ccc p-10 rad-6 w-full mr-10"
+                id="email"
+                type="email"
+                value="o@nn.sa"
+                disabled
+              />
+              <a class="c-blue" href="#">Change</a>
+            </div>
+          </div>
+
+          <!-- End Settings Box -->
+          <!-- Start Settings Box -->
+
+          <div class="settings-box p-20 bg-white rad-10">
+            <h2 class="mt-0 mb-10">Security Info</h2>
+            <p class="mt-0 mb-20 c-grey fs-15">Security Information About Your Account</p>
+            <div class="sec-box mb-15 between-flex">
+              <div>
+                <span>Password</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Last Change On 25/10/2021</p>
+              </div>
+              <a class="button bg-blue c-white btn-shape" href="#">Change</a>
+            </div>
+            <div class="sec-box mb-15 between-flex">
+              <div>
+                <span>Two-Factor Authentication</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Enable/Disable The Feature</p>
+              </div>
+              <label>
+                <input class="toggle-checkbox" type="checkbox" checked />
+                <div class="toggle-switch"></div>
+              </label>
+            </div>
+            <div class="sec-box between-flex">
+              <div>
+                <span>Devices</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Check The Login Devices List</p>
+              </div>
+              <a class="bg-eee c-black btn-shape" href="#">Devices</a>
+            </div>
+          </div>
+
+          <!-- End Settings Box -->
+          <!-- Start Settings Box -->
+
+          <div class="settings-box p-20 bg-white rad-10">
+            <h2 class="mt-0 mb-10">Billing Methods</h2>
+            <p class="mt-0 mb-20 c-grey fs-15">Your Billing Info</p>
+            <div class="d-flex align-center mb-15">
+              <i class="fa-brands fa-cc-visa fa-2x"></i>
+              <input class="w-full p-10" type="text" placeholder="Visa **** 1234" />
+            </div>
+            <div class="d-flex align-center mb-15">
+              <i class="fa-brands fa-cc-mastercard fa-2x"></i>
+              <input class="w-full p-10" type="text" placeholder="Mastercard **** 5678" />
+            </div>
+            <div class="d-flex align-center">
+              <i class="fa-brands fa-cc-amex fa-2x"></i>
+              <input class="w-full p-10" type="text" placeholder="Amex **** 7534" />
+            </div>
+          </div>
+
+          <!-- End Settings Box -->
+          <!-- Start Settings Box -->
+
+          <div class="settings-box p-20 bg-white rad-10">
+            <h2 class="mt-0 mb-10">Notifications</h2>
+            <p class="mt-0 mb-20 c-grey fs-15">Control The Notification</p>
+            <div class="d-flex p-15 mb-15 bg-eee">
+              <input class="toggle-checkbox" type="checkbox" checked />
+              <div>
+                <span>System Notifications</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Control System Notifications</p>
+              </div>
+            </div>
+            <div class="d-flex p-15 mb-15 bg-eee">
+              <input class="toggle-checkbox" type="checkbox" checked />
+              <div>
+                <span>Browser Notifications</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Control Browser Notifications</p>
+              </div>
+            </div>
+            <div class="d-flex p-15 mb-15 bg-eee">
+              <input class="toggle-checkbox" type="checkbox" checked />
+              <div>
+                <span>Friends Notifications</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Control Browser Notifications</p>
+              </div>
+            </div>
+            <div class="d-flex p-15 mb-15 bg-eee">
+              <input class="toggle-checkbox" type="checkbox" checked />
+              <div>
+                <span>Sound Notifications</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Control Browser Notifications</p>
               </div>
             </div>
           </div>
-        </div>
 
-         
-              
-      <!-- END CONTENT SETTINGS  -->
-    
-    
-  </body>
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script src="js/all.min.js"></script>
-  
-  </html>
+          <!-- End Settings Box -->
+        </div>
+      <!-- </div> -->
+    </div>
+  </div>
+</div>
+
+  <!-- END CONTENT SETTINGS -->
+</div>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

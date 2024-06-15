@@ -77,17 +77,17 @@
   <!-- START CONTENT SETTINGS  -->
 
   <div class="content_setting">
-      <h1 class="p-relative">Settings</h1>
-        <div class="settings-page m-20 d-grid gap-20">
+      <h1 class="position-relative">Settings</h1>
+        <div class="settings-page m-0 d-grid gap-2">
           <!-- Start Settings Box --> 
 
-          <div class="settings-box p-20 bg-white rad-10">
-            <h2 class="mt-0 mb-15">Site Control</h2>
-            <p class="mt-0 mb-20 text-secondary fs-15">Control The Game If There Is Maintenance</p>
-            <div class="mb-15 between-flex">
+          <div class="settings-box p-4 bg-white rad-1">
+            <h2 class="mt-0 mb-3">Site Control</h2>
+            <p class="mt-0 mb-2 text-secondary fs-15">Control The Game If There Is Maintenance</p>
+            <div class="mb-3 d-flex justify-content-between">
               <div>
-                <span>Game Control</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Open/Close Game And Type The Reason</p>
+                <span >Game Control</span>
+                <p class="text-secondary mt-1 mb-1 fs-15">Open/Close Game And Type The Reason</p>
               </div>
               <div>
                 <label>
@@ -96,97 +96,106 @@
                 </label>
               </div>
             </div>
-            <textarea class="close-message p-10 rad-6 d-block w-full" placeholder="Close Message Content"></textarea>
+            <textarea class="close-message p-2 " placeholder="Close Message Content"></textarea>
           </div>
           <!-- End Settings Box -->
           <!-- Start Settings Box -->
           
-          <div class="settings-box p-20 bg-white rad-10">
-            <h2 class="mt-0 mb-10">General Info</h2>
-            <p class="mt-0 mb-20 c-grey fs-15">General Information About Your Account</p>
-            <div class="mb-15">
-              <label class="fs-14 c-grey d-block mb-10" for="first">First Name</label>
+          <div class="settings-box p-4 bg-white rad-1">
+            <h2 class="mt-0 mb-3">General Info</h2>
+            <p class="mt-0 mb-2 text-secondary fs-15">General Information About Your Account</p>
+            <div class="mb-2">
+              <label class="fs-15 text-black   m-1" for="first">First Name</label>
               <input
-                class="b-none border-ccc p-10 rad-6 d-block w-full"
+                class=" email"
                 type="text"
                 id="first"
                 placeholder="First Name"
               />
             </div>
-            <div class="mb-15">
-              <label class="fs-14 c-grey d-block mb-5" for="last">Last Name</label>
+            <div class="mb-2">
+              <label class="fs-15 text-black  m-1" for="last">Last Name</label>
               <input
-                class="b-none border-ccc p-10 rad-6 d-block w-full"
+                class="email"
                 id="last"
                 type="text"
                 placeholder="Last Name"
               />
             </div>
             <div>
-              <label class="fs-14 c-grey d-block mb-5" for="email">Email</label>
+              <label class="fs-15 text-black  m-1" for="email"> Email </label>
               <input
-                class="email b-none border-ccc p-10 rad-6 w-full mr-10"
+                class="email"
                 id="email"
                 type="email"
-                value="user@example.com"
-                disabled
+                placeholder="user@example.com"      
               />
-              <a class="c-blue" href="#">Change</a>
+              <a class="c-blue m-1" href="#">Change</a>
             </div>
           </div> 
 
           <!-- End Settings Box -->
           <!-- Start Settings Box -->
 
-          <div class="settings-box p-20 bg-white rad-10">
-            <h2 class="mt-0 mb-10">Security Info</h2>
-            <p class="mt-0 mb-20 c-grey fs-15">Security Information About Your Account</p>
-            <div class="sec-box mb-15 between-flex">
+          <div class="settings-box p-4 bg-white rad-1">
+            <h2 class="mt-0 mb-3">Security Info</h2>
+            <p class="mt-0 mb-2 text-secondary fs-15">Security Information About Your Account</p>
+            <div class="sec-box mb-1 d-flex justify-content-between">
               <div>
                 <span>Password</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Last Change On 25/10/2021</p>
+                <p class="text-secondary mt-2 mb-3 fs-12">Last Change On 25/10/2021</p>
               </div>
               <a class="button bg-blue c-white btn-shape" href="#">Change</a>
             </div>
-            <div class="sec-box mb-15 between-flex">
+            <div class="sec-box mb-1 d-flex justify-content-between">
               <div>
                 <span>Two-Factor Authentication</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Enable/Disable The Feature</p>
+                <p class="text-secondary mt-2 mb-3 fs-12">Enable/Disable The Feature</p>
               </div>
               <label>
                 <input class="toggle-checkbox" type="checkbox" checked />
                 <div class="toggle-switch"></div>
               </label>
             </div>
-            <div class="sec-box between-flex">
+            <div class="sec-box  mb-1 d-flex justify-content-between">
               <div>
                 <span>Devices</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Check The Login Devices List</p>
+                <p class="text-secondary mt-2 mb-3 fs-12">Check The Login Devices List</p>
               </div>
               <a class="bg-eee c-black btn-shape" href="#">Devices</a>
             </div>
           </div>
 
           <!-- End Settings Box -->
-          <!-- Start Settings Box -->
-
-          <div class="settings-box p-20 bg-white rad-10">
-            <h2 class="mt-0 mb-10">Billing Methods</h2>
-            <p class="mt-0 mb-20 c-grey fs-15">Your Billing Info</p>
-            <div class="d-flex align-center mb-15">
-              <i class="fa-brands fa-cc-visa fa-2x"></i>
-              <input class="w-full p-10" type="text" placeholder="Visa **** 1234" />
+          <!-- START Settings Box -->
+          <div class="settings-box p-4 bg-white rad-1">
+            <h2 class="mt-0 mb-3">Profile Settings</h2>
+            <p class="mt-0 mb-2 text-secondary fs-15">Security Information About Your Account</p>
+            <div class="sec-box mb-1 d-flex justify-content-between">
+              <div>
+                <span>Password</span>
+                <p class="text-secondary mt-2 mb-3 fs-12">Last Change On 25/06/2024</p>
+              </div>
+              <a class="button bg-blue c-white btn-shape" href="#">Change</a>
             </div>
-            <div class="d-flex align-center mb-15">
-              <i class="fa-brands fa-cc-mastercard fa-2x"></i>
-              <input class="w-full p-10" type="text" placeholder="Mastercard **** 5678" />
+            <div class="sec-box mb-1 d-flex justify-content-between">
+              <div>
+                <span>Two-Factor Authentication</span>
+                <p class="text-secondary mt-2 mb-3 fs-12">Enable/Disable The Feature</p>
+              </div>
+              <label>
+                <input class="toggle-checkbox" type="checkbox" checked />
+                <div class="toggle-switch"></div>
+              </label>
             </div>
-            <div class="d-flex align-center">
-              <i class="fa-brands fa-cc-amex fa-2x"></i>
-              <input class="w-full p-10" type="text" placeholder="Amex **** 7534" />
+            <div class="sec-box  mb-1 d-flex justify-content-between">
+              <div class="form-group w-100 m-3">
+                <label for="id_avatar" class="small mb-1">Change Avatar:</label>
+                <input type="file" name="avatar" class="form-control-file" accept="image/*" id="id_avatar">
+              </div>
+              <a class="button bg-blue c-white btn-shape" href="#">Change</a>
             </div>
           </div>
-
           <!-- End Settings Box -->
         </div>
       </div>

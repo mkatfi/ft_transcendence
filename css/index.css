@@ -499,7 +499,7 @@ font-size: 50px;
   /* padding: 10px; */
   /* gap: 20px; */
   border-radius: 10px;
-  padding: 30px;
+  padding: 15px;
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
@@ -519,14 +519,19 @@ font-size: 50px;
   }
 }
 .settings-page .close-message {
-  border: 1px solid #ccc;
+  border: 1px solid #000;
   resize: none;
-  min-height: 70px;
+  height: 150px;
   width: 100%;
+  border-radius: 10px;
+
 }
 .settings-page .email {
   display: inline-flex;
-  width: calc(100% - 80px);
+  margin: 5px;
+  padding: 8px;
+  margin-left: 5px;
+  width: 100% ;
 }
 .settings-page .sec-box {
   padding-bottom: 15px;

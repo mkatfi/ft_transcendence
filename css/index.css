@@ -463,45 +463,44 @@ font-size: 50px;
  
 /**_-------END PAGE PROFILE-------*/
 /* <---THIS FOR PROFILE----------------------------------------------------------------------------  */
+/**** THIS IS START SETTING ****/
 
 .content_setting {
-  margin-left: 70px;
+  margin-left: 100px;
   padding: 20px;
   flex-grow: 1;
-}
-
-.settings-all {
   display: grid;
-  background-color: #25284A;
   color: #eee;
+  background-color: #25284A;
   box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
   border-radius: 20px;
 }
+
 .settings-page{
   color: black;
   background-color: #201A36;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  width: 100%;
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+  gap: 20px;
+  /* width: 100%;
   height: 100%;
   margin:10px auto;
   padding: 10px;
-  gap: 20px;
   border-radius: 10px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
-.settings-box{
+.settings-box{ 
   color: black;
   background-color: #201A36;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
   width: 100%;
   height: 100%;
-  margin:10px auto;
-  padding: 10px;
-  gap: 20px;
+  /* margin:10px auto; */
+  /* padding: 10px; */
+  /* gap: 20px; */
   border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
 
@@ -509,6 +508,9 @@ font-size: 50px;
   grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
 } */
 @media (max-width: 767px) {
+  .content_setting {
+    margin-left: 20px;
+  }
   .settings-page {
     grid-template-columns: minmax(100px, 1fr);
     margin-left: 10px;
@@ -519,7 +521,8 @@ font-size: 50px;
 .settings-page .close-message {
   border: 1px solid #ccc;
   resize: none;
-  min-height: 150px;
+  min-height: 70px;
+  width: 100%;
 }
 .settings-page .email {
   display: inline-flex;
@@ -702,6 +705,9 @@ font-size: 50px;
   background-color: #f0f4f8;
   color: #bbb;
 }
+
+/*********THIS IS END SETTING*******/
+
 /*********TEST START SETTING*******/
 /* .content_setting{
   margin-left: 100px;
@@ -909,6 +915,7 @@ font-size: 50px;
   color: #bbb;
 } */
 /*********TEST END SETTING*****/   
+
 /* THIS FOR SETTINGS -------------------------------------------------------------------------------------------> */
 
 /* .settings-all {

@@ -3,94 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pingpong</title>
+    <title>Ping Pong</title>
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/all.min.css" />
     <link rel="stylesheet" href="css/index.css" />
-    <!-- <link rel="stylesheet" href="css/master.css" /> -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&display=swap" rel="stylesheet">
 </head>
 <body>
   
-<div class="page  d-flex  ">
-    
-<header class="d-flex justify-content-between align-items-center p-4">
-  <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
-  <div class="search position-relative">
-      <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
-  </div>
-  <div class="icons d-flex align-items-center">
-      <span class="notf position-relative">
-          <i class="fa-solid fa-bell fa-lg"></i>
-      </span>
-      <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
-  </div>
+<div class="page d-flex">
+
+  <header class="d-flex justify-content-between align-items-center p-4">
+    <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="Pingpong Logo">
+    <div class="search position-relative">
+        <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+    </div>
+    <div class="icons d-flex align-items-center">
+        <span class="notf position-relative">
+            <i class="fa-solid fa-bell fa-lg"></i>
+        </span>
+        <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
+    </div>
 </header>
 <div class="d-flex">
   <div class="sidebar">
-      <ul>
+       <ul>
           <li>
               <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
-                  <i class="fa-solid fa-house fa-fw"></i>
+                  <i class="fa-solid fa-house fa-fw"></i> 
               </a>
           </li>
           <li>
               <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
-                  <i class="fa-solid fa-gamepad fa-fw"></i>
+                  <i class="fa-solid fa-table-tennis fa-fw"></i> 
               </a>
           </li>
           <li>
-              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
-                  <i class="fa-solid fa-user fa-fw"></i>
+              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="players.html">
+                  <i class="fa-solid fa-user fa-fw"></i> 
               </a>
           </li>
           <li>
-              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
-                  <i class="fa-solid fa-trophy fa-fw"></i>
+              <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournaments.html">
+                  <i class="fa-solid fa-trophy fa-fw"></i> 
               </a>
           </li>
           <li>
               <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
-                  <i class="fa-solid fa-user-group fa-fw"></i>
+                  <i class="fa-solid fa-user-group fa-fw"></i> 
               </a>
           </li>
           <li>
               <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
-                  <i class="fa-solid fa-ranking-star"></i>
+                  <i class="fa-solid fa-ranking-star"></i> 
               </a>
           </li>
           <li>
-              <a class=" active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+              <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
                   <i class="fa-solid fa-gear"></i>
               </a>
           </li>
       </ul>
-      <div class="position-absolute bottom-0 start-50 translate-middle-x">
-        <form action="" method="post">
-          <p>
-            <button type="button" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i>
-              <!-- <span> Log out</span></button> -->
-          </p>
+      <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+        <form action="logout.html" method="post">
+          <button type="submit" class="btn btn-secondary">
+              <i class="fa-solid fa-right-from-bracket"></i> 
+          </button>
         </form> 
       </div>
   </div>
   <!-- START CONTENT SETTINGS  -->
-  
+
   <div class="content_setting">
-    <div class="settings-all d-grid rounded-4 ms-3 me-3 mt-5">
       <h1 class="p-relative">Settings</h1>
         <div class="settings-page m-20 d-grid gap-20">
           <!-- Start Settings Box --> 
 
-          <div class="settings-box p-20 bg-white ">
-            <h2 class="mt-0 mb-10">Site Control</h2>
-            <p class="mt-0 mb-20 c-grey fs-15">Control The Website If There Is Maintenance</p>
+          <div class="settings-box p-20 bg-white rad-10">
+            <h2 class="mt-0 mb-15">Site Control</h2>
+            <p class="mt-0 mb-20 text-secondary fs-15">Control The Game If There Is Maintenance</p>
             <div class="mb-15 between-flex">
               <div>
-                <span>Website Control</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Open/Close Website And Type The Reason</p>
+                <span>Game Control</span>
+                <p class="c-grey mt-5 mb-0 fs-13">Open/Close Game And Type The Reason</p>
               </div>
               <div>
                 <label>
@@ -101,11 +98,10 @@
             </div>
             <textarea class="close-message p-10 rad-6 d-block w-full" placeholder="Close Message Content"></textarea>
           </div>
-          
           <!-- End Settings Box -->
           <!-- Start Settings Box -->
-
-          <div class="settings-box p-20  bg-white ">
+          
+          <div class="settings-box p-20 bg-white rad-10">
             <h2 class="mt-0 mb-10">General Info</h2>
             <p class="mt-0 mb-20 c-grey fs-15">General Information About Your Account</p>
             <div class="mb-15">
@@ -132,12 +128,12 @@
                 class="email b-none border-ccc p-10 rad-6 w-full mr-10"
                 id="email"
                 type="email"
-                value="o@nn.sa"
+                value="user@example.com"
                 disabled
               />
               <a class="c-blue" href="#">Change</a>
             </div>
-          </div>
+          </div> 
 
           <!-- End Settings Box -->
           <!-- Start Settings Box -->
@@ -192,49 +188,12 @@
           </div>
 
           <!-- End Settings Box -->
-          <!-- Start Settings Box -->
-
-          <div class="settings-box p-20 bg-white rad-10">
-            <h2 class="mt-0 mb-10">Notifications</h2>
-            <p class="mt-0 mb-20 c-grey fs-15">Control The Notification</p>
-            <div class="d-flex p-15 mb-15 bg-eee">
-              <input class="toggle-checkbox" type="checkbox" checked />
-              <div>
-                <span>System Notifications</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Control System Notifications</p>
-              </div>
-            </div>
-            <div class="d-flex p-15 mb-15 bg-eee">
-              <input class="toggle-checkbox" type="checkbox" checked />
-              <div>
-                <span>Browser Notifications</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Control Browser Notifications</p>
-              </div>
-            </div>
-            <div class="d-flex p-15 mb-15 bg-eee">
-              <input class="toggle-checkbox" type="checkbox" checked />
-              <div>
-                <span>Friends Notifications</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Control Browser Notifications</p>
-              </div>
-            </div>
-            <div class="d-flex p-15 mb-15 bg-eee">
-              <input class="toggle-checkbox" type="checkbox" checked />
-              <div>
-                <span>Sound Notifications</span>
-                <p class="c-grey mt-5 mb-0 fs-13">Control Browser Notifications</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- End Settings Box -->
         </div>
-      <!-- </div> -->
-    </div>
+      </div>
   </div>
 </div>
 
-  <!-- END CONTENT SETTINGS -->
+  <!-- END CONTENT SETTINGS  -->
 </div>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/index.js"></script>

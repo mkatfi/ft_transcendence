@@ -184,19 +184,12 @@ header .img-fluid{
   color: rgb(253, 0, 127);
 }
 
-.content {
-  overflow: hidden;
-  width: 100%;
-  /* padding-left: 110px;
-  padding-top: 20px; */
-  /* flex-grow: 1; */
-  /* overflow-y: auto; */
-}
+
 
 .wrapper {
   display: grid;
   gap: 20px;
-  padding-left: 80px;
+  /* padding-left: 50px; */
   grid-template-columns: repeat(4,1fr);
   grid-template-rows: repeat(2,400px);
   grid-template-areas: " box2 box2 box2 box2"
@@ -712,379 +705,88 @@ font-size: 50px;
 }
 
 /*********THIS IS END SETTING*******/
+/* <---THIS FOR SETTINGS ---------------------------------------------------------------------------- */
+/* THIS FOR SETTINGS -------------------------------------------------------------------------------------------> */
 
-/*********TEST START SETTING*******/
-/* .content_setting{
+/*-----start Frinds-------------------*/
+
+
+
+.content {
   margin-left: 100px;
-  margin-top: 20px;
-  width: 100%;
+  padding: 20px;
+  flex-grow: 1;
+  display: grid;
+  color: #eee;
   background-color: #25284A;
   box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
   border-radius: 20px;
 }
-.settings-page {
-  grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+.friends-page {
+  color: black;
+  background-color: #201A36;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
 }
 @media (max-width: 767px) {
-  .settings-box {
-    grid-template-columns: minmax(100px, 1fr);
+  .content {
+    margin-left: 10px;
+    padding: 15px;
+  }
+  .friends-page {
+    grid-template-columns: minmax(110px, 1fr);
     margin-left: 10px;
     margin-right: 10px;
     gap: 10px;
   }
 }
-.settings-box .close-message {
-  border: 1px solid #ccc;
-  resize: none;
-  min-height: 150px;
+.friends-page .contact {
+  position: absolute;
+  left: 10px;
+  top: 10px;
 }
-.settings-box .email {
-  display: inline-flex;
-  width: calc(100% - 80px);
+.friends-page .contact i {
+  background-color: #eee;
+  padding: 10px;
+  border-radius: 50%;
+  color: #666;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
 }
-.settings-box .sec-box {
+.friends-page .contact i:hover {
+  background-color: var(--blue-color);
+  color: white;
+}
+.friends-page .friend .icons {
+  border-top: 1px solid #979696;
+  border-bottom: 1px solid #979696;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-top: 15px;
   padding-bottom: 15px;
 }
-.settings-box .sec-box:not(:last-of-type) {
-  border-bottom: 1px solid #eee;
+.friends-page .friend .icons i {
+  margin-right: 5px;
 }
-.settings-box .sec-box .button {
-  transition: 0.3s;
-}
-.settings-box .sec-box .button:hover {
-  background-color: var(--blue-alt-color);
-}
-.settings-box .social-boxes i {
-  width: 40px;
-  height: 40px;
-  background-color: #f6f6f6;
-  border: 1px solid #ddd;
-  border-right: none;
-  border-radius: 6px 0 0 6px;
-  transition: 0.3s;
-}
-.settings-box .social-boxes input {
-  height: 40px;
-  background-color: #f6f6f6;
-  border: 1px solid #ddd;
-  padding-left: 10px;
-  border-radius: 0 6px 6px 0;
-}
-.settings-box .social-boxes > div:focus-within i {
-  color: black;
-}
-.widgets-control .control input[type="checkbox"] {
-  -webkit-appearance: none;
-  appearance: none;
-}
-.widgets-control .control label {
-  padding-left: 30px;
-  cursor: pointer;
-  position: relative;
-}
-.widgets-control .control label::before,
-.widgets-control .control label::after {
+.friends-page  .rad-half {
+  border-radius: 50%;
+  box-shadow: 0 0 10px black;
+  /* border: solid 10px var(--dark-color); */
+ }
+.friends-page .friend .icons .vip {
   position: absolute;
-  left: 0;
+  right: 0;
   top: 50%;
-  margin-top: -9px;
-  border-radius: 4px;
-}
-.widgets-control .control label::before {
-  content: "";
-  width: 14px;
-  height: 14px;
-  border: 2px solid var(--grey-color);
-}
-.widgets-control .control label:hover::before {
-  border-color: var(--blue-alt-color);
-}
-.widgets-control .control label::after {
-  font-family: var(--fa-style-family-classic);
-  content: "\f00c";
-  font-weight: 900;
-  background-color: var(--blue-color);
-  color: white;
-  font-size: 12px;
-  width: 18px;
-  height: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: scale(0) rotate(360deg);
-  transition: 0.3s;
-}
-.widgets-control .control input[type="checkbox"]:checked + label::after {
-  transform: scale(1);
-}
-.backup-control input[type="radio"] {
-  -webkit-appearance: none;
-  appearance: none;
-}
-.backup-control .date label {
-  padding-left: 30px;
-  cursor: pointer;
-  position: relative;
-}
-.backup-control .date label::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  margin-top: -11px;
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--grey-color);
-  border-radius: 50%;
-}
-.backup-control .date label::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  width: 12px;
-  height: 12px;
-  background: var(--blue-color);
-  border-radius: 50%;
-  transition: 0.3s;
-  transform: scale(0);
-}
-.backup-control .date input[type="radio"]:checked + label::before {
-  border-color: var(--blue-color);
-}
-.backup-control .date input[type="radio"]:checked + label::after {
-  transform: scale(1);
-}
-.backup-control .servers {
-  border-top: 1px solid #eee;
-  padding-top: 20px;
-}
-@media (max-width: 767px) {
-  .backup-control .servers {
-    flex-wrap: wrap;
-  }
-}
-.backup-control .servers .server {
-  border: 2px solid #eee;
-  position: relative;
-}
-.backup-control .servers .server label {
-  cursor: pointer;
-}
-.backup-control .servers input[type="radio"]:checked + .server {
-  border-color: var(--blue-color);
-  color: var(--blue-color);
-}
-.toggle-checkbox {
-  -webkit-appearance: none;
-  appearance: none;
-  display: none;
-}
-.toggle-switch {
-  background-color: #ccc;
-  width: 78px;
-  height: 32px;
-  border-radius: 16px;
-  position: relative;
-  transition: 0.3s;
-  cursor: pointer;
-}
-.toggle-switch::before {
-  font-family: var(--fa-style-family-classic);
-  content: "\f00d";
-  font-weight: 900;
-  background-color: white;
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  border-radius: 50%;
-  top: 4px;
-  left: 4px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #aaa;
-  transition: 0.3s;
-}
-.toggle-checkbox:checked + .toggle-switch {
-  background-color: var(--blue-color);
-}
-.toggle-checkbox:checked + .toggle-switch::before {
-  content: "\f00c";
-  left: 50px;
-  color: var(--blue-color);
-}
-.settings-box :disabled {
-  cursor: no-drop;
-  background-color: #f0f4f8;
-  color: #bbb;
-} */
-/*********TEST END SETTING*****/   
-
-/* THIS FOR SETTINGS -------------------------------------------------------------------------------------------> */
-
-/* .settings-all {
-  grid-template-columns: 1f;
-  grid-template-rows: repeat(3,900px);
-  grid-template-areas:  "box box2 box3";
-  gap: 20px;
-}
-.settings-all .box1 {
-  grid-area: box;
-  background-color: #3b3d53;
-  box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
-  border-radius: 20px;
-}
-.box1{
-  grid-area: box;
-  background-color: #0da9e9;
-  box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
-  border-radius: 20px;
-
-}
-.box1 h1,
-.send-request-friend  .t-sett h1 {
-  justify-content: flex-start;
-  align-items: flex-start;
-  text-align: left;
-  font-family: "Jaro", system-ui;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 70px;
-  letter-spacing: 1px;
-  color: white;
-  opacity: 20%;
-  text-shadow: 5px 5px 10px #FF829A;
-} */
-
-/* .box1 {
- flex-wrap: wrap;
-}
-
-.box1  .t-sett,
-.send-request-friend  .t-sett {
-  margin-left: 10px;
-  margin-top: 10px;
-  border-width: 3px;
-  border-style: solid;
-  border-image: linear-gradient(to bottom, #d4acbf 20%, #D9A0C2 20%, #D9A0C2 70%) 1 100%;
-  padding: 10px;
-}
-.box1 svg ,
-.send-request-friend  .t-sett svg{
+  transform: translateY(-50%);
   font-size: 40px;
-  filter: drop-shadow(0px 0px 10px #FC7785);
-  color: #FC7785;
+  opacity: 0.2;
 }
- .box1 h1,
- .send-request-friend  .t-sett h1 {
-   font-family: "Jaro", system-ui;
-   font-weight: bold;
-   font-style: normal;
-   font-size: 70px;
-   letter-spacing: 1px;
-   color: white;
-   opacity: 20%;
-   text-shadow: 5px 5px 10px #FF829A;
- }
- .settings-all  form {
-   flex-wrap: wrap;
- }
- 
- 
- .form-control-file {
-   width: 0.1px;
-   height: 0.1px;
-   opacity: 0;
-   overflow: hidden;
-   z-index: -1;
- }
- .settings-all form  [for="id_avatar"] {
-   height: fit-content;
-   padding: 10px;
-   font-family: "Bebas Neue", system-ui;
-   font-weight: bold;
-   color: #6865F0;
-   border-radius: 10px;
-   font-size: 40px;
-   position: relative;
-   width: 50%;
-   text-align: start;
-   color: #6865F0;
-   margin-top: 20px;
-   box-shadow: inset 0px 5px 10px 0px #FF829A,
-   inset 0px -5px 10px 0px #FF829A;
-   
-   
- }
- .settings-all form .form-control {
-   background-color: transparent;
-   width: 90%;
-   border: none;
-   box-shadow: inset 0px 5px 10px 0px #FF829A,
-   inset 0px -5px 10px 0px #FF829A;
-   color: white;
-   padding: 20px;
- }
- .settings-all form button {
-  margin-left: 10px;
-   width: 150px;
-   height: 60px;
-   padding: 5px;
-   border-radius: 50px;
-   position: relative;
-   font-family: "Bebas Neue", system-ui;
-   font-weight: bold;
-   font-size: 26px;
-   background-color: #488CDA;
-   letter-spacing: 2px;
-   justify-content: center;
-   text-align:center;
- }
- .settings-all form button:hover {
-   color: black;
- }
- .settings-all form button::before,
- .settings-all form  [for="id_avatar"]::before{
-   
-   font-family: "Font Awesome 6 Free";
-   content: "\f0c7";
-   font-weight: bold;
-   position: absolute;
-   right: 10px;
-   top: 50%;
-   transform: translateY(-50%);
-   font-size: 30px;
-   filter: drop-shadow(0px 0px 10px #36B75A);
-   color: #36B75A;
- }
- 
- .settings-all form  [for="id_avatar"]::before {
-   content: "\f15b";
- }
- .settings-all form  [type="reset"]::before {
-   content: "\f0e2";
- }
- 
- .form-group {
-   font-family: "Bebas Neue", system-ui;
-   font-weight: bold;
-   font-size: 40px;
-   color: white;
- }
-  */
- 
- /* <---THIS FOR SETTINGS ---------------------------------------------------------------------------- */
-
-
-
- /* THIS FOR SETTINGS -------------------------------------------------------------------------------------------> */
-
-
-.send-request-friend {
+/* .send-request-friend {
 
  width: 100%;
- box-shadow: inset 0px 5px 10px 0px rgba(133,61,232, 0.7);
+ color: white;
+ background-color: #201A36;
 
 }
 
@@ -1101,12 +803,12 @@ font-size: 50px;
  margin: 20px;
  border-radius: 20px;
  flex-wrap: wrap;
-}
+} */
 
-.send-request-friend .btn {
+/* .send-request-friend .btn {
 font-family: "Jaro", system-ui;
  color: var(--blue-color);
-/* GA3 DAK CHI LACKHOR KAYN FO9 FI .BOX2 .BTN */
+
 }
 .box2 .btn:hover ,
 .send-request-friend .btn:hover {
@@ -1137,7 +839,7 @@ border-width: 3px;
    ) 1 100%;
    padding: 10px;
 
-}
+} */
  /* <-----THIS FOR FRIENDS -------------------------------------------------------------------------- */
  /* <----THIS FOR requst-friend---------------------------------------------------------------------------  */
 

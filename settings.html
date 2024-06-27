@@ -79,6 +79,36 @@
   <div class="content_setting">
       <h1 class="position-relative">Settings</h1>
         <div class="settings-page m-0 d-grid gap-2">
+              <!-- START Settings Box -->
+              <div class="settings-box p-4 bg-white rad-1">
+                <h2 class="mt-0 mb-3">Profile Settings</h2>
+                <p class="mt-0 mb-2 text-secondary fs-15">Security Information About Your Account</p>
+                <div class="sec-box mb-1 d-flex justify-content-between">
+                  <div>
+                    <span>Password</span>
+                    <p class="text-secondary mt-2 mb-3 fs-12">Last Change On 25/06/2024</p>
+                  </div>
+                  <a class="button bg-blue c-white btn-shape" href="#">Change</a>
+                </div>
+                <div class="sec-box mb-1 d-flex justify-content-between">
+                  <div>
+                    <span>Two-Factor Authentication</span>
+                    <p class="text-secondary mt-2 mb-3 fs-12">Enable/Disable The Feature</p>
+                  </div>
+                  <label>
+                    <input class="toggle-checkbox" type="checkbox" checked />
+                    <div class="toggle-switch"></div>
+                  </label>
+                </div>
+                <div class="sec-box  mb-1 d-flex justify-content-between">
+                  <div class="form-group w-100 m-3">
+                    <label for="id_avatar" class="small mb-1">Change Avatar:</label>
+                    <input type="file" name="avatar" class="form-control-file" accept="image/*" id="id_avatar">
+                  </div>
+                  <a class="button bg-blue c-white btn-shape" href="#">Change</a>
+                </div>
+              </div>
+              <!-- End Settings Box -->
           <!-- Start Settings Box --> 
 
           <div class="settings-box p-4 bg-white rad-1">
@@ -167,36 +197,7 @@
           </div>
 
           <!-- End Settings Box -->
-          <!-- START Settings Box -->
-          <div class="settings-box p-4 bg-white rad-1">
-            <h2 class="mt-0 mb-3">Profile Settings</h2>
-            <p class="mt-0 mb-2 text-secondary fs-15">Security Information About Your Account</p>
-            <div class="sec-box mb-1 d-flex justify-content-between">
-              <div>
-                <span>Password</span>
-                <p class="text-secondary mt-2 mb-3 fs-12">Last Change On 25/06/2024</p>
-              </div>
-              <a class="button bg-blue c-white btn-shape" href="#">Change</a>
-            </div>
-            <div class="sec-box mb-1 d-flex justify-content-between">
-              <div>
-                <span>Two-Factor Authentication</span>
-                <p class="text-secondary mt-2 mb-3 fs-12">Enable/Disable The Feature</p>
-              </div>
-              <label>
-                <input class="toggle-checkbox" type="checkbox" checked />
-                <div class="toggle-switch"></div>
-              </label>
-            </div>
-            <div class="sec-box  mb-1 d-flex justify-content-between">
-              <div class="form-group w-100 m-3">
-                <label for="id_avatar" class="small mb-1">Change Avatar:</label>
-                <input type="file" name="avatar" class="form-control-file" accept="image/*" id="id_avatar">
-              </div>
-              <a class="button bg-blue c-white btn-shape" href="#">Change</a>
-            </div>
-          </div>
-          <!-- End Settings Box -->
+      
         </div>
       </div>
   </div>

@@ -1,4 +1,4 @@
-
+/* 
 *{
     margin: 0;
     padding: 0;
@@ -30,15 +30,15 @@ body{
     width: 400px;
     background: #25284A;
     /* border: 2px solid rgba(255, 255, 255, 2); */
-    backdrop-filter: blur(20px);
+    /* backdrop-filter: blur(20px);
     box-shadow: 0 0 10px  rgba(0, 0, 0, 0.2);
     color: #fff;
-    border-radius: 10px;
-    padding: 30px 40px;
+    border-radius: 10px; */
+    /* padding: 30px 40px; */
     /* display: none; */
-}
+/* } */
 
-.wrapperr h1{
+/* .wrapperr h1{
     font-size: 40px;
     text-align: center;
     justify-content: center;
@@ -148,10 +148,104 @@ body{
     .wrapperr{
         width: 350px;
     }
-}
+} */
 /* THIS FOR DISPLAY SING AND LOGIN */
 
-.register-wr {
+/* .register-wr {
     display: none;
 }
+  */
 
+.bar-side0,
+.bar-side1  {
+    height: 60px;
+    width: 8px;
+    border-radius: 5px;
+}
+.bar-side0  {
+    background-color: green;
+    animation: barside0 5s  infinite ;
+    
+}
+.bar-side1 {
+    background-color: red;
+    animation: barside1 5s  infinite ;
+}
+
+@keyframes barside0 {
+    0% {
+        translate: 0px 0px;
+        
+    }
+    25%{
+        translate: 0 68px;
+        
+    }
+    50%{
+        translate: 0 -68px;
+        
+    }
+    75%{
+        translate: 0 -40px;
+        
+    }
+    100%{
+        translate: 0 0px;
+        
+    }
+    
+    
+}
+@keyframes barside1 {
+    0% {
+        translate: 0px 0px;
+        
+    }
+    25%{
+        translate: 0 -50px;
+        
+    }
+    50%{
+        translate: 0 68px;
+        
+    }
+    75%{
+        translate: 0 30px;
+        
+    }
+    100%{
+        translate: 0 0px;
+        
+    }
+    
+}
+.ball-animation {
+    width: 20px;
+    height: 20px;
+    background-color: #E8F764;
+    border-radius: 50%;
+    animation: ballmove 5s  infinite ;
+}
+@keyframes ballmove {
+    0% {
+        translate: -192px 0px;
+        
+    }
+    25%{
+        translate: 192px -50px;
+
+    }
+    50%{
+        translate: -192px -68px;
+
+    }
+
+    75%{
+        translate: 192px 30px;
+
+    }
+    100%{
+        translate: -192px 0px;
+
+    }
+}

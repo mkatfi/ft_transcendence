@@ -29,7 +29,7 @@
             <div class="sidebar">
                 <ul>
                     <li>
-                        <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
+                        <a class=" d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
                             <i class="fa-solid fa-house fa-fw"></i>
                         </a>
                     </li>
@@ -54,7 +54,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
+                        <a class=" active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
                             <i class="fa-solid fa-ranking-star"></i>
                         </a>
                     </li>
@@ -76,27 +76,53 @@
                       <i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
             </div>
-            <div class="content flex-grow-1 p-3">
-            <div class="wrapper d-grid  gap-2">
-              <div class=" d-flex align-items-end justify-content-between box2 rounded-5 ">
-                <img src="image/droitvs.png" alt="">
-                <div class="text-center m-2">
-    
-                  <h3>Pingpong</h3>
-                  <p class=" m-3">Welcome to the pingpong world come join us for a game!</p>
-                  <div class="play-now">
-                    <a class="text-center btn " href="games.html">
-                      <i class="fa-solid fa-play"></i>
-                      <span> PlayNow</span></a>
-                    </div>
-                </div>
-                  <img src="image/qauchevs.png" alt="">
+
+            <div class="content_leader flex-grow-1 p-3">
+            <div class="wrapper_leader d-grid  gap-2">
+              <div class=" d-flex align-items-end justify-content-between box1_leader rounded-5 ">
+                  
               </div>
-              <div class=" d-flex align-items-end justify-content-end box1 rounded-5"> 
-               <img src="/image/mhyb.png" alt="">
+              <div class=" d-flex align-items-end justify-content-end box2_leader rounded-5"> 
+                <div class="leader  rad-6 p-4 position-relative">
+                    <div class="contact_leader">
+                        <div class="status-indicator not-active_1" aria-label="Not Active">
+                            <div class="not-active_1_1"></div>
+                        </div>
+                    </div>
+                    <div >
+                      <img decoding="asyn" class="photo mt-2 mb-2 w-100 h-100" src="image/avatar.png" alt="" />
+                      <h4 class="m-1">Ayyoub Orca</h4>
+                    </div>
+                    <div class="ikon fs-15 p-relative">
+                      <div class="friend-count mb-10">
+                        <i class="fa-regular fa-face-smile fa-fw"></i>
+                        <span>99 Friend</span>
+                      </div>
+
+                      <p class="c-grey mt-10">Level 60</p>
+                      <div class="rating mt-10 mb-10">
+                          <i class="fa-solid fa-star text-warning fs-13"></i>
+                          <i class="fa-solid fa-star text-warning  fs-13"></i>
+                          <i class="fa-solid fa-star text-warning  fs-13"></i>
+                          <i class="fa-solid fa-star text-secondary fs-13"></i>
+                          <i class="fa-solid fa-star text-secondary fs-13"></i>
+                      </div>
+                    </div>
+                    <div class="between-flex fs-13">
+                      <div>
+                        <a class=" text-light" href="profile.html"><button type="submit" class="btn btn-primary">Profile</button></a>
+                      </div>
+                    </div>
+                  </div>
                </div>
-               <div class=" d-flex align-items-end justify-content-end box3 rounded-5"> 
-                <img src="/image/yppi.png" alt="">
+               <div class=" d-flex align-items-end justify-content-end box3_leader rounded-5"> 
+                <!-- <img src="/image/yppi.png" alt=""> -->
+                </div>
+                <div class=" d-flex align-items-end justify-content-end box4_leader rounded-5"> 
+                    <!-- <img src="/image/yppi.png" alt=""> -->
+                </div>
+                <div class=" d-flex align-items-end justify-content-end box5_leader rounded-5"> 
+                    <!-- <img src="/image/yppi.png" alt=""> -->
                 </div>
             </div>
             </div>
@@ -108,6 +134,34 @@
     <script src="js/index.js"></script>
     <script>
 
+            let indicators = document.querySelectorAll('.status-indicator');
+            let isOnline = true;
+            indicators.forEach((indicator) => {
+                    if (isOnline == false) {
+                        indicator.classList.remove('active_1');
+                        indicator.classList.add('not-active_1');
+                        indicator.setAttribute('aria-label', 'Not Active_1');
+                    } else {
+                        indicator.classList.remove('not-active_1');
+                        indicator.classList.add('active_1');
+                        indicator.setAttribute('aria-label', 'Active_1');
+                    }
+            });
+
+        let counter = 0;
+        let friend_all = document.querySelectorAll('.friend-count span');
+        friend_all.forEach((friend_one) => {
+                    console.log("counter : ", friend_one.textContent.split(" "));
+                    counter = Number(friend_one.textContent.split(" ")[0]);
+                    counter++;
+                    console.log("counter : ", counter);
+                    friend_one.innerHTML = counter + " " + friend_one.textContent.split(" ")[1];
+        });
+
+
+    </script>
+    <!-- <script>
+
         document.addEventListener('DOMContentLoaded', () => {
             const welcomeMessage = document.querySelector('.welcome-message');
             if (welcomeMessage) {
@@ -116,6 +170,6 @@
                 });
             }
         });
-    </script>
+    </script> -->
 </body>
 </html>

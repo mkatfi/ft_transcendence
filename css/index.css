@@ -853,12 +853,23 @@ button:hover {
   position: relative;
 }
 
-.player img {
+.player .logo-go {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  border: 2px solid #ffffff;
-  box-shadow: 0px 0px 10px #fff;
+}
+
+.first .logo-go{
+  border: 3px solid gold;
+  box-shadow: 0px 0px 20px gold;
+}
+.second .logo-go{
+  border: 3px solid rgb(151, 148, 148);
+  box-shadow: 0px 0px 20px rgb(151, 148, 148);
+}
+.third .logo-go{
+  border: 3px solid orangered;
+  box-shadow: 0px 0px 20px orangered;
 }
 
 .player.first img {
@@ -866,16 +877,16 @@ button:hover {
   height: 150px;
 }
 
-.crown {
+/* .crown {
   position: absolute;
   top: -20px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 24px;
-}
+} */
 
 .player-info {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .name {
@@ -892,9 +903,13 @@ button:hover {
   color: #9999aa;
   font-size: 12px;
 }
-
+.liss{
+  width: 100%;
+}
 .player-list {
   list-style-type: none;
+  width: 100%;
+  height: 75%;
   padding: 0;
 }
 
@@ -910,8 +925,6 @@ button:hover {
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
-  border: 1px solid yellow;
-  box-shadow: 0px 0px 10px yellow;
 }
 
 .player-list .score {
@@ -935,7 +948,10 @@ button:hover {
     "box3"
     "box4";
   }
-  .player img {
+  .top-three {
+    margin-bottom: 10px;
+  }
+  .player .logo-go {
     width: 70px;
     height: 70px;
   }
@@ -943,6 +959,18 @@ button:hover {
   .player.first img {
     width: 90px;
     height: 90px;
+  }
+  .player-list {
+    list-style-type: none;
+    width: 75%;
+    height: 50%;
+    /* padding: 0; */
+  }
+  .player-list img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
   }
   
 }

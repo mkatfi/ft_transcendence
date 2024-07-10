@@ -1,290 +1,223 @@
 
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Pingpong Home</title>
-      <link rel="stylesheet" href="css/bootstrap.min.css">
-      <link rel="stylesheet" href="css/all.min.css">
-      <link rel="stylesheet" href="css/index.css">
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
-    </head>
-    <body>
-      <div class="page d-flex">
-        <header class="d-flex justify-content-between align-items-center p-4">
-            <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="Pingpong Logo">
-            <div class="search position-relative">
-                <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
-            </div>
-            <div class="icons d-flex align-items-center">
-                <span class="notf position-relative">
-                    <i class="fa-solid fa-bell fa-lg"></i>
-                </span>
-                <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
-            </div>
-        </header>
-        <div class="d-flex">
-            <div class="sidebar">
-                <ul>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
-                            <!-- <i class="fa-solid fa-gamepad fa-fw"></i> -->
-                            <i class="fa-solid fa-table-tennis fa-fw"></i> 
-                        </a>
-                    </li>
-                    <li>
-                        <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
-                            <i class="fa-solid fa-user fa-fw"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
-                            <i class="fa-solid fa-trophy fa-fw"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
-                            <i class="fa-solid fa-user-group fa-fw"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
-                            <i class="fa-solid fa-ranking-star"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
-                            <i class="fa-solid fa-gear"></i>
-                        </a>
-                    </li>
-                </ul>
-                <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
-                    <button type="button" class="btn btn-secondary">
-                      <i class="fa-solid fa-right-from-bracket"></i></button>
-                </div>
-            </div>
-            <div class="content_profile ">
-                <!-- <h1 class="p-relative">Profile</h1> -->
-                <div class="pr-welcome m-2 d-flex justify-content-between">
-                  <p>  <i class="fa-solid fa-user  fa-fw"></i> My Profile </p> 
-                    <div class="btn-settings">
-                      <i class="fa-solid fa-gear"></i>
-                    </div>
-                </div>
-                <div class="profile-page m-20">
-                    <div class="overview  rad-10 d-flex align-center">
-                        <div class="avatar-box  p-20">
-                            <img decoding="async" class="rad-half mb-10" src="image/avatar.png" alt="Avatar" />
-                            <h3 class="m-0">Split abid monsif</h3>
-                            <p class="c-grey mt-10">Level 60</p>
-                            <div class="level  rad-6 bg-eee position-relative">
-                                <span></span>
-                            </div>
-                            <div class="rating mt-10 mb-10">
-                                <i class="fa-solid fa-star text-warning fs-13"></i>
-                                <i class="fa-solid fa-star text-warning  fs-13"></i>
-                                <i class="fa-solid fa-star text-warning  fs-13"></i>
-                                <i class="fa-solid fa-star text-secondary fs-13"></i>
-                                <i class="fa-solid fa-star text-secondary fs-13"></i>
-                            </div>
-                            <!-- <p class="c-grey m-0 fs-13">550 Rating</p> -->
-                        </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/all.min.js"></script>
-    <script src="js/index.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const welcomeMessage = document.querySelector('.welcome-message');
-            if (welcomeMessage) {
-                welcomeMessage.addEventListener('click', () => {
-                    alert('Welcome to Pingpong! Let\'s play!');
-                });
-            }
-        });
-    </script>
-</body>
-</html>
-      <!-- <div class="page">
-        <header class="d-flex justify-content-between align-items-center p-4">
-          <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pingpong Home</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page d-flex">
+      <header class="d-flex justify-content-between align-items-center p-4">
+          <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="Pingpong Logo">
           <div class="search position-relative">
-            <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+              <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
           </div>
           <div class="icons d-flex align-items-center">
-            <span class="notf position-relative">
-              <i class="fa-solid fa-bell fa-lg"></i>
-            </span>
-            <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
+              <span class="notf position-relative">
+                  <i class="fa-solid fa-bell fa-lg"></i>
+              </span>
+              <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
           </div>
-        </header>
-        <div class="d-flex">
+      </header>
+      <div class="d-flex">
           <div class="sidebar">
-            <ul>
-              <li>
-                <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
-                  <i class="fa-solid fa-house fa-fw"></i>
-                </a>
-              </li>
-              <li>
-                <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
-                  <i class="fa-solid fa-gamepad fa-fw"></i>
-                </a>
-              </li>
-              <li>
-                <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
-                  <i class="fa-solid fa-user fa-fw"></i>
-                </a>
-              </li>
-              <li>
-                <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
-                  <i class="fa-solid fa-trophy fa-fw"></i>
-                </a>
-              </li>
-              <li>
-                <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
-                  <i class="fa-solid fa-user-group fa-fw"></i>
-                </a>
-              </li>
-              <li>
-                <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
-                  <i class="fa-solid fa-ranking-star"></i>
-                </a>
-              </li>
-              <li>
-                <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
-                  <i class="fa-solid fa-gear"></i>
-                </a>
-              </li>
-            </ul>
-            <div class="position-absolute bottom-0 start-50 translate-middle-x">
-              
-              <form action="" method="post">
-                <p>
-                  <button type="button" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i>
-                    <span> Log out</span></button>
-                  </p>
-                </form> 
+              <ul>
+                  <li>
+                      <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="index.html">
+                          <i class="fa-solid fa-house fa-fw"></i>
+                      </a>
+                  </li>
+                  <li>
+                      <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
+                          <!-- <i class="fa-solid fa-gamepad fa-fw"></i> -->
+                          <i class="fa-solid fa-table-tennis fa-fw"></i> 
+                      </a>
+                  </li>
+                  <li>
+                      <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
+                          <i class="fa-solid fa-user fa-fw"></i>
+                      </a>
+                  </li>
+                  <li>
+                      <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
+                          <i class="fa-solid fa-trophy fa-fw"></i>
+                      </a>
+                  </li>
+                  <li>
+                      <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
+                          <i class="fa-solid fa-user-group fa-fw"></i>
+                      </a>
+                  </li>
+                  <li>
+                      <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
+                          <i class="fa-solid fa-ranking-star"></i>
+                      </a>
+                  </li>
+                  <li>
+                      <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+                          <i class="fa-solid fa-gear"></i>
+                      </a>
+                  </li>
+              </ul>
+              <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                  <button type="button" class="btn btn-secondary">
+                    <i class="fa-solid fa-right-from-bracket"></i></button>
               </div>
-            </div> -->
-            <!-- <div class="pr-welcome m-2 d-flex justify-content-between">
-              <p>  <i class="fa-solid fa-user  fa-fw"></i> Welcome, Orca</p> 
+          </div>
+          <div class="content_profile">
+            <!-- <h1 class="p-relative">Profile</h1> -->
+            <div class="pr-welcome m-2 d-flex justify-content-between">
+              <p>  <i class="fa-solid fa-user  fa-fw"></i> My Profile </p> 
                 <div class="btn-settings">
                   <i class="fa-solid fa-gear"></i>
                 </div>
-            </div> -->
-            <!-- <h1 class="p-relative">Profile</h1>
-            <div class="profile-page m-20"> -->
-              <!-- Start Overview -->
-              <!-- <div class="overview bg-white rad-10 d-flex align-center">
-                <div class="avatar-box txt-c p-20">
-                  <img decoding="async" class="rad-half mb-10" src="image/avatar.png" alt="" />
-                  <h3 class="m-0">Osama Elzero</h3>
-                  <p class="c-grey mt-10">Level 20</p>
-                  <div class="level rad-6 bg-eee p-relative">
-                    <span style="width: 70%"></span>
-                  </div>
-                  <div class="rating mt-10 mb-10">
-                    <i class="fa-solid fa-star c-orange fs-13"></i>
-                    <i class="fa-solid fa-star c-orange fs-13"></i>
-                    <i class="fa-solid fa-star c-orange fs-13"></i>
-                    <i class="fa-solid fa-star c-orange fs-13"></i>
-                    <i class="fa-solid fa-star c-orange fs-13"></i>
-                  </div>
-                  <p class="c-grey m-0 fs-13">550 Rating</p>
-                </div>
-                <div class="info-box w-full txt-c-mobile"> -->
-          
-            <!-- <div class="content  ">            
-              <div class="bg-profile-1">
-              <div class="pr-welcome m-2 d-flex justify-content-between">
-                <p>  <i class="fa-solid fa-user  fa-fw"></i> Welcome, Orca</p> 
-                  <div class="btn-settings">
-                    <i class="fa-solid fa-gear"></i>
-                  </div>
-              </div>
-                <img class="bg-profile" src="image/e.jpg" alt=""> -->
-                  <!-- <div class="user-profile d-flex start-50 rounded-4 ms-3 me-3 mb-2 ">
-                    <div class="position-relative avatar-profile  d-flex justify-content-around flex-wrap align-items-center">
-                      <div class="pr-img position-absolute top-0 start-50 translate-middle d-flex justify-content-center align-items-end">
-                        <div class="image-container"> -->
-                          <!-- <img  class="avatar position-absolute"  src="image/avatar.png" alt=""> -->
-                        <!-- </div> -->
-                        <!-- <label for="id_avatar" class="small mb-1"><i class="fa-solid fa-pencil"></i></label> -->
-                        <!-- <input type="file" name="avatar" class="form-control-file" accept="image/*" id="id_avatar"> -->
-                        <!-- <button type="submit" class="btn btn-dark btn-lg">Save Changes</button> -->
-                      <!-- </div> -->
-                          <!-- <div class="pr-name w-60 justify-content-center "> -->
-                            <!-- <p  class="mt-5  position-absolute  text-uppercase  fw-bold" >Orca</p> -->
-                    <!-- </div>
-                          
-                  </div>
-                        <div class="level-profile d-flex justify-content-center  flex-column m-5">
-                          <h4>Level 25</h4>    
-                          <div class="progress rounded-4 position-relative overflow-visible">
-                            <span class="w-25 rounded-4 "></span> -->
-                            
-                            
-                            <!-- <div class=" pos-lev text-center  position-absolute top-0 start-25 translate-middle fw-bold fs-4 ">
-                              <p>25EXP</p>
-                              <i class="fa-solid fa-caret-up"></i>
-                            </div> -->
-                          <!-- </div> -->
-                  <!-- </div> -->
+            </div>
+            <!-- <div class="profile-page m-20">
+              <div class="overview  rad-10 d-flex align-center">
+                <div class="avatar-box  p-20">
+                    <img decoding="async" class="rad-half mb-10" src="image/avatar.png" alt="Avatar" />
+                    <h3 class="m-0">Split abid monsif</h3>
+                    <p class="c-grey mt-10">Level 60</p>
+                    <div class="level  rad-6 bg-eee position-relative">
+                        <span></span>
+                    </div>
+                    <div class="rating mt-10 mb-10">
+                        <i class="fa-solid fa-star text-warning fs-13"></i>
+                        <i class="fa-solid fa-star text-warning  fs-13"></i>
+                        <i class="fa-solid fa-star text-warning  fs-13"></i>
+                        <i class="fa-solid fa-star text-secondary fs-13"></i>
+                        <i class="fa-solid fa-star text-secondary fs-13"></i>
+                    </div>
                   
-                <!-- </div> -->
-              <!-- </div> -->
-              <!-- <div class="content">            
-                <div class="bg-profile-1">
-                  <div class="pr-welcome m-2 d-flex justify-content-between">
-                    <p><i class="fa-solid fa-user fa-fw"></i> Welcome, Orca</p> 
-                    <div class="btn-settings">
-                      <i class="fa-solid fa-gear"></i>
-                    </div>
-                  </div>
-                  <div class="user-profile p-3 bg-light rounded-4 m-3 position-relative">
-                    <div class="profile-header position-absolute top-0 start-0 p-3">
-                      <p class="text-uppercase fw-bold mb-0">Orca</p>
-                      <p class="level">Level 25</p>
-                      <p class="level_1"></p>
-                    </div>
-                    <div class="avatar-profile d-flex justify-content-center flex-column">
-                      <div class="image-container position-relative">
-                        <img class="avatar position-absolute" src="image/avatar.png" alt="Avatar">
-                      </div>
-                    </div>
-                  </div>
                 </div>
-              </div>  -->
-            <!-- </div>
-          </div>
-          <script src="js/bootstrap.bundle.min.js"></script>
-          <script src="js/all.min.js"></script>
-          <script src="js/index.js"></script>
-          <script>
+              </div>
+            </div> -->
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const welcomeMessage = document.querySelector('.welcome-message');
-            if (welcomeMessage) {
-                welcomeMessage.addEventListener('click', () => {
-                    alert('Welcome to Pingpong! Let\'s play!');
-                });
-            }
+        <div class="profile-container">
+            <div class="avatar">
+                <img src="imag_1/pop.jpg" alt="Profile Picture">
+            </div>
+            <h1>Split abid monsif</h1>
+            <div class="xp">5000 XP</div>
+            <div class="rating ">
+              <i class="fa-solid fa-star text-warning fs-13"></i>
+              <i class="fa-solid fa-star text-warning  fs-13"></i>
+              <i class="fa-solid fa-star text-warning  fs-13"></i>
+              <i class="fa-solid fa-star text-secondary fs-13"></i>
+              <i class="fa-solid fa-star text-secondary fs-13"></i>
+            </div>
+            <div class="stats">
+                <div class="stat" id="wins">
+                    <div class="stat-value win">42</div>
+                    <div class="stat-label ">Wins</div>
+                </div>
+                <div class="stat" id="draw">
+                    <div class="stat-value adj">15</div>
+                    <div class="stat-label ">Draw</div>
+                </div>
+                <div class="stat" id="losses">
+                    <div class="stat-value los">23</div>
+                    <div class="stat-label ">Losses</div>
+                </div>
+            </div>
+            
+            <div class="separator"></div>
+            
+            <table class="tournament-table">
+                <thead>
+                    <tr>
+                        <th>Tournament</th>
+                        <th class="win">Wins</th>
+                        <th class="adj">Draw1/2</th>
+                        <th class="los">Losses</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Spring Championship</td>
+                        <td>8</td>
+                        <td>3</td>
+                        <td>1</td>
+                    </tr>
+                    <!-- <tr>
+                        <td>Summer Open</td>
+                        <td>6</td>
+                        <td>2</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>Fall Invitational</td>
+                        <td>10</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    <!-- <div id="pingpongBall"></div> -->
+
+
+          </div>
+      </div>
+    </div>
+        
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/all.min.js"></script>
+  <script src="js/index.js"></script>
+    <!-- <script>
+        const ball = document.getElementById('pingpongBall');
+        const interactiveElements = document.querySelectorAll('.stat, .tournament-table td');
+
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                const rect = element.getBoundingClientRect();
+                ball.style.left = `${rect.left + rect.width / 2 - 10}px`;
+                ball.style.top = `${rect.top + rect.height / 2 - 10}px`;
+            });
         });
+
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX;
+            const y = e.clientY;
+            
+            setTimeout(() => {
+                ball.style.left = `${x - 10}px`;
+                ball.style.top = `${y - 10}px`;
+            }, 100);
+        });
+    </script> -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          const welcomeMessage = document.querySelector('.welcome-message');
+          if (welcomeMessage) {
+              welcomeMessage.addEventListener('click', () => {
+                  alert('Welcome to Pingpong! Let\'s play!');
+              });
+          }
+      });
     </script>
+
+<!-- <script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/all.min.js"></script>
+<script src="js/index.js"></script>
+<script>
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const welcomeMessage = document.querySelector('.welcome-message');
+    if (welcomeMessage) {
+      welcomeMessage.addEventListener('click', () => {
+        alert('Welcome to Pingpong! Let\'s play!');
+        });
+        }
+        });
+      </script> -->
+      
 </body>
-</html> -->
+</html>

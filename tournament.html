@@ -10,6 +10,395 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
+    <style>
+        body, html {
+            margin-left: 100;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow: hidden;
+        } 
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        #playerSelection {
+            text-align: center;
+            padding: 20px;
+        }
+        #bracket {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-grow: 1;
+        }
+        .side {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 45%;
+        }
+        .round {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 100%;
+        }
+        .player {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            width: 150px;
+            height: 60px;
+            transition: all 0.3s ease;
+        }
+        .player img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .player:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+        #trophy {
+            font-size: 100px;
+            animation: pulse 2s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.2); }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="d-flex justify-content-between align-items-center p-4">
+            <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
+            <div class="search position-relative">
+                <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+            </div>
+            <div class="icons d-flex align-items-center">
+                <span class="notf position-relative">
+                    <i class="fa-solid fa-bell fa-lg"></i>
+                </span>
+                <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
+            </div>
+        </header>
+        <div class="d-flex">
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
+                            <i class="fa-solid fa-table-tennis fa-fw"></i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
+                            <i class="fa-solid fa-user fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
+                            <i class="fa-solid fa-trophy fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
+                            <i class="fa-solid fa-user-group fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
+                            <i class="fa-solid fa-ranking-star"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+                            <i class="fa-solid fa-gear"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                    <button type="button" class="btn btn-secondary">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="content_tour d-flex justify-content-center align-items-center">
+                <div class="container">
+                    <div id="playerSelection">
+                        <h1>Tournament</h1>
+                        <button onclick="generateBracket(4)">4 Players</button>
+                        <button onclick="generateBracket(8)">8 Players</button>
+                    </div>
+                    <div id="bracket">
+                        <div class="side" id="leftSide"></div>
+                        <div id="trophyRound"></div>
+                        <div class="side" id="rightSide"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function generateBracket(numPlayers) {
+            const leftSide = document.getElementById('leftSide');
+            const rightSide = document.getElementById('rightSide');
+            const trophyRound = document.getElementById('trophyRound');
+
+            leftSide.innerHTML = '';
+            rightSide.innerHTML = '';
+            trophyRound.innerHTML = '';
+
+            const rounds = numPlayers === 4 ? 2 : 3;
+            const playerNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Henry'];
+
+            for (let i = 0; i < rounds; i++) {
+                const roundLeft = document.createElement('div');
+                roundLeft.className = 'round';
+                const roundRight = document.createElement('div');
+                roundRight.className = 'round';
+                const playersInRound = numPlayers / Math.pow(2, i);
+
+                for (let j = 0; j < playersInRound / 2; j++) {
+                    const player = document.createElement('div');
+                    player.className = 'player';
+                    if (i === 0) {
+                        const img = document.createElement('img');
+                        img.src = `/api/placeholder/50/50`;
+                        img.alt = playerNames[j];
+                        player.appendChild(img);
+
+                        const name = document.createElement('span');
+                        name.textContent = playerNames[j];
+                        player.appendChild(name);
+                    }
+                    roundLeft.appendChild(player);
+                }
+                for (let j = playersInRound / 2; j < playersInRound; j++) {
+                    const player = document.createElement('div');
+                    player.className = 'player';
+                    if (i === 0) {
+                        const img = document.createElement('img');
+                        img.src = `/api/placeholder/50/50`;
+                        img.alt = playerNames[j];
+                        player.appendChild(img);
+
+                        const name = document.createElement('span');
+                        name.textContent = playerNames[j];
+                        player.appendChild(name);
+                    }
+                    roundRight.appendChild(player);
+                }
+                leftSide.appendChild(roundLeft);
+                rightSide.appendChild(roundRight);
+            }
+
+            // Add trophy
+            const trophy = document.createElement('div');
+            trophy.id = 'trophy';
+            trophy.textContent = '🏆';
+            trophyRound.appendChild(trophy);
+        }
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pingpong Home</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="page">
+        <header class="d-flex justify-content-between align-items-center p-4">
+            <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
+            <div class="search position-relative">
+                <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+            </div>
+            <div class="icons d-flex align-items-center">
+                <span class="notf position-relative">
+                    <i class="fa-solid fa-bell fa-lg"></i>
+                </span>
+                <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
+            </div>
+        </header>
+        <div class="d-flex">
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
+                            <i class="fa-solid fa-table-tennis fa-fw"></i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
+                            <i class="fa-solid fa-user fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
+                            <i class="fa-solid fa-trophy fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
+                            <i class="fa-solid fa-user-group fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
+                            <i class="fa-solid fa-ranking-star"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+                            <i class="fa-solid fa-gear"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                    <button type="button" class="btn btn-secondary">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="content_tour d-flex justify-content-center align-items-center">
+                <div class="container">
+                    <div id="playerSelection">
+                        <h1>Tournament</h1>
+                        <button onclick="generateBracket(4)">4 Players</button>
+                        <button onclick="generateBracket(8)">8 Players</button>
+                    </div>
+                    <div id="bracket">
+                        <div class="side" id="leftSide"></div>
+                        <div id="trophyRound"></div>
+                        <div class="side" id="rightSide"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function generateBracket(numPlayers) {
+            const leftSide = document.getElementById('leftSide');
+            const rightSide = document.getElementById('rightSide');
+            const trophyRound = document.getElementById('trophyRound');
+
+            leftSide.innerHTML = '';
+            rightSide.innerHTML = '';
+            trophyRound.innerHTML = '';
+
+            const rounds = numPlayers === 4 ? 1 : 1;
+            const playerNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Henry'];
+
+            for (let i = 0; i < rounds; i++) {
+                const roundLeft = document.createElement('div');
+                roundLeft.className = 'round';
+                const roundRight = document.createElement('div');
+                roundRight.className = 'round';
+                const playersInRound = numPlayers / Math.pow(2, i);
+
+                for (let j = 0; j < playersInRound / 2; j++) {
+                    const player = document.createElement('div');
+                    player.className = 'player';
+                    if (i === 0) {
+                        const img = document.createElement('img');
+                        img.src = `image/avatar.png`;
+                        img.alt = playerNames[j];
+                        player.appendChild(img);
+
+                        const name = document.createElement('span');
+                        name.textContent = playerNames[j];
+                        player.appendChild(name);
+                    }
+                    roundLeft.appendChild(player);
+                }
+                for (let j = playersInRound / 2; j < playersInRound; j++) {
+                    const player = document.createElement('div');
+                    player.className = 'player';
+                    if (i === 0) {
+                        const img = document.createElement('img');
+                        img.src = `image/avatar.png`;
+                        img.alt = playerNames[j];
+                        player.appendChild(img);
+
+                        const name = document.createElement('span');
+                        name.textContent = playerNames[j];
+                        player.appendChild(name);
+                    }
+                    roundRight.appendChild(player);
+                }
+                leftSide.appendChild(roundLeft);
+                rightSide.appendChild(roundRight);
+            }
+
+            // Add trophy
+            const trophy = document.createElement('div');
+            trophy.id = 'trophy';
+            trophy.textContent = '🏆';
+            trophyRound.appendChild(trophy);
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pingpong Home</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="page">
@@ -193,8 +582,8 @@
 </div>
 </body>
 </html> -->
-
-<!DOCTYPE html>
+<!-- /****************************************************************/ -->
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -231,7 +620,7 @@
                     </li>
                     <li>
                         <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
-                            <!-- <i class="fa-solid fa-gamepad fa-fw"></i> -->
+                      
                             <i class="fa-solid fa-table-tennis fa-fw"></i> 
                         </a>
                     </li>
@@ -261,13 +650,6 @@
                         </a>
                     </li>
                 </ul>
-                <!-- <div class="position-absolute bottom-0 start-50 translate-middle-x">
-                  <form action="" method="post">
-                    <p>
-                      <button type="button" class="btn btn-secondary"><i class="fa-solid fa-right-from-bracket"></i>
-                    </p>
-                  </form> 
-                </div> -->
                 <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
                     <button type="button" class="btn btn-secondary">
                       <i class="fa-solid fa-right-from-bracket"></i></button>
@@ -277,13 +659,13 @@
                 body, html {
                     margin: 0;
                     padding: 0;
-                    /* height: 100%; */
+
                     font-family: 'Arial', sans-serif;
                     color: white;
                     overflow: hidden;
                 } 
                 .container {
-                    /* background-color: aqua; */
+
                     display: flex;
                     flex-direction: column;
                     margin-left: 100px;
@@ -413,8 +795,8 @@
         }
     </script>
 </body>
-</html>
-
+</html> -->
+<!-- /****************************************************/ -->
 
 <!-- <!DOCTYPE html>
 <html lang="en">

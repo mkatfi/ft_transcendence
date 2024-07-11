@@ -1,8 +1,7 @@
-
 <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pingpong Home</title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -26,16 +25,17 @@
                 <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
             </div>
         </header>
-        <div class="d-flex ">
+        <div class="d-flex">
             <div class="sidebar">
                 <ul>
                     <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
+                        <a class=" d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
                             <i class="fa-solid fa-house fa-fw"></i>
                         </a>
                     </li>
                     <li>
                         <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
+                      
                             <i class="fa-solid fa-table-tennis fa-fw"></i> 
                         </a>
                     </li>
@@ -45,7 +45,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="active  d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
+                        <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
                             <i class="fa-solid fa-trophy fa-fw"></i>
                         </a>
                     </li>
@@ -70,50 +70,35 @@
                       <i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
             </div>
-            <div class="content_tour d-flex justify-content-center align-items-center w-100">
+            <div class="content_tour d-flex justify-content-center align-items-center">
                 <div class="container_tour">
-                    <div id="playerSelection w-100">
+                    <div id="playerSelection">
                         <h1>Tournament</h1>
                         <button onclick="generateBracket(4)">4 Players</button>
                         <button onclick="generateBracket(8)">8 Players</button>
                     </div>
-                    <div id="bracket">
-                        <div class="side" id="leftSide"></div>
-                        <div id="trophyRound"></div>
-                        <div class="side" id="rightSide"></div>
-                    </div>
+                    <div id="bracket"></div>
                 </div>
             </div>
-            <div class="parent "> 
-            </div> 
         </div>
     </div>
-
-<script src="js/main.js"></script>
-
+    <!-- <script src="js/main.js"></script> -->
     <script>
         function generateBracket(numPlayers) {
-            const leftSide = document.getElementById('leftSide');
-            const rightSide = document.getElementById('rightSide');
-            const trophyRound = document.getElementById('trophyRound');
-
-            leftSide.innerHTML = '';
-            rightSide.innerHTML = '';
-            trophyRound.innerHTML = '';
+            const bracket = document.getElementById('bracket');
+            bracket.innerHTML = '';
 
             const rounds = numPlayers === 4 ? 2 : 3;
             const playerNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Henry'];
 
             for (let i = 0; i < rounds; i++) {
-                const roundLeft = document.createElement('div');
-                roundLeft.className = 'round';
-                const roundRight = document.createElement('div');
-                roundRight.className = 'round';
-                const playersInRound = numPlayers / Math.pow(2, i);
+                const round = document.createElement('div');
+                round.className = 'round';
+                const playersInRound = numPlayers / Math.pow(2, i) / 2;
 
-                for (let j = 0; j < playersInRound / 2; j++) {
+                for (let j = 0; j < playersInRound; j++) {
                     const player = document.createElement('div');
-                    player.className = 'player_to_tour ';
+                    player.className = 'player_r';
                     if (i === 0) {
                         const img = document.createElement('img');
                         img.src = `image/avatar.png`;
@@ -124,33 +109,52 @@
                         name.textContent = playerNames[j];
                         player.appendChild(name);
                     }
-                    roundLeft.appendChild(player);
+                    round.appendChild(player);
                 }
-                for (let j = playersInRound / 2; j < playersInRound; j++) {
-                    const player = document.createElement('div');
-                    player.className = 'player_to_tour ';
-                    if (i === 0) {
-                        const img = document.createElement('img');
-                        img.src = `image/avatar.png`;
-                        img.alt = playerNames[j];
-                        player.appendChild(img);
-
-                        const name = document.createElement('span');
-                        name.textContent = playerNames[j];
-                        player.appendChild(name);
-                    }
-                    roundRight.appendChild(player);
-                }
-                leftSide.appendChild(roundLeft);
-                rightSide.appendChild(roundRight);
+                bracket.appendChild(round);
             }
 
             // Add trophy
+            const trophyRound = document.createElement('div');
+            trophyRound.className = 'round';
             const trophy = document.createElement('div');
             trophy.id = 'trophy';
             trophy.textContent = '🏆';
             trophyRound.appendChild(trophy);
+            bracket.appendChild(trophyRound);
+
+            for (let i = rounds - 1; i >= 0; i--) {
+                const round = document.createElement('div');
+                round.className = 'round';
+                const playersInRound = numPlayers / Math.pow(2, i) / 2;
+
+                for (let j = 0; j < playersInRound; j++) {
+                    const player = document.createElement('div');
+                    player.className = 'player_l';
+                    if (i === 0) {
+                        const img = document.createElement('img');
+                        img.src = `image/avatar.png`;
+                        img.alt = playerNames[j];
+                        player.appendChild(img);
+
+                        const name = document.createElement('span');
+                        name.textContent = playerNames[j];
+                        player.appendChild(name);
+                    }
+                    round.appendChild(player);
+                }
+                bracket.appendChild(round);
+            }
+            // Add flying ping pong balls
+            // for (let i = 0; i < 5; i++) {
+            //     const ball = document.createElement('div');
+            //     ball.className = 'ping-pong-ball';
+            //     ball.style.left = `${Math.random() * 50}vw`;
+            //     ball.style.top = `${Math.random() * 50}vh`;
+            //     ball.style.animationDelay = `${Math.random() * 10}s`;
+            //     document.body.appendChild(ball);
+            // }
         }
     </script>
 </body>
-</html>
+</html> 

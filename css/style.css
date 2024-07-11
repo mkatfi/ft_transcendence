@@ -21,12 +21,10 @@ body{
     height: 100vh; 
 }
 
-.container{
-    background-color: transparent;
+.container_login{
+    background-color: #25284A;
     color: #FC7785;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 0 30px  rgba(0, 0, 0, 0.2);
-    /* background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
+    box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
     border-radius: 50px;
     position: relative;
     overflow: hidden;
@@ -35,12 +33,12 @@ body{
     min-height: 580px;
 }
 
-.container span{
+.container_login span{
     font-size: 15px;
     color: #eee;
 }
 
-.container a{
+.container_login a{
     color: #eee;
     background-color: #202443;
     font-size: 15px;
@@ -48,7 +46,7 @@ body{
     margin: 3px auto;
 }
 
-.container button{
+.container_login  button{
     background: #FC7785;
     color: #fff;
     font-size: 12px;
@@ -61,16 +59,16 @@ body{
     margin-top: 10px;
     cursor: pointer;
 }
-.container button:hover {
+.container_login  button:hover {
     background-color: rgba(100, 238, 7, 0.774);
     box-shadow: 0 0 10px #0DA9E9;
 }
-.container button.hidden{
+.container_login button.hidden{
     background-color: transparent;
     border-color: #fff;
 }
 
-.container form{
+.container_login form{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,7 +77,7 @@ body{
     height: 100%;
 }
 
-.container form .input-box{
+.container_login form .input-box{
     position: relative;
     width: 100%;
     height: 53px;
@@ -101,7 +99,8 @@ body{
 }
 
 .input-box input:hover{
-    box-shadow: 0 0 25px  rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 15px  rgba(255, 255, 255, 0.5);
+    /* box-shadow: inset 0 0 5px  white; */
 }
 
 .input-box input:focus{
@@ -111,11 +110,11 @@ body{
 .input-box input::placeholder{
     color: #fff;
 }
-.container .form-container .input-box i
+.container_login .form-container .input-box i
 {
     color: white;
 } 
-.container form .remember-forgot{
+.container_login form .remember-forgot{
     color: #eee;
     display: inline-block;
     font-size: 13px;
@@ -515,7 +514,7 @@ body{
 .toggle p{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: 900;
+    font-weight: 100;
     margin: 10px;
 }
 
@@ -554,3 +553,17 @@ body{
 .container.active .toggle-right {
     transform: translateX(200%);
 }
+
+
+/* @media (max-width: 740px) {
+    .container{
+       display: ;
+        width: 780px;
+        max-width: 100%;
+        min-height: 490px;
+    }
+    .toggle-container{
+        display: none;
+    }
+   
+} */

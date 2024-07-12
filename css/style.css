@@ -12,7 +12,6 @@ body{
     background-repeat: no-repeat;
     background-size: 70% 70%;
     background-position: center;
-    /* background-image: url('../imag_1/output-mrqqb3-unscreen.gif'); */
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -21,7 +20,7 @@ body{
     height: 100vh; 
 }
 
-.container_login{
+.container{
     background-color: #25284A;
     color: #FC7785;
     box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
@@ -30,15 +29,15 @@ body{
     overflow: hidden;
     width: 768px;
     max-width: 100%;
-    min-height: 580px;
+    min-height: 680px;
 }
 
-.container_login span{
+.container span{
     font-size: 15px;
     color: #eee;
 }
 
-.container_login a{
+.container a{
     color: #eee;
     background-color: #202443;
     font-size: 15px;
@@ -46,7 +45,7 @@ body{
     margin: 3px auto;
 }
 
-.container_login  button{
+.container button{
     background: #FC7785;
     color: #fff;
     font-size: 12px;
@@ -59,16 +58,16 @@ body{
     margin-top: 10px;
     cursor: pointer;
 }
-.container_login  button:hover {
+.container button:hover {
     background-color: rgba(100, 238, 7, 0.774);
     box-shadow: 0 0 10px #0DA9E9;
 }
-.container_login button.hidden{
+.container button.hidden{
     background-color: transparent;
     border-color: #fff;
 }
 
-.container_login form{
+.container form{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,7 +76,7 @@ body{
     height: 100%;
 }
 
-.container_login form .input-box{
+.container form .input-box{
     position: relative;
     width: 100%;
     height: 53px;
@@ -100,7 +99,6 @@ body{
 
 .input-box input:hover{
     box-shadow: 0 0 15px  rgba(255, 255, 255, 0.5);
-    /* box-shadow: inset 0 0 5px  white; */
 }
 
 .input-box input:focus{
@@ -110,12 +108,13 @@ body{
 .input-box input::placeholder{
     color: #fff;
 }
-.container_login .form-container .input-box i
+.container .form-container .input-box i
 {
     color: white;
 } 
-.container_login form .remember-forgot{
-    color: #eee;
+.container form .remember-forgot{
+    /* color: #eee; */
+
     display: inline-block;
     font-size: 13px;
     font-weight: bold;
@@ -126,7 +125,7 @@ body{
     margin-right: 3px;
 }
 .remember-forgot a{
-    color: #eee;
+    color: #1735d6;
     margin: 15px;
     justify-content: space-between;
     text-decoration: none;
@@ -134,17 +133,6 @@ body{
 .remember-forgot a:hover{
     text-decoration: underline;
 }
-
-/* .container input{
-    background-color: #eee;
-    border: none;
-    margin: 8px 0;
-    padding: 10px 15px;
-    font-size: 13px;
-    border-radius: 8px;
-    width: 100%;
-    outline: none;
-} */
 
 .form-container{
     position: absolute;
@@ -175,7 +163,7 @@ body{
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
-    animation: move 0.6s;
+    animation: move 0.1s;
 }
 
 @keyframes move{
@@ -204,6 +192,7 @@ body{
     width: 60px;
     height: 60px;
 }
+
 .social-icons a img{
     width: 70%;
     height: 60%;
@@ -229,11 +218,7 @@ body{
 
 .toggle {
     background-color: #363b5f;
-    /* background: linear-gradient(to right, #5c6bc0, #512da8); */
-    /* background-image: url('../bagraoubd/01a79e1cea2c625369866c9b37394594_w200.webp');  */
-    /* height: 100%; */
     color: #fff;
-    /* margin: 10px; */
     position: relative;
     left: -100%;
     height: 100%;
@@ -503,8 +488,8 @@ body{
     justify-self: center;
     align-self: flex-start;
     text-align: center;
-    top: 70px; 
-    left: 15px; 
+    top: 200px; 
+    /* left: 15px;  */
 }
 .toggle h1{
     color: #FC7785;
@@ -514,7 +499,7 @@ body{
 .toggle p{
     color: white;
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: 100;
+    font-weight: 900;
     margin: 10px;
 }
 
@@ -554,16 +539,21 @@ body{
     transform: translateX(200%);
 }
 
-
-/* @media (max-width: 740px) {
-    .container{
-       display: ;
-        width: 780px;
-        max-width: 100%;
-        min-height: 490px;
-    }
+@media (max-width: 740px) {
     .toggle-container{
         display: none;
     }
-   
-} */
+    .sign-in{
+         width: 100%; 
+         z-index: 1; 
+    }
+    .sign-up{
+        width: 100%; 
+         z-index: 1; 
+    } 
+    .container.active .sign-up{
+        transform: none;
+        opacity: 1;
+        z-index: 5;
+    }
+}

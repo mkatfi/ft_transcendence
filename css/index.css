@@ -620,8 +620,30 @@ font-size: 50px;
 .tournament-table tr:hover td::before {
   left: 100%;
 }
+@media (max-width: 600px)
+{
+  .content_profile  {
+    margin-left: 70px;
+  } 
+  .tournament-table {
+    width: 100%;
+  }
+  
+  .tournament-table th,
+  .tournament-table td {
+    padding: 5px;
+  }
+  
+  .tournament-table th {
+    letter-spacing: -1px;
+  }
+  .avatar {
+    width: 150px;
+    height: 150px;
+  }
 
-#pingpongBall {
+}
+/* #pingpongBall {
   position: absolute;
   width: 20px;
   height: 20px;
@@ -630,7 +652,7 @@ font-size: 50px;
   transition: all 0.5s ease;
   box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #0da9e9, 0 0 70px #0da9e9;
   pointer-events: none;
-}
+} */
 /* --------------------END  PROFILE   PAGE------------------------------------------------------------------------------ */
 /* --------------------START  SETTING   PAGE------------------------------------------------------------------------------ */
 
@@ -747,12 +769,19 @@ button:hover {
   margin-left: 5px;
 }
 
-/* @media (max-width: 767px) {
-  .profile-section_1 .profile-section input {
-    display: flex;
-    width: 100%;
+@media (max-width: 767px) {
+  
+  .profile-picture {
+    width: 150px;
+    height: 150px;
   }
-} */
+  #test {
+    position: relative;
+    bottom : 35px;
+    right: 90px;
+  }
+  
+}
 /* --------------------END  SETTING   PAGE------------------------------------------------------------------------------ */
 
 /* --------------------START   Frinds   PAGE------------------------------------------------------------------------------ */
@@ -788,10 +817,10 @@ button:hover {
   color: black;
   box-shadow:  0px 0px 10px red;
 }
-@media (max-width: 767px) {
+@media (max-width: 760px) {
   
   .friends-page {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
 
@@ -974,8 +1003,8 @@ button:hover {
 }
 
 .box2_leader .leader .icons_leader {
-  border-top: 2px solid #979696;
-  border-bottom: 2px solid #979696;
+  border-top: 1.5px solid #979696;
+  border-bottom: 1.5px solid #979696;
   display: flex;
   flex-direction: column;
   margin-top: 7px;
@@ -990,8 +1019,8 @@ button:hover {
 }
 .box2_leader .photo_leader {
   border-radius: 50%;
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   border:solid 2px var(--red-color);
   box-shadow: 0 0 20px var(--red-color);
 }
@@ -1047,10 +1076,10 @@ button:hover {
   margin-bottom: 40px;
 }
 
-.player {
+/* .player {
   text-align: center;
   position: relative;
-}
+} */
 
 .player .logo-go {
   width: 170px;
@@ -1184,6 +1213,16 @@ button:hover {
     height: 20px;
     border-radius: 50%;
     margin-right: 5px;
+  }
+
+  .box2_leader .leader .icons_leader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .box2_leader .photo_leader {
+    width: 110px;
+    height: 110px;
   }
 }
 

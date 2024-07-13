@@ -20,7 +20,7 @@ body{
     height: 100vh; 
 }
 
-.container{
+.container_login{
     background-color: #25284A;
     color: #FC7785;
     box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
@@ -32,12 +32,12 @@ body{
     min-height: 680px;
 }
 
-.container span{
+.container_login span{
     font-size: 15px;
     color: #eee;
 }
 
-.container a{
+.container_login a{
     color: #eee;
     background-color: #202443;
     font-size: 15px;
@@ -45,7 +45,7 @@ body{
     margin: 3px auto;
 }
 
-.container button{
+.container_login button{
     background: #FC7785;
     color: #fff;
     font-size: 12px;
@@ -58,16 +58,16 @@ body{
     margin-top: 10px;
     cursor: pointer;
 }
-.container button:hover {
+.container_login button:hover {
     background-color: rgba(100, 238, 7, 0.774);
     box-shadow: 0 0 10px #0DA9E9;
 }
-.container button.hidden{
+.container_login button.hidden{
     background-color: transparent;
     border-color: #fff;
 }
 
-.container form{
+.container_login form{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,7 +76,7 @@ body{
     height: 100%;
 }
 
-.container form .input-box{
+.container_login form .input-box{
     position: relative;
     width: 100%;
     height: 53px;
@@ -108,13 +108,11 @@ body{
 .input-box input::placeholder{
     color: #fff;
 }
-.container .form-container .input-box i
+.container_login .form-container .input-box i
 {
     color: white;
 } 
-.container form .remember-forgot{
-    /* color: #eee; */
-
+.container_login form .remember-forgot{
     display: inline-block;
     font-size: 13px;
     font-weight: bold;
@@ -147,7 +145,7 @@ body{
     z-index: 2;
 }
 
-.container.active .sign-in{
+.container_login.active .sign-in{
     transform: translateX(100%);
     display: none;
 }
@@ -159,7 +157,7 @@ body{
     z-index: 1;
 }
 
-.container.active .sign-up{
+.container_login.active .sign-up{
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
@@ -211,7 +209,7 @@ body{
     border: 1px solid #484a5c;
 }
 
-.container.active .toggle-container{
+.container_login.active .toggle-container{
     transform: translateX(-100%);
     border-radius: 0 150px 100px 0;
 }
@@ -551,7 +549,7 @@ body{
         width: 100%; 
          z-index: 1; 
     } 
-    .container.active .sign-up{
+    .container_login.active .sign-up{
         transform: none;
         opacity: 1;
         z-index: 5;

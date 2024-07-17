@@ -1,0 +1,361 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Requests</title>
+    <style>
+        :root {
+            --bg-color: #fff;
+            --text-color: #333;
+            --secondary-text-color: #666;
+            --border-color: #eee;
+            --highlight-color: #ff69b4;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .back-button {
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            color: var(--secondary-text-color);
+            transition: color 0.3s;
+        }
+        .tab.active {
+            color: var(--highlight-color);
+            border-bottom: 2px solid var(--highlight-color);
+        }
+        .request {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .request:last-child {
+            border-bottom: none;
+        }
+        .request img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        .request-info {
+            flex-grow: 1;
+        }
+        .request-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .request-message {
+            font-size: 0.9em;
+            color: var(--secondary-text-color);
+        }
+        .request-time {
+            font-size: 0.8em;
+            color: var(--secondary-text-color);
+            margin-top: 5px;
+        }
+        .request-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .request-actions button {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .request-actions button:hover {
+            background-color: var(--border-color);
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+        body.dark-mode {
+            --bg-color: #1a1a1a;
+            --text-color: #fff;
+            --secondary-text-color: #aaa;
+            --border-color: #333;
+            --highlight-color: #ff69b4;
+            --card-bg: #2a2a2a;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+    <div class="container">
+        <div class="header">
+            <button class="back-button">←</button>
+            <h1>Invitations</h1>
+        </div>
+        <div class="tabs">
+            <div class="tab active">Received</div>
+            <div class="tab">Sent</div>
+        </div>
+        <div id="requestsList"></div>
+    </div>
+
+    <script>
+        const requests = [
+            { name: "Kakashi", message: "I see you like reading too", avatar: "/api/placeholder/50/50", time: "10 min ago" },
+            { name: "Goku", message: "Hey are you strong ?", avatar: "/api/placeholder/50/50", time: "30 min ago" },
+            { name: "Sasuke", message: "Be my friend, I want power", avatar: "/api/placeholder/50/50", time: "20 hrs ago" },
+            { name: "Zenitsu", message: "Reject Nezuko's request...", avatar: "/api/placeholder/50/50", time: "1 day ago" },
+            { name: "Nezuko", message: "Umm......", avatar: "/api/placeholder/50/50", time: "1 day ago" }
+        ];
+
+        function renderRequests() {
+            const requestsList = document.getElementById('requestsList');
+            requestsList.innerHTML = '';
+            requests.forEach((request, index) => {
+                const requestElement = document.createElement('div');
+                requestElement.className = 'request';
+                requestElement.innerHTML = `
+                    <img src="${request.avatar}" alt="${request.name}">
+                    <div class="request-info">
+                        <div class="request-name">${request.name}</div>
+                        <div class="request-message">${request.message}</div>
+                        <div class="request-time">${request.time}</div>
+                    </div>
+                    <div class="request-actions">
+                        <button onclick="handleRequest(${index}, 'reject')">✕</button>
+                        <button onclick="handleRequest(${index}, 'accept')">✓</button>
+                    </div>
+                `;
+                requestsList.appendChild(requestElement);
+            });
+        }
+
+        function handleRequest(index, action) {
+            if (action === 'accept') {
+                alert(`You accepted ${requests[index].name}'s request!`);
+            } else {
+                alert(`You rejected ${requests[index].name}'s request.`);
+            }
+            requests.splice(index, 1);
+            renderRequests();
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        renderRequests();
+    </script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Requests</title>
+    <style>
+        :root {
+            --bg-color: #fff;
+            --text-color: #333;
+            --secondary-text-color: #666;
+            --border-color: #eee;
+            --highlight-color: #ff69b4;
+            --card-bg: #fff;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-color);
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .back-button {
+            font-size: 1.5em;
+            background: none;
+            border: none;
+            color: var(--text-color);
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 0;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            color: var(--secondary-text-color);
+        }
+        .tab.active {
+            color: var(--highlight-color);
+            border-bottom: 2px solid var(--highlight-color);
+        }
+        .request {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .request:last-child {
+            border-bottom: none;
+        }
+        .request img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        .request-info {
+            flex-grow: 1;
+        }
+        .request-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .request-message {
+            font-size: 0.9em;
+            color: var(--secondary-text-color);
+        }
+        .request-time {
+            font-size: 0.8em;
+            color: var(--secondary-text-color);
+            margin-top: 5px;
+        }
+        .request-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .request-actions button {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button class="back-button">←</button>
+            <h1>Invitations</h1>
+        </div>
+        <div class="tabs">
+            <div class="tab active">Received</div>
+            <div class="tab">Sent</div>
+        </div>
+        <div id="requestsList">
+            <div class="request">
+                <img src="/api/placeholder/50/50" alt="Kakashi">
+                <div class="request-info">
+                    <div class="request-name">Kakashi</div>
+                    <div class="request-message">I see you like reading too</div>
+                    <div class="request-time">10 min ago</div>
+                </div>
+                <div class="request-actions">
+                    <button>✕</button>
+                    <button>✓</button>
+                </div>
+            </div>
+            <div class="request">
+                <img src="/api/placeholder/50/50" alt="Goku">
+                <div class="request-info">
+                    <div class="request-name">Goku</div>
+                    <div class="request-message">Hey are you strong ?</div>
+                    <div class="request-time">30 min ago</div>
+                </div>
+                <div class="request-actions">
+                    <button>✕</button>
+                    <button>✓</button>
+                </div>
+            </div>
+            <div class="request">
+                <img src="/api/placeholder/50/50" alt="Sasuke">
+                <div class="request-info">
+                    <div class="request-name">Sasuke</div>
+                    <div class="request-message">Be my friend, I want power</div>
+                    <div class="request-time">20 hrs ago</div>
+                </div>
+                <div class="request-actions">
+                    <button>✕</button>
+                    <button>✓</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -309,11 +309,11 @@ font-size: 50px;
 }
 
 .box2 img:last-child {
- animation: raj3o1 3s ;
+ animation: raj3o1 1.5s ;
 
 }
 .box2 img:first-child{
- animation: raj3o2 3s ;
+ animation: raj3o2 1.5s ;
 }
 @keyframes raj3o1 {
 
@@ -363,78 +363,11 @@ font-size: 50px;
   margin-left: 100px;
   padding: 20px;
   flex-grow: 1;
-  /* background: #25284A; */
   background: #202443;
   color: #fff;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
   font-family: 'Jaro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   overflow: hidden;
 } 
-
-/* .profile-page .overview {
-  background-color: #25284A;
-  box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  color: white;
-} */
-/* @media (max-width: 767px) {
-  .content_profile{
-    margin-left: 80px;
-    padding: 20px;
-    flex-grow: 1;
-  } 
-  .profile-page .overview {
-    flex-direction: column;
-  }
-} */
-/* .profile-page .avatar-box{
-  width: 300px;
-  font-family: "Jaro", system-ui;
-  font-weight: bold;
-  font-size: 40px;
-} */
-/* @media (min-width: 768px) {
-  .profile-page .avatar-box {
-    border-right: 1px solid #eee;
-  }
-} */
-/* .profile-page .avatar-box > img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  justify-content: flex-start;
-  align-items: flex-start;
-  left: -10px;
-  top: -10px;
-} */
-/* .profile-page .overview  .avatar-box .level {
-  background-color: #686c72;
-  position: relative;
-  height: 6px;
-  overflow: hidden;
-  margin: 10px auto;
-  margin-left: 0;
-  width: 80%;
-  border-radius: 6px;
-} */
-/* .profile-page .overview .avatar-box .level span {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 60%;
-  background-color: #0da9e9;
-  border-radius: 6px;
-} */
-/* .pr-welcome {
-  color: var(--green-color);
-} */
 
 .pr-welcome p{
   font-family: "Jaro", system-ui;
@@ -544,6 +477,52 @@ font-size: 50px;
   font-weight: bold;
   margin-bottom: 5px;
 }
+.scrool_histori{
+  background-color: #202443;
+  border-radius: 40px;
+  width: 100%;
+  height: 140px;
+  overflow: auto;
+}
+.histor{
+  width: 100%;
+  gap: 1%;
+}
+.histor .player_01 img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 5px;
+  border:solid 3px var(--red-color);
+  /* box-shadow: 0 0 20px var(--red-color); */
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.histor .player_02 img{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 5px;
+  border:solid 3px var(--red-color);
+  /* box-shadow: 0 0 20px var(--red-color); */
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.histor .Usernametohistory{
+  font-size: 20px;
+  font-weight: bold;
+}
+.histor .buut{
+  font-size: 3em;
+  font-weight: 900;
+  margin: 10px;
+}
+.histor .tow_poin{
+  font-size: 3.5em;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
 .win{
   color: rgb(6, 245, 6);
 
@@ -1296,9 +1275,6 @@ button:hover {
 
 /* -------------------- END LEADERBOARD  PAGE------------------------------------------------------------------------------ */
 
-
-/* background-color: #0da9e9; */
-/* box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); */
 .content_tour{
   margin-left: 100px;
   display: flex;
@@ -1307,7 +1283,7 @@ button:hover {
   overflow: hidden;
   width: 100%;
   /* height: 100vh; */
-  background-color: #0da9e9;
+  /* background-color: #0da9e9; */
 }
 
 .container_tour{

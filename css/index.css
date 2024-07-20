@@ -717,17 +717,21 @@ font-size: 50px;
 /* --------------------START  SETTING   PAGE------------------------------------------------------------------------------ */
 
 .content_setting {
-  margin-left: 120px;
+  margin-left: 150px;
   margin-right: 20px;
   margin-top: 20px;
-  padding: 20px;
-  flex-grow: 1;
-  display: grid;
+  /* padding: 20px;
+  flex-grow: 1; */
+  /* display: grid; */
   color: #eee;
   border-radius: 20px;
   box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
-  /* width: 100px; */
+
+  display: flex;
+  align-items: center; 
+  margin-bottom: 10px;
 }
+
 
 .main-content {
   flex-grow: 1;
@@ -736,10 +740,10 @@ font-size: 50px;
   height: fit-content;
 }
 
-h1, h2 {
+h1 {
   color: #c9d1d9;
 }
-
+/* 
 .menu-item {
   padding: 8px 0;
   color: #8b949e;
@@ -754,17 +758,16 @@ h1, h2 {
   background-color: #21262d;
   color: #ffffff;
   border-radius: 6px;
-  padding: 8px;
+  padding: 5px;
 }
 
 input, textarea {
   background-color: #0d1117;
   border: 1px solid #30363d;
-  color: #c9d1d9;
+  color: #b2c3d3;
   padding: 8px;
-  margin-bottom: 10px;
+  border-radius: 8px;
   width: 100%;
-  border-radius: 6px;
 }
 
 button {
@@ -773,6 +776,7 @@ button {
   border: none;
   padding: 8px 15px;
   cursor: pointer;
+  margin: 20px 5px;
   border-radius: 6px;
 }
 
@@ -786,6 +790,7 @@ button:hover {
   border-radius: 50%;
   object-fit: cover;
   margin-right: -10px;
+  border:  2px solid var(--color-gin);
 }
 
 .profile-section {
@@ -827,7 +832,7 @@ button:hover {
 }
 .profile-picture-container .edit-button {
   margin-left: 5px;
-}
+} */
 
 @media (max-width: 767px) {
   

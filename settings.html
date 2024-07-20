@@ -26,8 +26,6 @@
         <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
     </div>
   </header>
-  <!-- <div class="d-flex"> -->
-        <!-- Sidebar -->
         <div class="sidebar">
             <ul>
                 <li>
@@ -71,93 +69,47 @@
                   <i class="fa-solid fa-right-from-bracket"></i></button>
             </div>
         </div>
-
-        <!-- Main Content -->
-        <div class="content_setting w-50">
-            <main class="main-content p-4">
-                <h1 class="position-relative">Settings</h1>
-
-                <!-- Profile Settings -->
-                <section class="settings-box p-4 rad-1 mb-4">
-                  <h2 class="mt-0 mb-3">Profile Settings</h2>
-                    <div class="profile-picture-container">
-                        <img src="imag_1/images itach.jpeg" alt="Profile Picture" class="profile-picture" id="profile-image">
-                        <div id="test">
-                          <label class="edit-button " for="file-input2" id="edit-profile-picture">Edit</label>
-                          <input type="file" id="file-input2" name="avatar" class="form-control-file" hidden accept="image/*" id="id_avatar" >
-                        </div>
+        <div class="content_setting ">
+            <div class="main-content p-4 m-1">
+                <h1 class="position-relative mb-1">Settings</h1>
+                <div class="profile-picture-container">
+                    <img src="imag_1/images itach.jpeg" alt="Profile Picture" class="profile-picture" id="profile-image">
+                    <div id="test">
+                        <label class="edit-button " for="file-input2" id="edit-profile-picture">Edit</label>
+                        <input type="file" id="file-input2" name="avatar" class="form-control-file" hidden accept="image/*" id="id_avatar" >
                     </div>
-                    <form id="profile-form">
-                        <div class="profile-section_1">
-                            <div class="profile-section">
-                                <label class="fs-15  m-1" for="first">First Name</label>
-                                <input class="email" type="text" id="first" placeholder="First Name">
-                            </div>
-                            <div class="profile-section">
-                                <label class="fs-15  m-1" for="last">Last Name</label>
-                                <input class="email" id="last" type="text" placeholder="Last Name">
-                            </div>
-                            <div class="profile-section">
-                                <label class="fs-15  m-1" for="last">User Name</label>
-                                <input class="email" id="User" type="text" placeholder="User Name">
-                            </div>
-                            <div class="profile-section">
-                                <label class="fs-15  m-1" for="last">Password</label>
-                                <input class="password" id="Password" type="text" placeholder="Password">
-                            </div>
-                        </div>
-                    <div class="profile-section">
-                        <label class="fs-15  m-1" for="email">Email</label>
-                        <input class="email" id="email" type="email" placeholder="user@example.com">
-                      </div>
-                      <div class="profile-section">
-                          <label for="bio">Bio</label>
-                          <textarea id="bio" name="bio" rows="4" placeholder="Tell us a little bit about yourself"></textarea>
-                      </div>
-                      <div class="checkbox-container">
-                          <input type="checkbox" id="display-time" name="display-time">
-                          <label for="display-time">Display current local time</label>
-                      </div>
-                      <button type="submit">Update profile</button>
-                    </form>
-                </section>
-            </main>
+                </div>
+                <div class="profile-section">
+                    <label class="fs-15  m-1" for="first">First Name</label>
+                    <input class="email" type="text" id="first" placeholder="First Name">
+                </div>
+                <div class="profile-section">
+                    <label class="fs-15  m-1" for="last">Last Name</label>
+                    <input class="email" id="last" type="text" placeholder="Last Name">
+                </div>
+                <div class="profile-section">
+                    <label class="fs-15  m-1" for="last">User Name</label>
+                    <input class="email" id="User" type="text" placeholder="User Name">
+                </div>
+                <div class="profile-section">
+                    <label class="fs-15  m-1" for="last">Password</label>
+                    <input class="password" id="Password" type="text" placeholder="Password">
+                </div>
+
+                <div class="profile-section">
+                    <label class="fs-15  m-1" for="email">Email</label>
+                    <input class="email" id="email" type="email" placeholder="user@example.com">
+                </div>
+                <div class="profile-section">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" name="bio" rows="4" placeholder="Tell us a little bit about yourself"></textarea>
+                </div>
+                    <div class="checkbox-container">
+                        <input type="checkbox" id="display-time" name="display-time">
+                        <label for="display-time">Display current local time</label>
+                    </div>
+                    <button type="submit">Update profile</button>
+            </div>
         </div>
-  <!-- </div> -->
-    <!-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const profileForm = document.getElementById('profile-form');
-            const updatePreferencesButton = document.getElementById('update-preferences');
-            const fileInput = document.getElementById('file-input');
-            const profileImage = document.getElementById('profile-image');
-            const editProfilePictureButton = document.getElementById('edit-profile-picture');
-
-            profileForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                console.log('Profile updated');
-                // Here you would typically send the form data to a server
-            });
-
-            updatePreferencesButton.addEventListener('click', function() {
-                console.log('Preferences updated');
-                // Here you would typically send the updated preferences to a server
-            });
-
-            editProfilePictureButton.addEventListener('click', function() {
-                fileInput.click();
-            });
-
-            fileInput.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        profileImage.src = event.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script> -->
 </body>
 </html>

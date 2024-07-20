@@ -230,8 +230,8 @@ header .img-fluid{
 /* --------------------FROM START HOME PAGE------------------------------------------------------------------------------ */
 
 .content_index{
-  margin-left: 110px;
-  margin-right: 15px;
+  margin-left: 100px;
+  margin-right: 10px;
 }
 .wrapper {
   display: grid;
@@ -246,6 +246,10 @@ header .img-fluid{
 }
 
 @media (max-width: 940px) {
+  .content_index{
+    margin-left: 95px;
+    margin-right: 0px;
+  }
   .wrapper {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3,250px);
@@ -255,7 +259,7 @@ header .img-fluid{
     "box4";
   }
   .wrapper .box2 p{
-    font-size: 30px;
+    font-size: 25px;
     color: white;
   }
   .wrapper .box2 h3{
@@ -269,7 +273,7 @@ header .img-fluid{
     "level"  !important;
   }
   .box2 .btn{
-    font-size: 20px;
+    font-size: 12px;
   }
   header .search input{
     width: 300px;
@@ -304,7 +308,7 @@ header .img-fluid{
     "level"  !important;
   }
   .box2 .btn{
-    font-size: 10px;
+    font-size: 7px;
   }
   header .search input{
     width: 200px;
@@ -722,7 +726,7 @@ font-size: 50px;
   color: #eee;
   border-radius: 20px;
   box-shadow: inset 0px -109px 98px 43px rgba(0,0,0,0.9);
-  width: 800px;
+  /* width: 100px; */
 }
 
 .main-content {

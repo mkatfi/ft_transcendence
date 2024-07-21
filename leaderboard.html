@@ -186,44 +186,5 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="js/all.min.js"></script>
     <script src="js/index.js"></script>
-    <script>
-
-            let indicators = document.querySelectorAll('.status-leader');
-            let isOnline = true;
-            indicators.forEach((indicator) => {
-                    if (isOnline == false) {
-                        indicator.classList.remove('active_leader');
-                        indicator.classList.add('not-active_leader');
-                        indicator.setAttribute('aria-label', 'not_active_leader');
-                    } else {
-                        indicator.classList.remove('not-active_leader');
-                        indicator.classList.add('active_leader');
-                        indicator.setAttribute('aria-label', 'active_leader');
-                    }
-            });
-
-        let counter = 0;
-        let friend_all = document.querySelectorAll('.leader-count span');
-        friend_all.forEach((friend_one) => {
-                    console.log("counter : ", friend_one.textContent.split(" "));
-                    counter = Number(friend_one.textContent.split(" ")[0]);
-                    counter++;
-                    console.log("counter : ", counter);
-                    friend_one.innerHTML = counter + " " + friend_one.textContent.split(" ")[1];
-        });
-
-
-    </script>
-    <!-- <script>
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const welcomeMessage = document.querySelector('.welcome-message');
-            if (welcomeMessage) {
-                welcomeMessage.addEventListener('click', () => {
-                    alert('Welcome to Pingpong! Let\'s play!');
-                });
-            }
-        });
-    </script> -->
 </body>
 </html>

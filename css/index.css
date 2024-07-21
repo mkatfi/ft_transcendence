@@ -738,9 +738,8 @@ font-size: 50px;
   /* width: fit-content; */
 }
 
-h1 {
+.main-content h1 {
   color: #c9d1d9;
-  /* font-family: "Jaro", system-ui; */
   font-family: "Black_Ops_One variant0", Tofu;
   font-weight: bold;
   font-size: 80px;
@@ -783,6 +782,9 @@ h1 {
   }
   .profile-section.two-column {
       flex-direction: column;
+  }
+  .main-content h1 {
+    font-size: 50px;
   }
 }
 /* -------------------------------------------- */
@@ -1040,6 +1042,9 @@ button:hover {
   border-radius: 50%;
   border:solid 2px var(--red-color);
   box-shadow: 0 0 20px var(--red-color);
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
 }
 
 .contact_frind{

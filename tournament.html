@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="page">
         <header class="d-flex justify-content-between align-items-center p-4">
@@ -70,6 +71,7 @@
                       <i class="fa-solid fa-right-from-bracket"></i></button>
                 </div>
             </div>
+            <!--
             <div class="content_tour d-flex justify-content-center align-items-center">
                 <div class="container_tour">
                     <div id="playerSelection">
@@ -82,7 +84,6 @@
             </div>
         </div>
     </div>
-    <!-- <script src="js/main.js"></script> -->
     <script>
         function generateBracket(numPlayers) {
             const bracket = document.getElementById('bracket');
@@ -145,16 +146,381 @@
                 }
                 bracket.appendChild(round);
             }
-            // Add flying ping pong balls
-            // for (let i = 0; i < 5; i++) {
-            //     const ball = document.createElement('div');
-            //     ball.className = 'ping-pong-ball';
-            //     ball.style.left = `${Math.random() * 50}vw`;
-            //     ball.style.top = `${Math.random() * 50}vh`;
-            //     ball.style.animationDelay = `${Math.random() * 10}s`;
-            //     document.body.appendChild(ball);
-            // }
         }
     </script>
 </body>
-</html> 
+</html>  -->
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tournament Bracket Selection</title> -->
+    <style>
+        :root {
+            --bg-color: #1a202c;
+            --text-color: #ffffff;
+            --option-bg: #2d3748;
+            --player-bg: #4a5568;
+            --hover-color: #718096;
+        }
+        .content_tour {
+                /* min-height: 100vh; */
+                /* place-items: center; */
+                font-family: 'Arial', sans-serif;
+                display: grid;
+                background-color:aqua;
+                color: white;
+                width: 100%;
+                max-width: 1200px;
+                padding: 1rem;
+                box-sizing: border-box;
+                margin-left: 100px;
+        }
+        
+        .container_tour {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 0;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            justify-content: center;
+            
+        }
+        
+        .option {
+            aspect-ratio: 1 / 1;
+            background-color: var(--option-bg);
+            border-radius: 0.5rem;
+            display: grid;
+            place-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            position: relative;
+        }
+        
+        .option:hover {
+            transform: scale(1.05);
+            background-color: var(--hover-color);
+        }
+        
+        .players {
+            position: absolute;
+            inset: 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            padding: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .option:hover .players {
+            opacity: 1;
+        }
+        
+        .player {
+            background-color: var(--player-bg);
+            border-radius: 0.25rem;
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            align-items: center;
+            justify-items: center;
+            text-align: center;
+        }
+        
+        .player img {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 50%;
+            margin-bottom: 0.25rem;
+        }
+        
+        #playerInfo {
+            text-align: center;
+        }
+        
+        #playerInfo h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--option-bg);
+            padding: 2rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            display: none;
+            max-width: 90%;
+            width: 300px;
+        }
+        
+        .alert h2 {
+            margin-top: 0;
+        }
+        
+        .alert button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--player-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .option {
+                font-size: 2.5rem;
+            }
+            .player {
+                font-size: 0.7rem;
+            }
+            .player img {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .option {
+                font-size: 2rem;
+            }
+            .players {
+                gap: 0.25rem;
+                padding: 0.5rem;
+            }
+            .player {
+                padding: 0.25rem;
+                font-size: 0.6rem;
+            }
+            .player img {
+                width: 1.2rem;
+                height: 1.2rem;
+            }
+            #playerInfo h2 {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="content_tour">
+        <div class="container_tour">
+            <h1>Tournament Bracket</h1>
+            <div class="options">
+                <div class="option" onclick="showAlert(4)">
+                    4
+                    <div class="players">
+                        <div class="player" onmouseover="showPlayerInfo('Roger Federer')">
+                            <img src="/api/placeholder/100/100" alt="Roger Federer">
+                            <span>Roger Federer</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Rafael Nadal')">
+                            <img src="/api/placeholder/100/100" alt="Rafael Nadal">
+                            <span>Rafael Nadal</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Novak Djokovic')">
+                            <img src="/api/placeholder/100/100" alt="Novak Djokovic">
+                            <span>Novak Djokovic</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Andy Murray')">
+                            <img src="/api/placeholder/100/100" alt="Andy Murray">
+                            <span>Andy Murray</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" onclick="showAlert(8)">
+                    8
+                    <div class="players">
+                        <div class="player" onmouseover="showPlayerInfo('Roger Federer')">
+                            <img src="/api/placeholder/100/100" alt="Roger Federer">
+                            <span>Roger Federer</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Rafael Nadal')">
+                            <img src="/api/placeholder/100/100" alt="Rafael Nadal">
+                            <span>Rafael Nadal</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Novak Djokovic')">
+                            <img src="/api/placeholder/100/100" alt="Novak Djokovic">
+                            <span>Novak Djokovic</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Andy Murray')">
+                            <img src="/api/placeholder/100/100" alt="Andy Murray">
+                            <span>Andy Murray</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Serena Williams')">
+                            <img src="/api/placeholder/100/100" alt="Serena Williams">
+                            <span>Serena Williams</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Maria Sharapova')">
+                            <img src="/api/placeholder/100/100" alt="Maria Sharapova">
+                            <span>Maria Sharapova</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Venus Williams')">
+                            <img src="/api/placeholder/100/100" alt="Venus Williams">
+                            <span>Venus Williams</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Simona Halep')">
+                            <img src="/api/placeholder/100/100" alt="Simona Halep">
+                            <span>Simona Halep</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="playerInfo"></div>
+            <div class="alert" id="alert">
+                <h2>Tournament Started!</h2>
+                <p id="alertMessage"></p>
+                <button onclick="closeAlert()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPlayerInfo(playerName) {
+            const playerInfo = document.getElementById('playerInfo');
+            playerInfo.innerHTML = `
+                <h2>${playerName}</h2>
+                <p>Path: Round 1 → Semi-finals → Finals → Champion</p>
+            `;
+        }
+
+        function showAlert(players) {
+            const alert = document.getElementById('alert');
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.textContent = `The tournament has been initiated with ${players} players. Good luck to all participants!`;
+            alert.style.display = 'block';
+        }
+
+        function closeAlert() {
+            const alert = document.getElementById('alert');
+            alert.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
+<!-- 
+<body>
+    <div class="content_tour">
+        <div class="container_tour">
+            <h1>Tournament Bracket</h1>
+            <div class="options">
+                <div class="option" onclick="showAlert(4)">
+                    <h1>4</h1>
+                    <div class="players">
+                        <div class="player" onmouseover="showPlayerInfo('Roger Federer')">
+                            <img src="imag_1/d0.jpg" alt="Roger Federer">
+                            <span>Roger Federer</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Rafael Nadal')">
+                            <img src="imag_1/d0.jpg" alt="Rafael Nadal">
+                            <span>Rafael Nadal</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Novak Djokovic')">
+                            <img src="imag_1/d0.jpg" alt="Novak Djokovic">
+                            <span>Novak Djokovic</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Andy Murray')">
+                            <img src="imag_1/d0.jpg" alt="Andy Murray">
+                            <span>Andy Murray</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" onclick="showAlert(8)">
+                    <h1>8</h1>
+                    <div class="players">
+                        <div class="player" onmouseover="showPlayerInfo('Roger Federer')">
+                            <img src="imag_1/d0.jpg" alt="Roger Federer">
+                            <span>Roger Federer</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Rafael Nadal')">
+                            <img src="imag_1/d0.jpg" alt="Rafael Nadal">
+                            <span>Rafael Nadal</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Novak Djokovic')">
+                            <img src="imag_1/d0.jpg" alt="Novak Djokovic">
+                            <span>Novak Djokovic</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Andy Murray')">
+                            <img src="imag_1/d0.jpg" alt="Andy Murray">
+                            <span>Andy Murray</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Serena Williams')">
+                            <img src="imag_1/d0.jpg" alt="Serena Williams">
+                            <span>Serena Williams</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Maria Sharapova')">
+                            <img src="imag_1/d0.jpg" alt="Maria Sharapova">
+                            <span>Maria Sharapova</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Venus Williams')">
+                            <img src="imag_1/d0.jpg" alt="Venus Williams">
+                            <span>Venus Williams</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Simona Halep')">
+                            <img src="imag_1/d0.jpg" alt="Simona Halep">
+                            <span>Simona Halep</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="playerInfo"></div>
+            <div class="alert" id="alert">
+                <h2>Tournament Started!</h2>
+                <p id="alertMessage"></p>
+                <button onclick="closeAlert()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPlayerInfo(playerName) {
+            const playerInfo = document.getElementById('playerInfo');
+            playerInfo.innerHTML = `
+                <h2>${playerName}</h2>
+                <p>Path: Round 1 → Semi-finals → Finals → Champion</p>
+            `;
+        }
+
+        function showAlert(players) {
+            const alert = document.getElementById('alert');
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.textContent = `The tournament has been initiated with ${players} players. Good luck to all participants!`;
+            alert.style.display = 'block';
+        }
+
+        function closeAlert() {
+            const alert = document.getElementById('alert');
+            alert.style.display = 'none';
+        }
+    </script>
+</body>
+</html> -->

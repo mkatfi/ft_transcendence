@@ -11,7 +11,13 @@
   --blue-color: #0da9e9;
   --dark-yellow-color: #F59401;
   --bagraound :  rgb(79, 224, 224);
-  --color-gin: #FC7785
+  --color-gin: #FC7785;
+
+  --bg-color: #1a202c;
+  --text-color: #ffffff;
+  --option-bg: #2d3748;
+  --player-bg: #4a5568;
+  --hover-color: #202443;
 }
 
 * {
@@ -1321,7 +1327,7 @@ button:hover {
   }
 }
 
-@media (max-width: 750px) {
+@media (max-width: 780px) {
   .wrapper_leader {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3,350px);
@@ -1369,7 +1375,252 @@ button:hover {
 /* -------------------- END LEADERBOARD  PAGE------------------------------------------------------------------------------ */
 /* -------------------- start tournament ****------------------------------------------------------------------------------ */
 
+.content_tour {
+    font-family: 'Arial', sans-serif;
+    display: grid;
+    color: white;
+    margin-left: 150px;
+    margin-top: 50px;
+    margin-right: 50px;
+}
 
+.container_tour {
+  width: 100%;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(2,1fr);
+  grid-template-rows: repeat(2, 400px);
+  grid-template-areas: "lox1 lox2"
+                       "lox3 lox3";
+}
+
+h1 {
+  text-align: center;
+  font-size:xx-large;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  margin: 10px;
+}
+
+.option_4 {
+  grid-area: lox1;
+   background-color: transparent;
+  /* aspect-ratio: 1 / 1; */
+  border-radius: 35px;
+  display: grid;
+  place-items: center;
+  font-size: 5rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  box-shadow: inset 0px 5px 10px 0px #000000,
+  inset 0px -5px 10px 0px rgb(0, 0, 0);
+  transition: transform 0.6s ease, background-color 0.6s ease;
+}
+.option_8 {
+  grid-area: lox2;
+   background-color: transparent;
+  /* aspect-ratio: 1 / 1; */
+  border-radius: 35px;
+  display: grid;
+  place-items: center;
+  font-size: 5rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  box-shadow: inset 0px 5px 10px 0px #000000,
+  inset 0px -5px 10px 0px rgb(0, 0, 0);
+  transition: transform 0.6s ease, background-color 0.6s ease;
+}
+.option_history{
+  grid-area: lox3;
+  display: grid;
+  background-color:transparent;
+  border-radius: 35px;
+  place-items: center;
+  font-size: 5rem;
+  font-weight: bold;
+  cursor: pointer;
+  position: relative;
+  box-shadow: inset 0px 5px 10px 0px #000000,
+  inset 0px -5px 10px 0px rgb(0, 0, 0);
+  transition: transform 0.6s ease, background-color 0.6s ease;
+}
+.option_4:hover, 
+.option_8:hover,
+.option_history:hover {
+  transform: scale(1.1);
+  background-color: #202443;
+}
+
+.players {
+  position: absolute;
+  display: grid;
+  inset: 0;
+  gap: 0.5rem;
+  padding: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.option_4:hover .players, 
+.option_8:hover .players,
+.option_history:hover .choose-to-tournament {
+  opacity: 1.5;
+}
+
+.player_tour {
+  background-color: var(--player-bg);
+  font-size: 0.75rem;
+  display: grid;
+  border-radius: 10px;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+
+.option_4 .player_tour img{
+  width: 100px;
+  height: 100px;
+}
+.option_8 .player_tour img{
+  width: 60px;
+  height: 60px;
+}
+.option_history .player_tour img{
+  width: 60px;
+  height: 60px;
+}
+.player_tour img {
+  border-radius: 50%;
+  margin-bottom: 0.25rem;
+  border:solid 3px var(--red-color);
+  box-shadow: 0 0 20px var(--red-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.choose-to-tournament{
+  position: absolute;
+  display: grid;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  gap: 0.5rem;
+  padding: 1rem;
+  grid-template-columns: repeat(1, 1fr);
+  /* grid-template-rows: repeat(2, 1fr); */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+}
+.choose{
+  background-color: var(--player-bg);
+  width: 100%;
+  display: grid;
+  border-radius: 10px;
+  /* opacity: 0.5; */
+  /* font-size: 0.75rem; */
+  align-items: center;
+  /* justify-items: center; */
+  text-align: center;
+}
+.choose img{
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 0.25rem;
+  border:solid 3px var(--red-color);
+  box-shadow: 0 0 20px var(--red-color);
+  position: relative;
+  overflow: hidden;
+  
+}
+
+/* #playerInfo {
+  text-align: center;
+} */
+
+/* #playerInfo h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.alert {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--option-bg);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  display: none;
+  max-width: 90%;
+  width: 300px;
+}
+
+.alert h2 {
+  margin-top: 0;
+}
+
+.alert button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--player-bg);
+  color: var(--text-color);
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}  */
+
+@media (max-width: 768px) {
+  h1 {
+      font-size: 2rem;
+  }
+  .container_tour {
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(1,1fr);
+    grid-template-rows: repeat(3, 400px);
+    grid-template-areas: "lox1 "
+                         "lox2"
+                         "lox3";
+  }
+  .player {
+      font-size: 0.7rem;
+  }
+  .player img {
+      width: 1.5rem;
+      height: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+      font-size: 1.5rem;
+  }
+  .option {
+      font-size: 2rem;
+  }
+  .players {
+      gap: 0.25rem;
+      padding: 0.5rem;
+  }
+  .player {
+      padding: 0.25rem;
+      font-size: 0.6rem;
+  }
+  .player img {
+      width: 1.2rem;
+      height: 1.2rem;
+  }
+  #playerInfo h2 {
+      font-size: 1.2rem;
+  }
+}
 /* 
 .content_tour{
   margin-left: 110px;

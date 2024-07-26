@@ -18,6 +18,7 @@
   --option-bg: #2d3748;
   --player-bg: #4a5568;
   --hover-color: #202443;
+  --all-button: rgb(253, 0, 127);
 }
 
 * {
@@ -1394,11 +1395,16 @@ button:hover {
                        "lox3 lox3";
 }
 
-h1 {
-  text-align: center;
-  font-size:xx-large;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  margin: 10px;
+.Tournament-brack{
+ border-radius: 35px;
+ font-size:x-large;
+ display: grid;
+ place-items: center;
+ font-family:Verdana, Geneva, Tahoma, sans-serif;
+ margin: 10px;
+ font-weight: bold;
+ box-shadow: inset 0px 5px 10px 0px #000000,
+ inset 0px -5px 10px 0px rgb(0, 0, 0);
 }
 
 .option_4 {
@@ -1503,29 +1509,31 @@ h1 {
 
 .choose-to-tournament{
   position: absolute;
-  display: grid;
+  /* display: grid; */
   width: 100%;
   height: 100%;
   inset: 0;
-  gap: 0.5rem;
+  gap: 0.4rem;
   padding: 1rem;
   grid-template-columns: repeat(1, 1fr);
   /* grid-template-rows: repeat(2, 1fr); */
-  opacity: 0;
+  opacity: 1;
   transition: opacity 0.3s ease;
 
 }
 .choose{
+  display: flex;
   background-color: var(--player-bg);
+  padding: 15px;
   width: 100%;
-  display: grid;
   border-radius: 10px;
-  /* opacity: 0.5; */
-  /* font-size: 0.75rem; */
+  font-size: 0.75rem;
   align-items: center;
-  /* justify-items: center; */
+  justify-items: flex-start;
   text-align: center;
+  /* opacity: 1; */
 }
+
 .choose img{
   width: 80px;
   height: 80px;
@@ -1535,24 +1543,38 @@ h1 {
   box-shadow: 0 0 20px var(--red-color);
   position: relative;
   overflow: hidden;
-  
+}
+.choose-info {
+  flex-grow: 1;
+}
+.choose-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.choose-message {
+  font-size: 13px;
+}
+.choose-time {
+  font-size: 12px;
+  margin-top: 5px;
 }
 
-/* #playerInfo {
+#playerInfo {
   text-align: center;
-} */
+}
 
-/* #playerInfo h2 {
+#playerInfo h2 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
 }
 
 .alert {
   position: fixed;
+  color: white;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--option-bg);
+  background-color: #202443;
   padding: 2rem;
   border-radius: 0.5rem;
   text-align: center;
@@ -1568,12 +1590,12 @@ h1 {
 .alert button {
   margin-top: 1rem;
   padding: 0.5rem 1rem;
-  background-color: var(--player-bg);
+  background-color: var( --all-button);
   color: var(--text-color);
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
-}  */
+} 
 
 @media (max-width: 768px) {
   h1 {

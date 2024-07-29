@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .score-big {
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            background-color: green;
+            padding: 20px;
+            
+        }
+        .score-avatar {
+            
+            background-color: red;
+            width: 120px;
+            height:120px;
+
+        }
+        .score-big img {
+            width: 100px;
+            height:100px;
+            
+            clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
+           
+        }
+        /* .score-avatar{
+            border: solid 3px red;
+        } */
+    </style>
+</head>
+<body>
+    
+    <div class="score-big">
+        <img src="image/avatar.png" alt="" class="score-avatar">
+        <img src="image/avatar.png" alt="" class="score-avatar">
+    </div>
+</body>
+</html>

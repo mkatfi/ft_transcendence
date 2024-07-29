@@ -73,7 +73,7 @@
         </div>
         <div class="content_tour ">
             <div class="Tournament-brack">
-                Tournament Bracket
+                Tournament Break
             </div>
             
             <div class="container_tour">
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="option_history" onclick="showAlert(8)">
+                <!-- <div class="option_history" onclick="showAlert(8)">
                     <div class="choose-to-tournament  scrool-invitations ">
                         <div class="choose">
                             <img src="/imag_1/d0.jpg" alt="Kakashi">
@@ -148,19 +148,67 @@
 
                     </div>
                             
+                </div> -->
+                <!-- <div class="content_tour">
+                    <div class="container_tour"> -->
+                        <div class="option_history">
+                            <div class="choose-to-tournament">
+                                <div class="choose">
+                                    <img src="/bagraoubd/d10a0dae8a1d95679ca547f442019c97.jpg" alt="Kakashi">
+                                    <div class="choose-info">
+                                        <div class="choose-name">Kakashi <i class="fas fa-trophy trophy-icon"></i></div>
+                                        <div class="choose-position">Position: 1st</div>
+                                        <div class="choose-tournament-type">Tournament: 4 players</div>
+                                        <div class="choose-level">Level Reached: Winner</div>
+                                    </div>
+                                    <button class="choose-button" onclick="showBracket(4)">View Bracket</button>
+                                </div>
+                                <div class="choose">
+                                    <img src="/bagraoubd/d10a0dae8a1d95679ca547f442019c97.jpg" alt="Naruto">
+                                    <div class="choose-info">
+                                        <div class="choose-name">Naruto</div>
+                                        <div class="choose-position">Position: 3rd</div>
+                                        <div class="choose-tournament-type">Tournament: 8 players</div>
+                                        <div class="choose-level">Level Reached: Semi-finalist</div>
+                                    </div>
+                                    <button class="choose-button" onclick="showBracket(8)">View Bracket</button>
+                                </div>
+                                <!-- Add more tournament entries as needed -->
+                            </div>
+                        </div>
+                    <!-- </div>
+                </div> -->
+            
+                <!-- Bracket Modal -->
+                <div class="modal fade" id="bracketModal" tabindex="-1" aria-labelledby="bracketModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="bracketModalLabel">Tournament Bracket</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="bracketContainer">
+                                    <div id="leftSide" class="bracket-side"></div>
+                                    <div id="rightSide" class="bracket-side"></div>
+                                </div>
+                                <div id="trophyRound"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                     
             </div>
         </div>
-                <!-- </div> -->
-                    <div id="playerInfo"></div>
-                    <div class="alert" id="alert">
-                        <h2>Tournament Started!</h2>
-                        <p id="alertMessage"></p>
-                        <button onclick="closeAlert()">Close</button>
-                    </div>
-                <!-- </div> -->
-            <!-- </div> -->
+        <!-- <div id="playerInfo"></div>
+        <div class="alert" id="alert">
+            <h2>Tournament Started!</h2>
+            <p id="alertMessage"></p>
+            <button onclick="closeAlert()">Close</button>
+        </div> -->
     </div>
 
     <script>
@@ -184,6 +232,134 @@
             alert.style.display = 'none';
         }
     </script>
+    <script>
+        function showBracket(numPlayers) {
+            generateBracket(numPlayers);
+            const bracketModal = new bootstrap.Modal(document.getElementById('bracketModal'));
+            bracketModal.show();
+        }
+
+        function generateBracket(numPlayers) {
+            const leftSide = document.getElementById('leftSide');
+            const rightSide = document.getElementById('rightSide');
+            const trophyRound = document.getElementById('trophyRound');
+            leftSide.innerHTML = '';
+            rightSide.innerHTML = '';
+            trophyRound.innerHTML = '';
+
+            const rounds = numPlayers === 4 ? 1 : 2;
+            const playerNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Henry'];
+
+            for (let i = 0; i < rounds; i++) {
+                const roundLeft = document.createElement('div');
+                roundLeft.className = 'round';
+                const roundRight = document.createElement('div');
+                roundRight.className = 'round';
+
+                const playersInRound = numPlayers / Math.pow(2, i);
+
+                for (let j = 0; j < playersInRound / 2; j++) {
+                    const player = document.createElement('div');
+                    player.className = 'player';
+                    if (i === 0) {
+                        const img = document.createElement('img');
+                        img.src = `/api/placeholder/30/30`;
+                        img.alt = playerNames[j];
+                        player.appendChild(img);
+                        const name = document.createElement('span');
+                        name.textContent = playerNames[j];
+                        player.appendChild(name);
+                    }
+                    roundLeft.appendChild(player);
+                }
+
+                for (let j = playersInRound / 2; j < playersInRound; j++) {
+                    const player = document.createElement('div');
+                    player.className = 'player';
+                    if (i === 0) {
+                        const img = document.createElement('img');
+                        img.src = `/api/placeholder/30/30`;
+                        img.alt = playerNames[j];
+                        player.appendChild(img);
+                        const name = document.createElement('span');
+                        name.textContent = playerNames[j];
+                        player.appendChild(name);
+                    }
+                    roundRight.appendChild(player);
+                }
+
+                leftSide.appendChild(roundLeft);
+                rightSide.appendChild(roundRight);
+            }
+
+            // Add trophy
+            const trophy = document.createElement('div');
+            trophy.id = 'trophy';
+            trophy.textContent = '🏆';
+            trophyRound.appendChild(trophy);
+        }
+    </script>
+    <!-- <script>
+        import React, { useState } from 'react';
+        import { Trophy } from 'lucide-react';
+
+        const TournamentHistory = () => {
+        const [showBracket, setShowBracket] = useState(false);
+        const [numPlayers, setNumPlayers] = useState(4);
+
+        const tournamentHistory = [
+            { name: 'Alice', position: 1, tournamentType: 4, level: 'Winner' },
+            { name: 'Bob', position: 2, tournamentType: 8, level: 'Runner-up' },
+            { name: 'Charlie', position: 3, tournamentType: 4, level: 'Semi-finalist' },
+            { name: 'David', position: 4, tournamentType: 8, level: 'Quarter-finalist' },
+        ];
+
+        const generateBracket = (players) => { 
+            // This is a placeholder for the bracket generation logic
+            // In a real implementation, this would create the tournament bracket
+            console.log(`Generating bracket for ${players} players`);
+            setShowBracket(true);
+            setNumPlayers(players);
+        };
+
+        return (
+            <div className="bg-gray-800 p-4 rounded-lg">
+            <h2 className="text-2xl font-bold mb-4 text-white">Tournament History</h2>
+            <div className="space-y-4 max-h-96 overflow-y-auto">
+                {tournamentHistory.map((player, index) => (
+                <div key={index} className="bg-gray-700 p-4 rounded-lg flex items-center space-x-4">
+                    <img src={`/api/placeholder/50/50`} alt={player.name} className="w-12 h-12 rounded-full" />
+                    <div className="flex-grow">
+                    <h3 className="text-lg font-semibold text-white">{player.name}</h3>
+                    <p className="text-gray-300">Position: {player.position}</p>
+                    <p className="text-gray-300">Tournament: {player.tournamentType} players</p>
+                    <p className="text-gray-300">Level Reached: {player.level}</p>
+                    </div>
+                    {player.position === 1 && <Trophy className="text-yellow-400" size={24} />}
+                </div>
+                ))}
+            </div>
+            <button
+                onClick={() => generateBracket(numPlayers)}
+                className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            >
+                Generate Bracket
+            </button>
+            {showBracket && (
+                <div className="mt-4 bg-gray-700 p-4 rounded-lg">
+                <h3 className="text-xl font-bold mb-2 text-white">Tournament Bracket</h3>
+                <p className="text-gray-300">Bracket for {numPlayers} players generated.</p>
+                {/* Placeholder for the actual bracket visualization */}
+                <div className="mt-2 flex justify-center items-center h-40 bg-gray-600 rounded">
+                    <p className="text-white">Bracket Visualization Placeholder</p>
+                </div>
+                </div>
+            )}
+            </div>
+        );
+        };
+        export default TournamentHistory;
+    </script> -->
 </body>
 </html>
 <!-- 
@@ -283,3 +459,5 @@
     </script>
 </body>
 </html> -->
+
+

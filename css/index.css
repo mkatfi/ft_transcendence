@@ -1380,17 +1380,17 @@ button:hover {
     font-family: 'Arial', sans-serif;
     display: grid;
     color: white;
-    margin-left: 150px;
-    margin-top: 50px;
-    margin-right: 50px;
+    margin-left:190px;
+    margin-top: 20px;
+    margin-right: 100px;
 }
 
 .container_tour {
   width: 100%;
   display: grid;
-  gap: 30px;
+  gap: 15px;
   grid-template-columns: repeat(2,1fr);
-  grid-template-rows: repeat(2, 400px);
+  grid-template-rows: repeat(2, 380px);
   grid-template-areas: "lox1 lox2"
                        "lox3 lox3";
 }
@@ -1466,7 +1466,7 @@ button:hover {
   padding: 1rem;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, auto);
-  opacity: 0;
+  opacity: 0.5;
   transition: opacity 0.3s ease;
 }
 
@@ -1710,6 +1710,198 @@ button:hover {
   0% { transform: scale(1); }
   100% { transform: scale(1.2); }
 } */
+/* body {
+  background-color: #1e1e2f;
+  font-family: 'Arial', sans-serif;
+  color: white;
+}
+
+.content_tour {
+  display: grid;
+  gap: 20px;
+  margin: 20px 190px;
+}
+
+.container_tour {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 380px);
+  grid-template-areas: "lox1 lox2"
+                       "lox3 lox3";
+} */
+
+.option_history {
+  grid-area: lox3;
+  background-color: #202443;
+  border-radius: 35px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.choose-to-tournament {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 500px;
+  scrollbar-width: thin;
+  /* scrollbar-color: #444 #202443; */
+}
+
+.choose {
+  display: flex;
+  background-color: #333752;
+  padding: 15px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 10px;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.choose:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.choose img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: solid 3px #ff4f5a;
+  box-shadow: 0 0 20px #ff4f5a;
+}
+
+.choose-info {
+  flex-grow: 1;
+}
+
+.choose-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.choose-tournament-type, .choose-level, .choose-position {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.choose-time {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.choose-button {
+  background-color: #ff4f5a;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.choose-button:hover {
+  background-color: #ff1e2a;
+}
+
+.trophy-icon {
+  font-size: 1.5rem;
+  color: gold;
+  margin-left: 10px;
+}
+
+#bracketModal .modal-content {
+  background-color: #2a2b3c;
+  color: white;
+}
+
+#bracketModal .modal-header {
+  border-bottom: 1px solid #444;
+}
+
+#bracketModal .modal-footer {
+  border-top: 1px solid #444;
+}
+
+#bracketContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bracket-side {
+  width: 45%;
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.player {
+  background-color: #444;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.player img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#trophy {
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .container_tour {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 400px);
+      grid-template-areas: "lox1"
+                           "lox2"
+                           "lox3";
+  }
+
+  .option_history {
+      padding: 15px;
+  }
+
+  .choose img {
+      width: 60px;
+      height: 60px;
+  }
+
+  .choose-name {
+      font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .choose img {
+      width: 50px;
+      height: 50px;
+  }
+
+  .choose-name {
+      font-size: 0.85rem;
+  }
+
+  .choose-button {
+      padding: 5px 8px;
+      font-size: 0.8rem;
+  }
+}
 /* -------------------- END Tournament ****------------------------------------------------------------------------------ */
 
 /* *---------------- LOGIN PAGE START------------------------- */

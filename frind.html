@@ -630,7 +630,266 @@ displayTournamentHistory();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
 </head>
+<style>
+    body {
+  background-color: #1e1e2f;
+  font-family: 'Arial', sans-serif;
+  color: white;
+}
 
+.content_tour {
+  display: grid;
+  gap: 20px;
+  margin: 20px 190px;
+}
+
+.container_tour {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 380px);
+  grid-template-areas: "lox1 lox2"
+                       "lox3 lox3";
+}
+
+.content_tour{
+  margin-left: 110px;
+  display: flex;
+  font-family: 'Arial', sans-serif;
+  color: white;
+  overflow: hidden;
+  width: 100%;
+}
+
+.container_tour{
+  display: flex;
+  flex-direction: column;
+  margin-left: 100px;
+  height: 100%;
+}
+#playerSelection {
+  text-align: center;
+  padding: 20px;
+}
+#bracket {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.round {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+.player_r, .player_l {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  width: 150px;
+  height: 80px;
+  transition: all 0.3s ease;
+}
+.player_r img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.player_l img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align:left;
+}
+.player_l:hover, .player_r:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+#trophy {
+  font-size: 100px;
+  animation: pulse 2s infinite alternate;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.2); }
+}
+.option_history {
+  grid-area: lox3;
+  background-color: #202443;
+  border-radius: 35px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.choose-to-tournament {
+  width: 100%;
+  overflow-y: auto;
+  max-height: 500px;
+  scrollbar-width: thin;
+  scrollbar-color: #444 #202443;
+}
+
+.choose {
+  display: flex;
+  background-color: #333752;
+  padding: 15px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 10px;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.choose:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.choose img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: solid 3px #ff4f5a;
+  box-shadow: 0 0 20px #ff4f5a;
+}
+
+.choose-info {
+  flex-grow: 1;
+}
+
+.choose-name {
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.choose-tournament-type, .choose-level, .choose-position {
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+.choose-time {
+  font-size: 0.85rem;
+  color: #999;
+}
+
+.choose-button {
+  background-color: #ff4f5a;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.choose-button:hover {
+  background-color: #ff1e2a;
+}
+
+.trophy-icon {
+  font-size: 1.5rem;
+  color: gold;
+  margin-left: 10px;
+}
+
+#bracketModal .modal-content {
+  background-color: #2a2b3c;
+  color: white;
+}
+
+#bracketModal .modal-header {
+  border-bottom: 1px solid #444;
+}
+
+#bracketModal .modal-footer {
+  border-top: 1px solid #444;
+}
+
+#bracketContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bracket-side {
+  width: 45%;
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.player {
+  background-color: #444;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.player img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+#trophy {
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .container_tour {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, 400px);
+      grid-template-areas: "lox1"
+                           "lox2"
+                           "lox3";
+  }
+
+  .option_history {
+      padding: 15px;
+  }
+
+  .choose img {
+      width: 60px;
+      height: 60px;
+  }
+
+  .choose-name {
+      font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .choose img {
+      width: 50px;
+      height: 50px;
+  }
+
+  .choose-name {
+      font-size: 0.85rem;
+  }
+
+  .choose-button {
+      padding: 5px 8px;
+      font-size: 0.8rem;
+  }
+}
+</style>
 <body>
     <div class="content_tour">
         <div class="container_tour">
@@ -654,6 +913,11 @@ displayTournamentHistory();
                             <div class="choose-tournament-type">Tournament: 8 players</div>
                             <div class="choose-level">Level Reached: Semi-finalist</div>
                         </div>
+                        <div id="playerSelection">
+                            <button class="choose-button" onclick="generateBracket(4)">4 Players</button>
+                            <button class="choose-button" onclick="generateBracket(8)">8 Players</button>
+                        </div>
+                        <div id="bracket"></div>
                         <button class="choose-button" onclick="showBracket(8)">View Bracket</button>
                     </div>
                     <!-- Add more tournament entries as needed -->
@@ -661,7 +925,20 @@ displayTournamentHistory();
             </div>
         </div>
     </div>
+<!-- ------------------------------------------------ -->
 
+<!-- <div class="content_tour d-flex justify-content-center align-items-center">
+    <div class="container_tour">
+        <div id="playerSelection">
+            <h1>Tournament</h1>
+            <button class="choose-button" onclick="generateBracket(4)">4 Players</button>
+            <button class="choose-button" onclick="generateBracket(8)">8 Players</button>
+        </div>
+        <div id="bracket"></div>
+    </div>
+</div>
+</div>
+</div> -->
     <!-- Bracket Modal -->
     <div class="modal fade" id="bracketModal" tabindex="-1" aria-labelledby="bracketModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -686,6 +963,416 @@ displayTournamentHistory();
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
     <script>
+        function generateBracket(numPlayers) {
+        const bracket = document.getElementById('bracket');
+        bracket.innerHTML = '';
+
+        const rounds = numPlayers === 4 ? 2 : 3;
+        const playerNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Henry'];
+
+        for (let i = 0; i < rounds; i++) {
+            const round = document.createElement('div');
+            round.className = 'round';
+            const playersInRound = numPlayers / Math.pow(2, i) / 2;
+
+            for (let j = 0; j < playersInRound; j++) {
+                const player = document.createElement('div');
+                player.className = 'player_r';
+                if (i === 0) {
+                    const img = document.createElement('img');
+                    img.src = `image/avatar.png`;
+                    img.alt = playerNames[j];
+                    player.appendChild(img);
+
+                    const name = document.createElement('span');
+                    name.textContent = playerNames[j];
+                    player.appendChild(name);
+                }
+                round.appendChild(player);
+            }
+            bracket.appendChild(round);
+        }
+
+        // Add trophy
+        const trophyRound = document.createElement('div');
+        trophyRound.className = 'round';
+        const trophy = document.createElement('div');
+        trophy.id = 'trophy';
+        trophy.textContent = '🏆';
+        trophyRound.appendChild(trophy);
+        bracket.appendChild(trophyRound);
+
+        for (let i = rounds - 1; i >= 0; i--) {
+            const round = document.createElement('div');
+            round.className = 'round';
+            const playersInRound = numPlayers / Math.pow(2, i) / 2;
+
+            for (let j = 0; j < playersInRound; j++) {
+                const player = document.createElement('div');
+                player.className = 'player_l';
+                if (i === 0) {
+                    const img = document.createElement('img');
+                    img.src = `image/avatar.png`;
+                    img.alt = playerNames[j];
+                    player.appendChild(img);
+
+                    const name = document.createElement('span');
+                    name.textContent = playerNames[j];
+                    player.appendChild(name);
+                }
+                round.appendChild(player);
+            }
+            bracket.appendChild(round);
+        }
+        // Add flying ping pong balls
+        // for (let i = 0; i < 5; i++) {
+        //     const ball = document.createElement('div');
+        //     ball.className = 'ping-pong-ball';
+        //     ball.style.left = `${Math.random() * 50}vw`;
+        //     ball.style.top = `${Math.random() * 50}vh`;
+        //     ball.style.animationDelay = `${Math.random() * 10}s`;
+        //     document.body.appendChild(ball);
+        // }
+}
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+<!-- ******************************************************************************************* -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pingpong Home</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="page">
+        <header class="d-flex justify-content-between align-items-center p-4">
+            <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
+            <div class="search position-relative">
+                <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+            </div>
+            <div class="icons d-flex align-items-center">
+                <span class="notf position-relative">
+                    <i class="fa-solid fa-bell fa-lg"></i>
+                </span>
+                <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
+            </div>
+        </header>
+        <!-- <div class="d-flex"> -->
+        <div class="sidebar">
+            <ul>
+                <li>
+                    <a class=" d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
+                        <i class="fa-solid fa-house fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
+                    
+                        <i class="fa-solid fa-table-tennis fa-fw"></i> 
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
+                        <i class="fa-solid fa-user fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
+                        <i class="fa-solid fa-trophy fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
+                        <i class="fa-solid fa-user-group fa-fw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
+                        <i class="fa-solid fa-ranking-star"></i>
+                    </a>
+                </li>
+                <li>
+                    <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+                        <i class="fa-solid fa-gear"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                <button type="button" class="btn btn-secondary">
+                    <i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+        </div>
+        <div class="content_tour ">
+            <div class="Tournament-brack">
+                Tournament Break
+            </div>
+            
+            <div class="container_tour">
+                <!-- <div class="options"> -->
+                <div class="option_4" onclick="showAlert(4)">
+                    4
+                    <div class="players">
+                        <div class="player_tour">
+                            <img src="/image/_6b5a68d5-4cc0-4909-9f79-da4ec4afc88a-Photoroom (1).jpeg" alt="Roger Federer">
+                            <span>Roger Federer</span>
+                        </div>
+                        <div class="player_tour">
+                            <img src="/image/background.png" alt="Rafael Nadal">
+                            <span>Rafael Nadal</span>
+                        </div>
+                        <div class="player_tour" >
+                            <img src="/image/baggime.jpeg" alt="Novak Djokovic">
+                            <span>Novak Djokovic</span>
+                        </div>
+                        <div class="player_tour">
+                            <img src="/image/boy.png" alt="Andy Murray">
+                            <span>Andy Murray</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="option_8" onclick="showAlert(8)">
+                    8
+                    <div class="players">
+                        <div class="player_tour" >
+                            <img src="/image/manpon.png" alt="Roger Federer">
+                            <span>Roger Federer</span>
+                        </div>
+                        <div class="player_tour" >
+                            <img src="/image/manpon.png" alt="Rafael Nadal">
+                            <span>Rafael Nadal</span>
+                        </div>
+                        <div class="player_tour" >
+                            <img src="/image/manpon.png" alt="Novak Djokovic">
+                            <span>Novak Djokovic</span>
+                        </div>
+                        <div class="player_tour" >
+                            <img src="/image/manpon.png" alt="Andy Murray">
+                            <span>Andy Murray</span>
+                        </div>
+                        <div class="player_tour" >
+                            <img src="/image/manpon.png" alt="Serena Williams">
+                            <span>Serena Williams</span>
+                        </div>
+                        <div class="player_tour">
+                            <img src="/image/manpon.png" alt="Maria Sharapova">
+                            <span>Maria Sharapova</span>
+                        </div>
+                        <div class="player_tour">
+                            <img src="/image/manpon.png" alt="Venus Williams">
+                            <span>Venus Williams</span>
+                        </div>
+                        <div class="player_tour">
+                            <img src="/image/manpon.png" alt="Simona Halep">
+                            <span>Simona Halep</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="option_history" onclick="showAlert(8)">
+                    <div class="choose-to-tournament  scrool-invitations ">
+                        <div class="choose">
+                            <img src="/imag_1/d0.jpg" alt="Kakashi">
+                            <div class="choose-info">
+                                <div class="choose-name">Kakashi</div>
+                                <div class="choose-time">10 min ago</div>
+                            </div>
+                        </div> 
+
+                    </div>
+                            
+                </div> -->
+                <div class="option_history">
+                    <div class="choose-to-tournament">
+                        <div class="choose">
+                            <img src="/bagraoubd/d10a0dae8a1d95679ca547f442019c97.jpg" alt="Kakashi">
+                            <div class="choose-info">
+                                <div class="choose-name">Kakashi <i class="fas fa-trophy trophy-icon"></i></div>
+                                <div class="choose-position">Position: 1st</div>
+                                <div class="choose-tournament-type">Tournament: 4 players</div>
+                                <div class="choose-level">Level Reached: Winner</div>
+                            </div>
+                            <div id="bracket"></div>
+                            <div id="playerSelection">
+                                <button class="choose-button" onclick="generateBracket(4)">4 Players</button>
+                                <!-- <button class="choose-button" onclick="generateBracket(8)">8 Players</button> -->
+                            </div>
+                            <!-- <button class="choose-button" onclick="showBracket(4)">View Bracket</button> -->
+                        </div>
+                        <div class="choose">
+                            <img src="/bagraoubd/d10a0dae8a1d95679ca547f442019c97.jpg" alt="Naruto">
+                            <div class="choose-info">
+                                <div class="choose-name">Naruto</div>
+                                <div class="choose-position">Position: 3rd</div>
+                                <div class="choose-tournament-type">Tournament: 8 players</div>
+                                <div class="choose-level">Level Reached: Semi-finalist</div>
+                            </div>
+                            <div id="bracket"></div>
+                            <div id="playerSelection">
+                                <!-- <button class="choose-button" onclick="generateBracket(4)">4 Players</button> -->
+                                <button class="choose-button" onclick="generateBracket(8)">8 Players</button>
+                            </div>
+                            <!-- <button class="choose-button" onclick="showBracket(8)">View Bracket</button> -->
+                        </div>
+                        <!-- Add more tournament entries as needed -->
+                    </div>
+                </div>
+                <!-- Bracket Modal -->
+                <!-- <div class="modal fade" id="bracketModal" tabindex="-1" aria-labelledby="bracketModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="bracketModalLabel">Tournament Bracket</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div id="bracketContainer">
+                                    <div id="leftSide" class="bracket-side"></div>
+                                    <div id="rightSide" class="bracket-side"></div>
+                                </div>
+                                <div id="trophyRound"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+                    
+            </div>
+        </div>
+        <!-- <div id="playerInfo"></div>
+        <div class="alert" id="alert">
+            <h2>Tournament Started!</h2>
+            <p id="alertMessage"></p>
+            <button onclick="closeAlert()">Close</button>
+        </div> -->
+    </div>
+
+    <!-- <script>
+        function showPlayerInfo(playerName) {
+            const playerInfo = document.getElementById('playerInfo');
+            playerInfo.innerHTML = `
+                <h2>${playerName}</h2>
+                <p>Path: Round 1 → Semi-finals → Finals → Champion</p>
+            `;
+        }
+
+        function showAlert(players) {
+            const alert = document.getElementById('alert');
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.textContent = `The tournament has been initiated with ${players} players. Good luck to all participants!`;
+            alert.style.display = 'block';
+        }
+
+        function closeAlert() {
+            const alert = document.getElementById('alert');
+            alert.style.display = 'none';
+        }
+    </script> -->
+
+
+<!-- <div class="content_tour d-flex justify-content-center align-items-center">
+    <div class="container_tour">
+        <div id="playerSelection">
+            <button onclick="generateBracket(4)">4 Players</button>
+            <button onclick="generateBracket(8)">8 Players</button>
+        </div>
+        <div id="bracket"></div>
+    </div>
+</div> -->
+</div>
+</div>
+<!-- <script src="js/main.js"></script> -->
+    <script>
+        function generateBracket(numPlayers) {
+        const bracket = document.getElementById('bracket');
+        bracket.innerHTML = '';
+
+        const rounds = numPlayers === 4 ? 2 : 3;
+        const playerNames = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Henry'];
+
+        for (let i = 0; i < rounds; i++) {
+            const round = document.createElement('div');
+            round.className = 'round';
+            const playersInRound = numPlayers / Math.pow(2, i) / 2;
+
+            for (let j = 0; j < playersInRound; j++) {
+                const player = document.createElement('div');
+                player.className = 'player_r';
+                if (i === 0) {
+                    const img = document.createElement('img');
+                    img.src = `image/avatar.png`;
+                    img.alt = playerNames[j];
+                    player.appendChild(img);
+
+                    const name = document.createElement('span');
+                    name.textContent = playerNames[j];
+                    player.appendChild(name);
+                }
+                round.appendChild(player);
+            }
+            bracket.appendChild(round);
+        }
+
+        // Add trophy
+        const trophyRound = document.createElement('div');
+        trophyRound.className = 'round';
+        const trophy = document.createElement('div');
+        trophy.id = 'trophy';
+        trophy.textContent = '🏆';
+        trophyRound.appendChild(trophy);
+        bracket.appendChild(trophyRound);
+
+        for (let i = rounds - 1; i >= 0; i--) {
+            const round = document.createElement('div');
+            round.className = 'round';
+            const playersInRound = numPlayers / Math.pow(2, i) / 2;
+
+            for (let j = 0; j < playersInRound; j++) {
+                const player = document.createElement('div');
+                player.className = 'player_l';
+                if (i === 0) {
+                    const img = document.createElement('img');
+                    img.src = `image/avatar.png`;
+                    img.alt = playerNames[j];
+                    player.appendChild(img);
+
+                    const name = document.createElement('span');
+                    name.textContent = playerNames[j];
+                    player.appendChild(name);
+                }
+                round.appendChild(player);
+            }
+            bracket.appendChild(round);
+        }
+        // Add flying ping pong balls
+        // for (let i = 0; i < 5; i++) {
+        //     const ball = document.createElement('div');
+        //     ball.className = 'ping-pong-ball';
+        //     ball.style.left = `${Math.random() * 50}vw`;
+        //     ball.style.top = `${Math.random() * 50}vh`;
+        //     ball.style.animationDelay = `${Math.random() * 10}s`;
+        //     document.body.appendChild(ball);
+        // }
+        }
+    </script>
+    <!-- <script>
         function showBracket(numPlayers) {
             generateBracket(numPlayers);
             const bracketModal = new bootstrap.Modal(document.getElementById('bracketModal'));
@@ -751,6 +1438,168 @@ displayTournamentHistory();
             trophy.textContent = '🏆';
             trophyRound.appendChild(trophy);
         }
-    </script>
+    </script> -->
+    <!-- <script>
+        import React, { useState } from 'react';
+        import { Trophy } from 'lucide-react';
+
+        const TournamentHistory = () => {
+        const [showBracket, setShowBracket] = useState(false);
+        const [numPlayers, setNumPlayers] = useState(4);
+
+        const tournamentHistory = [
+            { name: 'Alice', position: 1, tournamentType: 4, level: 'Winner' },
+            { name: 'Bob', position: 2, tournamentType: 8, level: 'Runner-up' },
+            { name: 'Charlie', position: 3, tournamentType: 4, level: 'Semi-finalist' },
+            { name: 'David', position: 4, tournamentType: 8, level: 'Quarter-finalist' },
+        ];
+
+        const generateBracket = (players) => { 
+            // This is a placeholder for the bracket generation logic
+            // In a real implementation, this would create the tournament bracket
+            console.log(`Generating bracket for ${players} players`);
+            setShowBracket(true);
+            setNumPlayers(players);
+        };
+
+        return (
+            <div className="bg-gray-800 p-4 rounded-lg">
+            <h2 className="text-2xl font-bold mb-4 text-white">Tournament History</h2>
+            <div className="space-y-4 max-h-96 overflow-y-auto">
+                {tournamentHistory.map((player, index) => (
+                <div key={index} className="bg-gray-700 p-4 rounded-lg flex items-center space-x-4">
+                    <img src={`/api/placeholder/50/50`} alt={player.name} className="w-12 h-12 rounded-full" />
+                    <div className="flex-grow">
+                    <h3 className="text-lg font-semibold text-white">{player.name}</h3>
+                    <p className="text-gray-300">Position: {player.position}</p>
+                    <p className="text-gray-300">Tournament: {player.tournamentType} players</p>
+                    <p className="text-gray-300">Level Reached: {player.level}</p>
+                    </div>
+                    {player.position === 1 && <Trophy className="text-yellow-400" size={24} />}
+                </div>
+                ))}
+            </div>
+            <button
+                onClick={() => generateBracket(numPlayers)}
+                className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            >
+                Generate Bracket
+            </button>
+            {showBracket && (
+                <div className="mt-4 bg-gray-700 p-4 rounded-lg">
+                <h3 className="text-xl font-bold mb-2 text-white">Tournament Bracket</h3>
+                <p className="text-gray-300">Bracket for {numPlayers} players generated.</p>
+                {/* Placeholder for the actual bracket visualization */}
+                <div className="mt-2 flex justify-center items-center h-40 bg-gray-600 rounded">
+                    <p className="text-white">Bracket Visualization Placeholder</p>
+                </div>
+                </div>
+            )}
+            </div>
+        );
+        };
+        export default TournamentHistory;
+    </script> -->
 </body>
 </html>
+<!-- 
+<body>
+    <div class="content_tour">
+        <div class="container_tour">
+            <h1>Tournament Bracket</h1>
+            <div class="options">
+                <div class="option" onclick="showAlert(4)">
+                    <h1>4</h1>
+                    <div class="players">
+                        <div class="player" onmouseover="showPlayerInfo('Roger Federer')">
+                            <img src="imag_1/d0.jpg" alt="Roger Federer">
+                            <span>Roger Federer</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Rafael Nadal')">
+                            <img src="imag_1/d0.jpg" alt="Rafael Nadal">
+                            <span>Rafael Nadal</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Novak Djokovic')">
+                            <img src="imag_1/d0.jpg" alt="Novak Djokovic">
+                            <span>Novak Djokovic</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Andy Murray')">
+                            <img src="imag_1/d0.jpg" alt="Andy Murray">
+                            <span>Andy Murray</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="option" onclick="showAlert(8)">
+                    <h1>8</h1>
+                    <div class="players">
+                        <div class="player" onmouseover="showPlayerInfo('Roger Federer')">
+                            <img src="imag_1/d0.jpg" alt="Roger Federer">
+                            <span>Roger Federer</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Rafael Nadal')">
+                            <img src="imag_1/d0.jpg" alt="Rafael Nadal">
+                            <span>Rafael Nadal</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Novak Djokovic')">
+                            <img src="imag_1/d0.jpg" alt="Novak Djokovic">
+                            <span>Novak Djokovic</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Andy Murray')">
+                            <img src="imag_1/d0.jpg" alt="Andy Murray">
+                            <span>Andy Murray</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Serena Williams')">
+                            <img src="imag_1/d0.jpg" alt="Serena Williams">
+                            <span>Serena Williams</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Maria Sharapova')">
+                            <img src="imag_1/d0.jpg" alt="Maria Sharapova">
+                            <span>Maria Sharapova</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Venus Williams')">
+                            <img src="imag_1/d0.jpg" alt="Venus Williams">
+                            <span>Venus Williams</span>
+                        </div>
+                        <div class="player" onmouseover="showPlayerInfo('Simona Halep')">
+                            <img src="imag_1/d0.jpg" alt="Simona Halep">
+                            <span>Simona Halep</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="playerInfo"></div>
+            <div class="alert" id="alert">
+                <h2>Tournament Started!</h2>
+                <p id="alertMessage"></p>
+                <button onclick="closeAlert()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPlayerInfo(playerName) {
+            const playerInfo = document.getElementById('playerInfo');
+            playerInfo.innerHTML = `
+                <h2>${playerName}</h2>
+                <p>Path: Round 1 → Semi-finals → Finals → Champion</p>
+            `;
+        }
+
+        function showAlert(players) {
+            const alert = document.getElementById('alert');
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.textContent = `The tournament has been initiated with ${players} players. Good luck to all participants!`;
+            alert.style.display = 'block';
+        }
+
+        function closeAlert() {
+            const alert = document.getElementById('alert');
+            alert.style.display = 'none';
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+ <!-- *********************************************************************************************** -->

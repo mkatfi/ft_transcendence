@@ -1,4 +1,81 @@
+
 <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        header {
+            display: grid;
+            padding: 5px;
+            grid-template-areas: "logo ulx";
+        }
+        .logo {
+            grid-area: logo;
+            font-size: xx-large;
+
+            padding: 5px;
+            width: 220px;
+            border-bottom: solid 5px aqua;
+            border-left: solid 5px aqua;
+            box-shadow: inset 5px -12px 10px aqua;
+            border-radius: 60%;
+            font-family: "Jaro", system-ui;
+            font-weight: bold;
+            font-size: 40px;
+
+            animation: raj3o2 1s;
+        }
+        ul {
+            grid-area: ulx;
+            list-style: none;
+            font-size: large;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            margin: 0;
+            /* padding: 0; */
+            min-width: 660px;
+        }
+        ul li {
+            margin: 0 10px;
+            border-bottom: solid 5px rgb(150, 94, 224);
+        }
+        ul li:hover{
+            color: rgb(150, 94, 224);
+             filter: drop-shadow( rgb(150, 94, 224));
+             font-size: x-large;
+        }
+
+        @keyframes raj3o2 {
+        0%{
+        transform: translateX(-100%);
+        }
+        100% {
+        transform: translateX(0);
+        }
+
+}
+
+    </style>
+</head> 
+<body>
+    <header>
+        <div class="logo">Solo&Ankle</div>
+        <ul>
+            <li class="active">SALE</li>
+            <li>NEW RELEASES</li>
+            <li>MEN</li>
+            <li>WOMEN</li>
+            <li>KIDS</li>
+            <li>COLLECTIONS</li>
+        </ul>
+    </header>
+</body>
+</html>
+
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,20 +100,16 @@
         .score-big img {
             width: 100px;
             height:100px;
-            
             clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
            
         }
-        /* .score-avatar{
-            border: solid 3px red;
-        } */
     </style>
-</head>
+</head> 
 <body>
-    
+   
     <div class="score-big">
         <img src="image/avatar.png" alt="" class="score-avatar">
         <img src="image/avatar.png" alt="" class="score-avatar">
     </div>
 </body>
-</html>
+</html> -->

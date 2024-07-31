@@ -46,7 +46,6 @@
 <body>
 
     <div class="freez-all"  style="display: none;"> </div>
-
     <div class="page">
         <header class="d-flex justify-content-between align-items-center p-4">
             <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
@@ -190,20 +189,7 @@
                             </div>
                             <div id="bracket"></div>
                             <div id="playerSelection">
-                                <button class="choose-button" onclick="generateBracket(8)">8 Players</button>
-                            </div>
-                        </div>
-                        <div class="choose">
-                            <img src="/bagraoubd/d10a0dae8a1d95679ca547f442019c97.jpg" alt="Kakashi">
-                            <div class="choose-info">
-                                <div class="choose-name">Kakashi <i class="fas fa-trophy trophy-icon"></i></div>
-                                <div class="choose-position">Position: 1st</div>
-                                <div class="choose-tournament-type">Tournament: 4 players</div>
-                                <div class="choose-level">Level Reached: Winner</div>
-                            </div>
-                            <div id="bracket"></div>
-                            <div id="playerSelection">
-                                <button class="choose-button" onclick="generateBracket(4)">4 Players</button>
+                                <button class="choose-button" onclick="generateBracket(8)">show</button>
                             </div>
                         </div>
                         <div class="choose">
@@ -216,32 +202,25 @@
                             </div>
                             <div id="bracket"></div>
                             <div id="playerSelection">
-                                <button class="choose-button" onclick="generateBracket(8)">8 Players</button>
+                                <button class="choose-button" onclick="generateBracket(8)">show</button>
                             </div>
                         </div>
+                        <div class="choose">
+                            <img src="/bagraoubd/d10a0dae8a1d95679ca547f442019c97.jpg" alt="Naruto">
+                            <div class="choose-info">
+                                <div class="choose-name">Naruto</div>
+                                <div class="choose-position">Position: 3rd</div>
+                                <div class="choose-tournament-type">Tournament: 8 players</div>
+                                <div class="choose-level">Level Reached: Semi-finalist</div>
+                            </div>
+                            <div id="bracket"></div>
+                            <div id="playerSelection">
+                                <button class="choose-button" onclick="generateBracket(8)">show</button>
+                            </div>
+                        </div>
+                 
                     </div>
                 </div>
-                <!-- Bracket Modal -->
-                <!-- <div class="modal fade" id="bracketModal" tabindex="-1" aria-labelledby="bracketModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="bracketModalLabel">Tournament Bracket</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="bracketContainer">
-                                    <div id="leftSide" class="bracket-side"></div>
-                                    <div id="rightSide" class="bracket-side"></div>
-                                </div>
-                                <div id="trophyRound"></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>  -->
             </div>
         </div>
         <!-- <div id="playerInfo"></div>
@@ -251,27 +230,27 @@
             <button onclick="closeAlert()">Close</button>
         </div> -->
     </div>
-    <script>
-        // function showPlayerInfo(playerName) {
-        //     const playerInfo = document.getElementById('playerInfo');
-        //     playerInfo.innerHTML = `
-        //         <h2>${playerName}</h2>
-        //         <p>Path: Round 1 → Semi-finals → Finals → Champion</p>
-        //     `;
-        // }
+    <!-- <script>
+        function showPlayerInfo(playerName) {
+            const playerInfo = document.getElementById('playerInfo');
+            playerInfo.innerHTML = `
+                <h2>${playerName}</h2>
+                <p>Path: Round 1 → Semi-finals → Finals → Champion</p>
+            `;
+        }
 
-        // function showAlert(players) {
-        //     const alert = document.getElementById('bracket');
-        //     const alertMessage = document.getElementById('playerSelection');
-        //     alertMessage.textContent = `The tournament has been initiated with ${players} players. Good luck to all participants!`;
-        //     alert.style.display = 'block';
-        // }
+        function showAlert(players) {
+            const alert = document.getElementById('bracket');
+            const alertMessage = document.getElementById('playerSelection');
+            alertMessage.textContent = `The tournament has been initiated with ${players} players. Good luck to all participants!`;
+            alert.style.display = 'block';
+        }
 
-        // function closeAlert() {
-        //     const alert = document.getElementById('bracket');
-        //     alert.style.display = 'none';
-        // }
-    </script>
+        function closeAlert() {
+            const alert = document.getElementById('bracket');
+            alert.style.display = 'none';
+        }
+    </script> -->
     <script>
 
    

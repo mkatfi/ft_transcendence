@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Value You Games</title>
+    <link rel="stylesheet" href="cc.css">
+    <script> 
+        const observer =  new IntersectionObserver((entries) =>{
+            entries.forEach((entry) =>{
+                console.log(entry)
+                if(entry.isIntersecting){
+                    entry.target.classList.add('show');
+                }else{
+                    entry.target.classList.remove('show');
+                }
+            });
+        });
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el)=> observer.observe(el));
+    </script>
+</head>
+<body>
+    <div class="container-leader">
+        <header>
+            <div class="logo-leader">
+                <img src="spa/front/static/images/Default_logo_ping_pong_3.webp" alt="#">
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#play">Play</a></li>
+                    <li><a href="#play"></a></li>
+                    <li><a href="#play">Play</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="content-leader">
+            <main>
+                <section class="hero-leader hidden">
+                    <div class="hero-content-leader ">
+                        <h1>WELCOME TO OUR GAMES</h1>
+                        <p>Discover gaming like never before. Immerse yourself in stunning visuals, engage with a vibrant community, and elevate your gaming experience to new heights. Your journey to extraordinary gaming starts here.</p>
+                        <button class="cta-button-leader">Enter to Games</button>
+                    </div>
+                    <div class="hero-image-leader">
+                        <!-- <div class="tilted-image-leader">
+                            <img src="spa/front/static/images/Leonardo_Phoenix_Create_a_visually_stunning_image_of_a_muscula_1.jpg" alt="#" >
+                        </div> -->
+                    </div>
+                </section>
+            </main>
+            <img src="spa/front/static/images/DALL·E 2024-08-22 03.44.00 - A striking image of a single male ping pong player in action, set against a clean and bold background. The player is in mid-swing, focused and determi.webp " alt="#">
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Ping Pong Game</title>
+    <link rel="stylesheet" href="cc-1.css">
+</head>
+<style>
+    /* ... (previous CSS remains the same) ... */
+    :root {
+    --bg-dark: #1a1a2e;
+    --pink: rgb(253, 0, 127);
+    --purple: #7e57c2;
+    --teal: #4dd0e1;
+    --orange: #ff7043;
+    --red: #ff3b3b;
+}
+
+/* ... (previous CSS remains the same) ... */
+
+.hero-leader {
+    z-index: 1;
+    width: 100%;
+    height: 500px;
+    border-radius: 30px 0px 0px 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-content-leader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: sticky;
+    top: 0;
+}
+
+.hero-content-leader h1 {
+    font-size: 90px;
+    padding: 20px;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.hero-content-leader p {
+    line-height: 1.6;
+    max-width: 600px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s, transform 0.5s;
+    transition-delay: 0.2s;
+}
+/*
+.scroll-animate {
+    position: relative;
+    height: 200vh;
+}
+
+.scroll-animate .hero-content-leader h1,
+.scroll-animate .hero-content-leader p {
+    opacity: 1;
+    transform: translateY(0);
+}*/
+
+ .parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/image/table-tennis-training.jpg');
+    background-size: cover;
+    background-position: center;
+    transform: translateZ(-1px) scale(2);
+    z-index: -1;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+}
+
+/* .delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; } */ */
+
+/* ... (rest of the CSS remains the same) ... */
+.scroll-animate {
+    position: relative;
+    height: 200vh;
+    overflow: hidden;
+}
+.scroll-animate .hero-content-leader h1,
+.scroll-animate .hero-content-leader p {
+    opacity: 1;
+    transform: translateY(0);
+}
+.parallax-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/image/DALL·E\ 2024-08-22\ 03.44.00\ -\ A\ striking\ image\ of\ a\ single\ male\ ping\ pong\ player\ in\ action\,\ set\ against\ a\ clean\ and\ bold\ background.\ The\ player\ is\ in\ mid-swing\,\ focused\ and\ determi.webp');
+    background-size: cover;
+    background-color: #ff3b3b;
+    background-position: center;
+    transform: translateZ(-1px) scale(2);
+    z-index: -1;
+}
+.fade-in-up {
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+}
+
+.floating-paddle {
+    position: absolute;
+    width: 50px;
+    height: 80px;
+    background-color: #ff4081;
+    border-radius: 5px;
+}
+
+.floating-paddle.left {
+    left: 10%;
+    animation: floatLeft 3s ease-in-out infinite;
+}
+
+.floating-paddle.right {
+    right: 10%;
+    animation: floatRight 3s ease-in-out infinite;
+}
+
+.floating-ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    animation: floatBall 2s ease-in-out infinite;
+}
+
+@keyframes floatLeft {
+    0%, 100% { transform: translateY(0) rotate(-10deg); }
+    50% { transform: translateY(-30px) rotate(10deg); }
+}
+
+@keyframes floatRight {
+    0%, 100% { transform: translateY(-30px) rotate(10deg); }
+    50% { transform: translateY(0) rotate(-10deg); }
+}
+
+@keyframes floatBall {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+}
+
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.scroll-reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-in-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.pop-in {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.pop-in.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+.delay-4 { transition-delay: 0.8s; }
+
+/* ... (rest of the CSS remains the same) ... */
+</style>
+
+<body>
+    <div class="container-lander">
+        <header>
+            <!-- ... (header content remains the same) ... -->
+        </header>
+        <div class="content-lander">
+            <div class="lander">
+                <section class="hero-leader scroll-animate">
+                    <div class="floating-paddle left"></div>
+                    <div class="floating-paddle right"></div>
+                    <!-- <div class="floating-ball"></div> -->
+                    <div class="parallax-bg"></div>
+                    <div class="hero-content-leader">
+                        <h1 class="fade-in-up">Welcome to the Ultimate Ping Pong Game!</h1>
+                        <p class="fade-in-up delay-1">Experience the thrill of table tennis like never before.</p>
+                        <a href="#" class="cta-button-leader fade-in-up delay-2">Start Playing Now</a>
+                    </div>
+                </section>
+            </div>
+            
+            <!-- ... (other sections remain the same) ... -->
+            
+            <section id="features" class="section scroll-reveal">
+                <div class="content-box">
+                    <h2 class="slide-in-left">Game Features</h2>
+                    <ul class="feature-list">
+                        <li class="pop-in delay-1">Single-Player & Multiplayer Modes</li>
+                        <li class="pop-in delay-2">Adjustable Difficulty Settings</li>
+                        <li class="pop-in delay-3">Engaging Animations & Fun Power-Ups</li>
+                        <li class="pop-in delay-4">Realistic Table Tennis Physics</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ... (other sections remain the same) ... -->
+        </div>
+    </div>
+    <script >
+        document.addEventListener('DOMContentLoaded', () => {
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.scroll-reveal, .slide-in-left, .pop-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    const parallaxScroll = () => {
+        const scrollY = window.pageYOffset;
+        document.querySelector('.parallax-bg').style.transform = `translateY(${scrollY * 0.5}px)`;
+    };
+
+    window.addEventListener('scroll', parallaxScroll);
+});
+    </script>
+</body>
+</html>

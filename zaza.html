@@ -1,115 +1,178 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Epic Battle Animation</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Jaro:opsz@6..72&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
     <style>
-        header {
-            display: grid;
-            padding: 5px;
-            grid-template-areas: "logo ulx";
-        }
-        .logo {
-            grid-area: logo;
-            font-size: xx-large;
-
-            padding: 5px;
-            width: 220px;
-            border-bottom: solid 5px aqua;
-            border-left: solid 5px aqua;
-            box-shadow: inset 5px -12px 10px aqua;
-            border-radius: 60%;
-            font-family: "Jaro", system-ui;
-            font-weight: bold;
-            font-size: 40px;
-
-            animation: raj3o2 1s;
-        }
-        ul {
-            grid-area: ulx;
-            list-style: none;
-            font-size: large;
-            display: flex;
-            justify-content: start;
-            align-items: center;
+        body, html {
             margin: 0;
-            /* padding: 0; */
-            min-width: 660px;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: #000;
         }
-        ul li {
-            margin: 0 10px;
-            border-bottom: solid 5px rgb(150, 94, 224);
+        .battle-arena {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
-        ul li:hover{
-            color: rgb(150, 94, 224);
-             filter: drop-shadow( rgb(150, 94, 224));
-             font-size: x-large;
+        .player {
+            /* width: 200px;
+            height: 200px; */
+            background-size: contain;
+            border-radius: 50%;
+            position: absolute;
+            transition: all 2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-
-        @keyframes raj3o2 {
-        0%{
-        transform: translateX(-100%);
+        #bilash{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            left: -250px;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.7));
         }
-        100% {
-        transform: translateX(0);
+        #pro-players {
+            right: -250px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 0, 0.7));
         }
-
-}
-
+        #pro-players img, #bilash img{
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+        .dust {
+            width: 150px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.3);
+            position: absolute;
+            bottom: -75px;
+            left: 25px;
+            border-radius: 50%;
+            filter: blur(5px);
+            animation: dustAnimation 2s infinite;
+        }
+        @keyframes dustAnimation {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.6; }
+        }
+        .vs-circle{
+            position: absolute;
+            height: 400px;
+            width: 400px;
+            filter: url(#wavy) blur(1px);
+            font-family: "Titan One", sans-serif;
+            border-radius: 50%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 88px;
+            font-weight: bold;
+            color: #f00;
+            opacity: 0;
+            transition: all 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        .vs-circle::before {
+            content: "";
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            right: 100px;
+            bottom: 100px;
+            border: 16px solid hsl(0, 0%, 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px hsl(30, 100%, 50%), inset 0 0 40px hsl(30, 100%, 50%);
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.5); }
+        }
+        .name-user{
+            color: #eee;
+            position: absolute;
+            bottom: 0;
+            font-size: 26px;
+            margin-bottom: -50px;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+            .vid{
+                background-color: #000;
+            /* display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: -3400px; */
+        }
     </style>
-</head> 
+</head>
 <body>
-    <header>
-        <div class="logo">Solo&Ankle</div>
-        <ul>
-            <li class="active">SALE</li>
-            <li>NEW RELEASES</li>
-            <li>MEN</li>
-            <li>WOMEN</li>
-            <li>KIDS</li>
-            <li>COLLECTIONS</li>
-        </ul>
-    </header>
+    <div class="battle-arena">
+        <div class="vid">
+            <video src="/bagraoubd/smok-8.mp4" autoplay muted loop></video>
+        </div>
+        <div id="bilash" class="player">
+        <img src="image/_00eb03cf-0689-4787-96a2-7557b58a7ed1.jpeg" alt="#">
+        <div class= "name-user">kooooooooo</div>
+            <div class="dust"></div>
+        </div>
+        <div class="vs-circle">VS</div>
+        <svg style="display: none;">
+            <filter id="wavy">
+                <feTurbulence x="0" y="0" baseFrequency="0.009" numOctaves="5" seed="2">
+                    <animate attributeName="baseFrequency" dur="60s" values="0.02;0.005;0.02" repeatCount="indefinite" />
+                </feTurbulence>
+                <feDisplacementMap in="SourceGraphic" scale="30" />
+            </filter>
+        </svg>
+        <div id="pro-players" class="player">
+            <img src="image/_00eb03cf-0689-4787-96a2-7557b58a7ed1.jpeg" alt="#">
+            <div class="dust"></div>
+            <div class="name-user">mkkkkkkkkkkkkkk</div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const bilash = document.getElementById('bilash');
+            const proPlayers = document.getElementById('pro-players');
+            const nameUsers = document.getElementById('name-user');
+            const vsCircle = document.querySelector('.vs-circle');
+
+            setTimeout(() => {
+                bilash.style.left = '60%';
+                proPlayers.style.right = '60%';
+                nameUsers.style.right = '60%';
+            }, 1000);
+
+            setTimeout(() => {
+                vsCircle.style.transform = 'translate(-50%, -50%) scale(1)';
+                vsCircle.style.opacity = '1';
+                energyField.style.opacity = '1';
+            }, 1800);
+
+            setInterval(() => {
+                lightning.style.opacity = '1';
+                setTimeout(() => {
+                    lightning.style.opacity = '0';
+                }, 300);
+
+                vsCircle.style.animation = 'pulse 3.5s ease-in-out';
+                setTimeout(() => {
+                    vsCircle.style.animation = 'none';
+                }, 100);
+            }, 5000);
+        });
+    </script>
 </body>
 </html>
-
-<!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .score-big {
-            width: 80%;
-            display: flex;
-            justify-content: space-around;
-            background-color: green;
-            padding: 20px;
-            
-        }
-        .score-avatar {
-            
-            background-color: red;
-            width: 120px;
-            height:120px;
-
-        }
-        .score-big img {
-            width: 100px;
-            height:100px;
-            clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);
-           
-        }
-    </style>
-</head> 
-<body>
-   
-    <div class="score-big">
-        <img src="image/avatar.png" alt="" class="score-avatar">
-        <img src="image/avatar.png" alt="" class="score-avatar">
-    </div>
-</body>
-</html> -->

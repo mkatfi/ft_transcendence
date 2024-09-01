@@ -19,6 +19,7 @@
   --player-bg: #4a5568;
   --hover-color: #202443;
   --all-button: rgb(253, 0, 127);
+  --bag-all-page:#202443;
 }
 
 * {
@@ -29,7 +30,7 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  background-color: #202443;
+  background-color: var(--bag-all-page);
   height: 100vh;
 }
 

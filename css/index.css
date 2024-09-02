@@ -232,6 +232,48 @@ header .img-fluid{
 .sidebar ul li a.active {
   color: rgb(253, 0, 127);
 }
+@media (max-width: 768px) {
+  .container {
+      flex-direction: column;
+  }
+
+  header {
+      position: static;
+      flex-wrap: wrap;
+  }
+
+  .search input {
+      width: 100%;
+      margin: 1rem 0;
+  }
+
+  .sidebar {
+      width: 100%;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
+      z-index: 1000;
+  }
+
+  .sidebar.active {
+      transform: translateY(0);
+  }
+
+  .content {
+      margin-top: 0;
+  }
+
+  .menu-toggle {
+      display: block;
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background-color: var(--red-color);
+      padding: 0.5rem;
+      border-radius: 5px;
+  }
+}
 
 /* --------------------END SIDEBAR PAGE------------------------------------------------------------------------------ */
 

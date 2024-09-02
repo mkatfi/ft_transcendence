@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pingpong World</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- <style>
+        :root {
+            --dark-color: #25284A;
+            --green-color: #33d1cc;
+            --red-color: #ef5a6b;
+            --yellow-color: #ffc400;
+            --section-color: #eff7fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Open Sans", sans-serif;
+            background-color: #202443;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            width: 70px;
+            border-radius: 20px;
+            border: solid 3px white;
+        }
+
+        .search {
+            position: relative;
+        }
+
+        .search input {
+            background-color: rgba(17, 17, 17, 0.342);
+            border: solid 3px var(--green-color);
+            padding: 0.5rem 1rem 0.5rem 2rem;
+            border-radius: 20px;
+            color: white;
+            width: 300px;
+        }
+
+        .search::before {
+            content: "\f002";
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--green-color);
+        }
+
+        .icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .chat-icon, .dropdown {
+            margin-right: 1rem;
+            position: relative;
+        }
+
+        .icons img.avatar-header {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: solid 2px var(--red-color);
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: var(--dark-color);
+            padding: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background-color: var(--red-color);
+        }
+
+        .sidebar ul li a i {
+            margin-right: 0.5rem;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 2rem;
+            margin-top: 70px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .play-now-btn {
+            background-color: var(--red-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .play-now-btn:hover {
+            background-color: #d14d5c;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            header {
+                position: static;
+                flex-wrap: wrap;
+            }
+
+            .search input {
+                width: 100%;
+                margin: 1rem 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                transform: translateY(100%);
+                z-index: 1000;
+            }
+
+            .sidebar.active {
+                transform: translateY(0);
+            }
+
+            .content {
+                margin-top: 0;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                bottom: 1rem;
+                right: 1rem;
+                background-color: var(--red-color);
+                padding: 0.5rem;
+                border-radius: 5px;
+            }
+        }
+    </style> -->
+</head>
+<body>
+    <div class="page">
+        <header class="d-flex justify-content-between align-items-center p-4">
+            <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
+            <div class="search position-relative">
+                <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
+            </div>
+            <div class="icons d-flex align-items-center">
+                <span class="notf position-relative">
+                    <i class="fa-solid fa-bell fa-lg"></i>
+                </span>
+                <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
+            </div>
+        </header>
+        <!-- <div class="d-flex"> -->
+            <div class="sidebar">
+                <ul>
+                    <li>
+                        <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
+                            <i class="fa-solid fa-table-tennis fa-fw"></i> 
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
+                            <i class="fa-solid fa-user fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
+                            <i class="fa-solid fa-trophy fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
+                            <i class="fa-solid fa-user-group fa-fw"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
+                            <i class="fa-solid fa-ranking-star"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
+                            <i class="fa-solid fa-gear"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
+                    <button type="button" class="btn btn-secondary">
+                      <a href="h.html"><i class="fa-solid fa-right-from-bracket"></i></a></button>
+                </div>
+            </div>
+            <div class="content_index flex-grow-1 p-3">
+            <div class="wrapper d-grid  gap-2">
+              <div class=" d-flex align-items-end justify-content-between box2 rounded-5 ">
+                <img src="image/droitvs.png" alt="">
+                <div class="ktab text-center  m-2">
+                  <h3>Pingpong</h3>
+                  <p class=" m-3">Welcome to the pingpong world come join us for a game!</p>
+                  <div class="play-now">
+                    <a class="text-center btn " href="games.html">
+                      <i class="fa-solid fa-play"></i>
+                      <span> PlayNow</span></a>
+                    </div>
+                </div>
+                  <img src="image/qauchevs.png" alt="">
+              </div>
+              <div class=" d-flex align-items-end justify-content-end box1 rounded-5"> 
+                <img src="/image/mhyb.png" alt="">
+               </div>
+               <div class=" d-flex align-items-end justify-content-end box3 rounded-5"> 
+                <img src="/image/yppi.png" alt="">
+                </div>
+            </div>
+            </div>
+        <!-- </div> -->
+    </div>
+
+    <!-- <div class="container">
+        <header>
+            <div class="logo">
+                <img src="imag_1/po.jpg" alt="Pingpong Logo">
+            </div>
+            <div class="search">
+                <input type="search" placeholder="Type A Keyword">
+            </div>
+            <div class="icons">
+                <button type="button" class="btn btn-primary position-relative bg-transparent chat-icon">
+                    <a href="/chat"><i class="fa-solid fa-message"></i></a>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger all-number-msg">
+                        0
+                        <span class="visually-hidden">unread messages</span>
+                    </span>
+                </button>
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle bg-transparent position-relative" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-bell fa-lg"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            0
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </button>
+                    <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton1">
+                        <!-- Notification items will be dynamically added here -->
+                    </ul>
+                </div>
+                <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="avatar-header ms-3" alt="User Avatar">
+            </div>
+        </header>
+        <!-- <nav class="sidebar">
+            <ul>
+                <li><a href="#" class="active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#"><i class="fas fa-user-friends"></i> Friends</a></li>
+                <li><a href="#"><i class="fas fa-gamepad"></i> Games</a></li>
+                <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <main class="content">
+            <h1>Welcome to <span class="text-wlc">Pingpong World</span></h1>
+            <p>Join us for an exciting game of pingpong!</p>
+            <button class="play-now-btn">Play Now</button>
+        </main> -->
+    </div>
+    <button class="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </button> -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const sidebar = document.querySelector('.sidebar');
+
+            menuToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+
+            // Close sidebar when clicking outside of it
+            document.addEventListener('click', function(event) {
+                if (!sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+
+            // Text writer effect
+            function textWriter(element, txt) {
+                let textwr = document.querySelector(element);
+                for (let index = 0; index < txt.length; index++) {
+                    setTimeout(() => {
+                        textwr.innerHTML += txt[index];
+                    }, 50 * index);
+                }
+            }
+
+            textWriter(".text-wlc", "elcome to the pingpong world come join us for a game!");
+        });
+    </script>
+</body>
+</html>

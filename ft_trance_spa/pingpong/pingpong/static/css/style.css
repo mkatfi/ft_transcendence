@@ -1,0 +1,423 @@
+
+
+/* Start Global Rules */
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: "Work Sans", sans-serif;
+/* background: linear-gradient(174deg, rgba(23,27,49,1) 56%, rgba(160,52,66,1) 100%, rgba(9,9,121,1) 100%); */
+    background: rgba(23,27,49,1) 100%;
+    background-image: url("../image/stars1.png");
+
+  }
+  ul {
+    list-style: none;
+  }
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+  }
+  /* Small */
+  @media (min-width: 768px) {
+    .container {
+      width: 750px;
+    }
+  }
+  /* Medium */
+  @media (min-width: 992px) {
+    .container {
+      width: 970px;
+    }
+  }
+  /* Large */
+  @media (min-width: 1200px) {
+    .container {
+      width: 1170px;
+    }
+}
+/* End Global Rules */
+
+h1 {
+    margin: 0px;
+    width: 100%;
+   color: white;
+   text-align: center;
+}
+
+.login,
+.logout {
+    background-color: transparent;
+    box-shadow: 0px 0px 49px -19px black;
+
+    width: 600px;
+
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    animation: underlogin 2s;
+}
+
+/* animation for login */
+@keyframes underlogin {
+
+    0% {
+        translate: 0px -600px;
+    }
+    100% {
+        translate: 0px 0px;
+    }
+    
+}
+/* animation for login */
+
+form{
+
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    
+}
+.image-side {
+    width: 30%;
+    object-fit: cover; object-position: 100% 0;
+}
+input {
+    background-color: #0C141D;
+    border: none;
+    padding: 20px;
+    color:#34475A ;
+    min-width: 300px;
+    max-width: 400px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.sigin {
+    
+    color: white;
+    background-color: #FF4656;
+}
+
+/* button for sigin white intra */
+.intra-sign{
+    background-color: #0C141D;
+    width:100px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+span {
+    width: 100%;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+.img-sign {
+    width: 20px;
+    height: 20px;
+
+}
+
+.register  a{
+    width: 100%;
+    color: #E8F764;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+ input:focus {
+    color: #E8F764;
+}
+
+
+
+.start-button {
+    /* background-image: url("../image/login.jpeg"); */
+    background-size: cover;
+    display: flex;
+    width: 420px;
+    height: 600px;
+    justify-content: space-between;
+    align-content: space-evenly;
+    flex-wrap: wrap;
+    min-width: 400px;
+    margin-top: 70px;
+}
+.start-login,
+.start-sginup ,
+.logout button{
+    width: 200px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    font-weight: bold;
+   
+} 
+
+.start-login,
+.logout button {
+    background-color:#FF4656 ;
+    color: inherit;
+}
+.start-sginup {
+    background-color: #0C141D;
+    border: solid 1px #FF4656; 
+    color: #FF4656;
+}
+
+.start-sginup:hover,
+.container .back-button:hover  {
+    background-color:#FF4656 ;
+    color: black;
+    box-shadow: #FF4656 0 0 20px;
+}
+.start-login:hover,
+.logout button:hover {
+    color: yellow;
+    box-shadow: #FF4656 0 0 20px;
+}
+
+.container .back-button {
+    background-color: #0C141D;
+    width: 100px;
+    border: solid 1px #FF4656; 
+    color: #FF4656;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 20px;
+
+}
+.welcome {
+    width: 100%;
+    font-size: 40px;
+    font-weight: bold;
+    color: white;
+}
+.ping {
+    
+    height: 200px;
+    border: solid 2px violet;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: black 0 0 20px;
+}
+
+.bar-side0,
+.bar-side1  {
+    height: 60px;
+    width: 8px;
+    border-radius: 5px;
+}
+.bar-side0  {
+    background-color: green;
+    animation: barside0 5s  infinite ;
+    
+}
+.bar-side1 {
+    background-color: red;
+    animation: barside1 5s  infinite ;
+}
+
+@keyframes barside0 {
+    0% {
+        translate: 0px 0px;
+        
+    }
+    25%{
+        translate: 0 68px;
+        
+    }
+    50%{
+        translate: 0 -68px;
+        
+    }
+    75%{
+        translate: 0 -40px;
+        
+    }
+    100%{
+        translate: 0 0px;
+        
+    }
+    
+    
+}
+@keyframes barside1 {
+    0% {
+        translate: 0px 0px;
+        
+    }
+    25%{
+        translate: 0 -50px;
+        
+    }
+    50%{
+        translate: 0 68px;
+        
+    }
+    75%{
+        translate: 0 30px;
+        
+    }
+    100%{
+        translate: 0 0px;
+        
+    }
+    
+}
+.ball-animation {
+    width: 20px;
+    height: 20px;
+    background-color: #E8F764;
+    border-radius: 50%;
+    animation: ballmove 5s  infinite ;
+}
+@keyframes ballmove {
+    0% {
+        translate: -192px 0px;
+        
+    }
+    25%{
+        translate: 192px -50px;
+
+    }
+    50%{
+        translate: -192px -68px;
+
+    }
+
+    75%{
+        translate: 192px 30px;
+
+    }
+    100%{
+        translate: -192px 0px;
+
+    }
+}
+
+
+ a {
+    margin: 0;
+    text-decoration: none;
+    color :#E09F1F;
+    font-weight: bold;
+}
+.nav-bar {
+    background-color: #0C141D;
+    width: 100%;
+    padding: 20px;
+}
+.nav-bar ul {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* START  THIS FOR LOGOUT PAGE STYLE */
+
+/* form .btn {
+    background-color: #ee82ee;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    border-radius: 3px;
+} */
+
+.logout {
+   display: flex;
+   height: 700px;
+}
+.logout .by {
+    width: 60%;
+    border-radius: 50px;
+    box-shadow: 0px 0px 49px -19px black;
+} 
+.logout i {
+    width: 100%;
+    color: rgb(21, 199, 21);
+}
+.logout p {
+    color: #E09F1F;
+    font-weight: bold;
+}
+.logout button a {
+    color: inherit;
+}
+.logout button {
+    width: 50%;
+    border-radius: 5px;
+    font-weight: bold;
+    color: black;
+    font-family: "vietnamese";
+}
+/* END THIS FOR LOGOUT PAGE STYLE */
+
+
+/* THIS FOR MESSAGE ERRORR FORM ------> */
+
+.message-error,
+.message-success,
+.message-info  {
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.478);
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold
+}
+.message-success {
+    background-color: rgba(0, 255, 38, 0.478);
+
+}
+.message-info {
+  background-color: rgba(0, 183, 255, 0.478);
+}
+
+/* <------ THIS FOR MESSAGE ERRORR FORM  */
+/* RESET PASSWORD  */
+.Password-reset-done {
+        font-size: 100px;
+        font-family: "Jaro", sans-serif;
+        font-optical-sizing: auto;
+        /* font-weight: bold; */
+        font-style: normal;
+        letter-spacing: 2px;
+        color: white;
+        /* opacity: 20%; */
+        text-shadow: 5px 5px 10px black;
+}
+
+/* RESET PASSWORD  */

@@ -1,0 +1,27 @@
+services:
+  #micro sevise game 
+  nginx:
+    container_name: nginx
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+
+    volumes:
+      - ./spa/front:/var/www/html/
+      - ./ft_trance_spa/pingpong/media:/var/www/html/media
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+  
+    networks:
+      - pingpong.net
+
+  redis:
+    image: redis:7.2
+    restart: always
+    container_name: redis
+    networks:
+      - pingpong.net
+
+networks:    
+  pingpong.net:
+    external: true

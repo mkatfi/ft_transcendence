@@ -3,111 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pingpong Home</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Jaro:opsz@6..72&family=Rakkas&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Shojumaru&family=Titan+One&display=swap" rel="stylesheet">
+    <title>Document</title>
 </head>
+
+<style>
+body{
+    height: 100vh;
+}
+.parent-container-8 {
+  background-color: darkslateblue;
+  border-radius: 20px;
+  padding: 5%;
+  position: absolute;
+  top: 200px;
+  left: 5%;
+  width: 80%;
+  min-width: 450px;
+  height: fit-content;
+  min-height: 50vh;
+  margin-right: 5%;
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  grid-gap: 5px;
+  z-index: 200000;
+}
+
+.parent-container-4 {
+  background-color: darkslateblue;
+  border-radius: 20px;
+  padding: 5%;
+  position: absolute;
+  top: 250px;
+  left: 5%;
+  width: 80%;
+  min-width: 400px;
+  height: fit-content;
+  min-height: 50vh;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: none;
+  grid-template-columns: repeat(2,1fr);
+  grid-gap: 5px;
+  z-index: 200000;
+}
+.child-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+.m-l{
+  margin-left: 15px;
+}
+.m-r{
+  margin-right: 15px;
+}  
+
+.plyr-box{
+  background-color: black;
+  width: 100%;
+  height: fit-content;
+  max-height: 20%;
+  max-width: 500px;
+  min-width: 100px;
+  min-height: 50px;
+  border-radius: 5px;
+  color: aliceblue;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.plyr-box img {
+  width: 30%;
+  padding: 5px;
+  max-width: 100px;
+  border-radius: 0px 20px 20px 0px;
+}
+
+.text {
+    margin-left: 10%;
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 25px;
+}
+
+@media screen and (max-width: 1000px) {
+  .text {
+      font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .text {
+      font-size: 10px;
+  }
+}
+
+.vid{
+    height: 40px;
+    width: 100%;
+    height: 5%;
+}
+
+.m-l {
+    margin-left: 5px;
+} 
+.m-r {
+    margin-right: 5px;
+}
+
+</style>
 <body>
-    <div class="page">
-        <header class="d-flex justify-content-between align-items-center p-4">
-            <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="">
-            <div class="search position-relative">
-                <input type="search" placeholder="Type A Keyword" class="p-2 ps-5 rounded-3">
-            </div>
-            <div class="icons d-flex align-items-center">
-                <span class="notf position-relative">
-                    <i class="fa-solid fa-bell fa-lg"></i>
-                </span>
-                <img src="imag_1/Default_logo_ping_pong_game_2.jpg" class="ms-3" alt="Pingpong Logo">
-            </div>
-        </header>
-        <!-- <div class="d-flex"> -->
-            <div class="sidebar">
-                <ul>
-                    <li>
-                        <a class="active d-flex p-3 align-items-center fs-5 rounded-2 mb-0 ms-3" href="index.html">
-                            <i class="fa-solid fa-house fa-fw"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="games.html">
-                            <i class="fa-solid fa-table-tennis fa-fw"></i> 
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="profile.html">
-                            <i class="fa-solid fa-user fa-fw"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="tournament.html">
-                            <i class="fa-solid fa-trophy fa-fw"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="friends.html">
-                            <i class="fa-solid fa-user-group fa-fw"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="leaderboard.html">
-                            <i class="fa-solid fa-ranking-star"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="d-flex p-3 align-items-center fs-5 rounded-2 mb-2 ms-3" href="settings.html">
-                            <i class="fa-solid fa-gear"></i>
-                        </a>
-                    </li>
-                </ul>
-                <div class="position-absolute bottom-0 start-50 translate-middle-x mb-3">
-                    <button type="button" class="btn btn-secondary">
-                      <a href="h.html"><i class="fa-solid fa-right-from-bracket"></i></a></button>
-                </div>
-            </div>
-            <div class="content_index flex-grow-1 p-3">
-            <div class="wrapper d-grid  gap-2">
-              <div class=" d-flex align-items-end justify-content-between box2 rounded-5 ">
-                <img src="image/droitvs.png" alt="">
-                <div class="ktab text-center  m-2">
-                  <h3>Pingpong</h3>
-                  <p class=" m-3">Welcome to the pingpong world come join us for a game!</p>
-                  <div class="play-now">
-                    <a class="text-center btn " href="games.html">
-                      <i class="fa-solid fa-play"></i>
-                      <span> PlayNow</span></a>
-                    </div>
-                </div>
-                  <img src="image/qauchevs.png" alt="">
-              </div>
-              <div class=" d-flex align-items-end justify-content-end box1 rounded-5"> 
-                <img src="/image/mhyb.png" alt="">
-               </div>
-               <div class=" d-flex align-items-end justify-content-end box3 rounded-5"> 
-                <img src="/image/yppi.png" alt="">
-                </div>
-            </div>
-            </div>
-        <!-- </div> -->
+
+<template>
+</template>
+
+<div class="parent-container-8">
+    <div class="child-col m-r">
+        <div class="plyr-box"><span class="text">player1</span></div>
+        <div class="plyr-box"><span class="text">player2</span></div>
+        <div class="vid"></div>
+        <div class="plyr-box"><span class="text">player3</span></div>
+        <div class="plyr-box"><span class="text">player4</span></div>
+        <div class="vid"></div>
+        <div class="plyr-box"><span class="text">player5</span></div>
+        <div class="plyr-box"><span class="text">player6</span></div>
+        <div class="vid"></div>
+        <div class="plyr-box"><span class="text">player7</span></div>
+        <div class="plyr-box"><span class="text">player8</span></div>
     </div>
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/all.min.js"></script>
-    <script src="js/index.js"></script>
-    <script>
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const welcomeMessage = document.querySelector('.welcome-message');
-            if (welcomeMessage) {
-                welcomeMessage.addEventListener('click', () => {
-                    alert('Welcome to Pingpong! Let\'s play!');
-                });
-            }
-        });
-    </script>
+    <div class="child-col m-l m-r">
+        <div class="plyr-box"><span class="text">player1</span></div>
+        <div class="plyr-box"><span class="text">player4</span></div>
+        <div class="vid"></div>
+        <div class="plyr-box"><span class="text">player6</span></div>
+        <div class="plyr-box"><span class="text">player8</span></div>
+    </div>
+    <div class="child-col m-l">
+        <div class="plyr-box"><span class="text">player4</span></div>
+        <div class="plyr-box"><span class="text">player6</span></div>
+    </div>
+</div>
 </body>
 </html>
+
+<!-- <div class="parent-container-4">
+    <div class="child-col m-r">
+        <div class="plyr-box">
+            <div class="img_div">
+                <img src="ft_trance_spa/pingpong/media/unkonu_p.png">
+            </div>
+            player1_0000001
+        </div>
+        <div class="plyr-box">
+            <div class="img_div">
+                <img src="ft_trance_spa/pingpong/media/unkonu_p.png">
+            </div>
+            player2_0000001
+        </div>
+        <div class="vid"></div>
+        <div class="plyr-box">
+            <div class="img_div">
+                <img src="ft_trance_spa/pingpong/media/unkonu_p.png">
+            </div>
+            player3_0000001
+        </div>
+        <div class="plyr-box">
+            <div class="img_div">
+                <img src="ft_trance_spa/pingpong/media/unkonu_p.png">
+            </div>
+            player4_0000001
+        </div>
+    </div>
+    <div class="child-col m-l">
+        <div class="plyr-box">player2</div>
+        <div class="plyr-box">player3</div>
+    </div>
+</div> -->

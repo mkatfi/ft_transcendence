@@ -1,0 +1,55 @@
+services:
+  #micro sevise game 
+  game:
+    build:
+      context: ./game
+      dockerfile: Dockerfile
+    container_name: game
+    restart: always
+    depends_on:
+      - game_db
+    volumes:
+      - game:/app
+      - ./static_files:/static
+    networks:
+      - monabid.42.game
+      - pingpong.net
+    ports:
+      - "1026:8000"
+    env_file:
+      - ./game/.env
+
+
+  #the database auth
+  game_db:
+    image: postgres:16
+    restart: always
+    container_name: game_db
+    env_file:
+      - ./game/.env
+    volumes:
+      - game_db:/var/lib/postgresql/data
+    networks:
+      - monabid.42.game
+
+volumes:
+  game:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './game/service'
+  
+  game_db:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '../volumes/game/'
+
+networks:
+  pingpong.net:
+    external: true
+  monabid.42.game:
+    name: monabid.42.game
+    driver: bridge

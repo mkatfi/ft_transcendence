@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  authe: 
+    container_name: tournament
+    image: tournament_image
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - r_auth_v:/user/app
+    ports:
+      - 8050:8000
+    networks:
+      - pingpong.net
+    env_file: .env
+
+  # postgresql:
+  #   container_name: postgresql
+  #   image: postgres:latest
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - PgreSgl_v:/var/lib/postgresql/data
+  #   networks:
+  #     - net
+  #   env_file: .env
+
+volumes:
+  r_auth_v:
+      driver: local
+      driver_opts:
+        type: 'none'
+        o: 'bind'
+        device: 'tournament'
+  PgreSgl_v:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '../PgreSql'
+
+networks:
+  pingpong.net:
+    external: true

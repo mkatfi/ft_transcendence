@@ -1,0 +1,45 @@
+networks:
+  pingpong.net:
+    name: pingpong.net
+    driver: bridge
+
+services:
+  django: 
+    container_name: django
+    build: 
+      context: ./ft_trance_spa/pingpong
+    volumes:
+      - ./ft_trance_spa/pingpong:/usr/src/app  
+    ports:
+      - 8000:8000
+    env_file:
+      - ./ft_trance_spa/.env
+    networks:
+      - pingpong.net
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    image: postgres:12
+    env_file:
+      - ./ft_trance_spa/.env
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/Desktop/volumes/data:/var/lib/postgresql/data
+    networks:
+      - pingpong.net
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    env_file:
+      - ./ft_trance_spa/.env
+    ports:
+      - "5050:80"
+    networks:
+      - pingpong.net
+  
+

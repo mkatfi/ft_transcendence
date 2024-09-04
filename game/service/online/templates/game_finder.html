@@ -1,0 +1,111 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% comment %} <link rel="stylesheet" href="{% static 'game/offline/styles.css' %}"> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'game/queue/style.css' %}">
+</head>
+<body>
+  <div class="mainqueueBox">
+    <h1> press to join queue </h1>
+    <div class="queueBox"> 
+      
+      <div class="button-card" id="noraml_btn" onclick="NormalQueue()">
+          <h1>Normal</h1>
+          <h4> players : 2</h4>
+          <h4> mode : online</h4>
+      </div>
+  
+      <div class="button-card" onclick="turnament()">
+        <h1> tournament</h1>
+        <h4> players : 8</h4>
+        <h4> mode : online</h4>
+  
+      </div>  
+    </div>
+  </div>
+    
+
+    <script>
+      var pressed1 = false;
+      var sock = null;
+      var version1_of_buteen1 = "<h1>Normal</h1><h4> players : 2</h4><h4> mode : online</h4>";
+      var version2_of_buteen1 = "<h1>registered</h1><h3 id =\"crono1\">00 : 00</h3><h4 game_mode : 1 vs 1</h4>";
+      var dom_btn_normal = document.getElementById("noraml_btn");
+      var crono1 = {
+        'sec' :0,
+        'min' :0,
+        'task' : null,
+        'dom' : null,
+      }
+
+      function NormalQueue() {
+        if (pressed1 == true){
+          crono1.dom = null;
+          dom_btn_normal.innerHTML = version1_of_buteen1;
+          dom_btn_normal.style.backgroundColor = 'grey';
+          
+          crono1.sec = 0;
+          crono1.min = 0;
+          clearInterval(crono1.task);
+          crono1.task = null;
+
+          sock.close();
+
+          pressed1 = false;
+          return;
+        }
+        
+        pressed1 = true;
+        dom_btn_normal.innerHTML = version2_of_buteen1;
+        dom_btn_normal.style.backgroundColor = 'black';
+        sock = new WebSocket("{{ sock_url }}");
+        sock.onmessage = function(event){
+          console.log(event.data);
+          try {
+            let obj = JSON.parse(event.data);
+            if (obj.action == 'redirect')
+            {
+              sock.close();
+              window.location.pathname = obj.url;
+            }
+          } catch (error) {
+            console.log("error couth:");
+            console.log(error);
+          }
+        }
+        crono1.dom = document.getElementById('crono1')
+        crono1.task = setInterval(clock, 1000, crono1);
+        console.log('done');
+      }
+
+      function get_string_of_time_unit(t){
+        ss_str =  t.toString();
+        return (ss_str.length === 1) ? '0' + ss_str : ss_str;
+      }
+
+      function inc_time(time){
+
+        extra = (time.sec === 59) ? 1 : 0
+        time.sec = (time.sec === 59) ? 0 : time.sec + 1
+        time.min +=  extra
+        //remove user from queue if queue time raches 60 min
+        if (time.min == 60)
+          NormalQueue()
+      }
+
+      function clock(crono1){
+
+        inc_time(crono1)
+        let time = get_string_of_time_unit(crono1.min)
+        time += " : "
+        time += get_string_of_time_unit(crono1.sec)
+        crono1.dom.innerText = time
+      }
+
+
+    </script>
+  </body>
+</html>

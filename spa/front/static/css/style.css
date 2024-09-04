@@ -1,0 +1,356 @@
+/* 
+
+--------------------------------------------------HEADER MEASSAGE NOTIFICATIONS------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------- */
+ .navbar-nav .fa-bell {
+  font-size: 26px;
+  position: relative;
+}
+
+.navbar-nav .fa-bell[data-count]:after {
+  position: absolute;
+  right: 0%;
+  top: 1%;
+  content: attr(data-count);
+  font-size: 36%;
+  padding: .6em;
+  border-radius: 999px;
+  line-height: .75em;
+  color: white;
+  background: rgba(255, 0, 0, .85);
+  text-align: center;
+  min-width: 2em;
+  font-weight: bold;
+}
+
+/* <-------------------------------------------------------------------------------THIS FOR FRIENDS  */
+/* <-------------------------------------------------------------------------------THIS FOR requst-friend  */
+.hold-msg-content {
+
+  text-wrap: wrap;
+  display: flex;
+  justify-content: space-around;
+}
+
+
+
+.message-success {
+  background-image: linear-gradient(to right, #0abf3055  , #25b143a1 30%);
+  box-shadow: inset 0px 0px 10px green;
+}
+.message-request {
+  background-image: linear-gradient(to right, violet  , rgba(238, 130, 238, 0.377) 30%);
+  box-shadow: inset 0px 0px 10px violet;
+}
+.message-info {
+  background-image: linear-gradient(to right, rgba(36, 177, 219, 0.37)  , rgba(255, 255, 0, 0) 30%);
+  box-shadow: inset 0px 0px 10px rgb(11, 171, 219);
+
+}
+.message-error {
+  background-image: linear-gradient(to right, rgba(219, 36, 36, 0.712)  , rgba(255, 255, 0, 0) 30%);
+  box-shadow: inset 0px 0px 10px red;
+}
+
+.message-holder {
+  position: fixed;
+  width: 50%;
+  margin: 20px;
+  top: 90px;
+  right: 0;
+  z-index: 200000000;
+}
+
+.message-info ,
+.message-success,
+.message-error,
+.message-request  {
+  color:white;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  height: fit-content;
+  position: relative;
+  animation: displaynotf 1s linear forwards;
+  text-wrap: wrap;
+  margin: 5px;
+  padding: 10px;
+}
+@keyframes displaynotf {
+  
+  0%{
+      transform: translate(50% ,0);
+      right: 0;
+  }
+}
+.message-success::after,
+.message-info::after,
+.message-error::after,
+.message-request::after{
+  content: "";
+  width: 100%;
+  height: 10px;
+  background-color: green;
+  position: absolute;
+  box-shadow: 0px 0px 20px green;
+  right: 0;
+  bottom: 0;
+  border-top: black solid 1px;
+  border-bottom: black solid 1px;
+  box-shadow:  0px 0px 10px black ;
+  animation: smalwidth 10s linear forwards; 
+
+}
+
+.message-info::after{
+  background-color: rgba(36, 177, 219, 0.37) ;
+}
+.message-error::after{
+  background-color: rgba(219, 36, 36, 0.37) ;
+}
+.message-request::after{
+  background-color: violet;
+}
+.message-success svg {
+  filter: drop-shadow(0px 0px 10px green);
+  padding: 5px;
+  border-radius: 50%;
+}
+
+
+.message-request .hold-msg-content  img {
+  width: auto;
+  height: 50px;
+  border-radius: 50%;
+
+}
+@keyframes smalwidth {
+  to {
+      width: 0;
+  }
+  
+}
+
+/* -------------------------ERRRORR------------------------------------- */
+
+
+
+
+/* .message-error,
+.message-success,
+.message-info ,
+.message-request{
+  display: none;
+} */
+/* <-------------------------------------------------------------------------------THIS FOR request-friend  */
+/* <-------------------------------------------------------------------------------THIS FOR FRIENDS  */
+
+
+.dropdown-menu {
+  background-color: transparent;
+
+  background-image: linear-gradient(to right, violet  , rgba(238, 130, 238, 0.377) 30%);
+  box-shadow: inset 0px 0px 10px violet;
+  color:white;
+  font-family: "Anton", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.dropdown-item {
+  color: white;
+}
+
+.dropdown-item:hover{
+  background-image: linear-gradient(to right, #0abf3055  , #25b143a1 30%);
+  box-shadow: inset 0px 0px 10px green;
+}
+.dropdown-toggle {
+  border: none;
+} 
+
+.dropdown-toggle i svg {
+  color: white !important;
+} 
+.scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+
+.scrollable-menu::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollable-menu::-webkit-scrollbar-track {
+  background-image: linear-gradient(to right, #0abf3055  , #25b143a1 30%);
+
+
+}
+
+.scrollable-menu::-webkit-scrollbar-thumb {
+
+  background-image: linear-gradient(to right, violet  , rgba(238, 130, 238, 0.377) 30%);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------HEADER MEASSAGE NOTIFICATIONS------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+.user-ser {
+	display: flex;
+	justify-content: space-around;
+	margin: 5px;
+	
+    font-family: "Jaro", system-ui;
+    width: 250px;
+    word-wrap: break-word;
+
+  background-image: linear-gradient(to right, black, rgb(0 0 0 / 68%) 30%);
+  box-shadow: inset 0px 0px 10px violet;
+}
+
+.avatar-ser img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+  border-radius: 50%;
+
+}
+
+.hide{
+    display: none;
+}
+
+.cards-ser{
+    position: absolute;
+    z-index: 200000;
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
+
+
+/* DLG MESSAGE  */
+
+.dlg-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%)translateY(-50%);
+  /* background-color: rgba(63, 162, 201, 0.807); */
+  background-image: linear-gradient(to right, violet  , rgba(238, 130, 238, 0.377) 30%);
+    box-shadow: inset 0px 0px 10px violet;
+  padding: 30px;
+  border-radius: 20px;
+  display: none;
+
+  z-index: 200000;
+
+}
+
+.dlg-message {
+  background-color: rgb(11, 11, 19);
+  padding: 20px;
+  border-radius: 15px;
+  color: white;
+}
+.dlg-footer {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-around;
+  background-color: brwon;
+
+}
+.dlg-cancel {
+  background-image: linear-gradient(to right, rgb(238, 130, 130)  , rgba(255, 0, 0, 0.377) 30%);
+  box-shadow: inset 0px 0px 10px black;
+  
+}
+.dlg-ok{
+  background-color: rgba(229, 30, 30, 0.233);
+}
+.dlg-cancel ,
+.dlg-ok {
+  padding: 10px;
+  border-radius: 10px;
+  /* box-shadow: 0px 0px 10px black; */
+}
+
+.freez-all {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.88);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 20000;
+  
+}
+
+/* DLG MESSAGE  */
+
+.not-404 {
+  color: white;
+}
+
+.freined-profile-user {
+  margin: 0;
+  position: absolute;
+  top: 58%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  display: none;
+  z-index: 200000;
+
+} 
+.freined-profile-user {
+  margin: 0 !important; 
+}
+.btn-exit {
+  z-index: 200001;
+
+}
+
+
+/* HEADER  */
+.avatar-header{
+  object-fit: cover;
+}
+/* HEADER  */
+
+
+
+
+.login-with-intra  img{
+  cursor: pointer;
+} 
+
+
+
+
+
+
+/* header */
+header .logo img {
+  height: 150px;
+  filter: drop-shadow(0px 0px 10px rgb(220, 60, 139));
+  /* position: absolute;
+  top :0;
+  left: 0; */
+
+}

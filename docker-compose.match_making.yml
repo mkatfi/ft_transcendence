@@ -1,0 +1,31 @@
+services:
+  matchmaking:
+    build:
+      context: ./match_making
+      dockerfile: Dockerfile
+    container_name: match_making
+    restart: always
+    ports:
+      - 1205:8000
+    volumes:
+      - match_making:/app
+    networks:
+      - pingpong.net
+      - monabid.42.game
+    env_file:
+      - ./match_making/.env
+
+networks:
+  pingpong.net:
+    external: true
+  monabid.42.game:
+    external: true
+
+volumes:
+  match_making:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './match_making/service'
+

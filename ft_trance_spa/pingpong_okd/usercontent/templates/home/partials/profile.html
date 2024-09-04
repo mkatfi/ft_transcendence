@@ -1,0 +1,60 @@
+{% load static %}
+
+
+
+
+
+{% for message in  messages %}
+
+
+{% if message.tags == "error" %}
+<div class="message-{{ message.tags }}">  <i class="fa-solid fa-circle-exclamation"></i> 
+  {% elif message.tags == "success" %}
+  <div class="message-{{ message.tags }}">  <i class="fa-solid fa-circle-check"></i>
+      {% else %}
+      <div class="message-{{ message.tags }}">  <i class="fa-solid fa-circle-info"></i>
+          {% endif %}
+          {{message}}
+      </div>
+
+  
+{% endfor %} 
+
+<div class="pr-welcome m-2">
+  <p>  <i class="fa-solid fa-user  fa-fw"></i> Welcome, {{ user.get_username }} </p>
+
+</div>
+<div class="user-profile d-grid   gap-2  rounded-4 ms-3 me-3 mb-2 ">
+  <div class="position-relative avatar-profile d-flex justify-content-around flex-wrap align-items-center">
+
+    {% comment %} {% for x in up  %} {% endcomment %}
+    <div class="position-absolute top-0 start-50 translate-middle image-container">
+      <img class=" avatar "  src="{{ up.avatar.url}}"   alt="">
+      <span><i  id="pencil" class="fa-solid fa-pencil"></i></span>
+    </div>
+      <form  class="form-avatar" method="post" enctype="multipart/form-data" action="" class="w-75">
+        {% csrf_token %} 
+                    {{ form.avatar }}
+                    {% comment %} {{ form.bio }} {% endcomment %}
+                {% if form.errors %}
+                    <div class="bg-white message-error">  <i class="fa-solid fa-circle-exclamation"></i> {{form.errors}}</div>
+                {% endif %}
+    </form>
+      {% comment %} {% endfor %}  {% endcomment %}
+
+    <div class="pr-name w-60 text-center">
+      <p  class="mt-5   text-uppercase fst-italic fw-bold" >{{ user.get_username }}</p>
+      <p> <i class="fa-solid fa-envelope"></i> {{ user.email }} </p>
+    </div>
+  </div>
+  <div class="level-profile d-flex justify-content-center  flex-column m-5">
+    <h4>Level 25</h4>    
+    <div class="progress rounded-4 position-relative overflow-visible">
+      <span class="w-25 rounded-4 "></span>
+    </div>
+    
+  </div>
+</div>
+
+
+

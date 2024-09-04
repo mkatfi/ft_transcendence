@@ -1,0 +1,27 @@
+{% load static %}
+
+
+<div class="user-profile d-grid   gap-2  rounded-4 ms-3 me-3 mb-2 ">
+  <div class="position-relative avatar-profile d-flex justify-content-around flex-wrap align-items-center">
+
+    {% comment %} {% for x in up  %} {% endcomment %}
+
+      <img class="position-absolute top-0 start-50 translate-middle"  src="{{ friend.profile.avatar.url}}"   alt="">
+      {% comment %} {% endfor %}  {% endcomment %}
+
+    <div class="pr-name w-60 text-center">
+      <p  class="mt-5   text-uppercase fst-italic fw-bold" >{{ friend.get_username }}</p>
+      <p>  {{ friend.bio }} </p>
+    </div>
+  </div>
+  <div class="level-profile d-flex justify-content-center  flex-column m-5">
+    <h4>Level 25</h4>    
+    <div class="progress rounded-4 position-relative overflow-visible">
+      <span class="w-25 rounded-4 "></span>
+    </div>
+    
+  </div>
+</div>
+
+
+

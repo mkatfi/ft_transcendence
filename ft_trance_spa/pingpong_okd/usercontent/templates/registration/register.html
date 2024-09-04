@@ -1,0 +1,100 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Main Template css file -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- Render  all element Normaly -->
+    <link rel="stylesheet" href=" {% static 'css/normalize.css' %}"  >
+    <!-- Font Awesome Library -->
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}"/>
+     <!-- Google Fonts -->
+     <link rel="preconnect" href="https://fonts.gstatic.com" />
+     <link
+       href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&#038;display=swap"
+       rel="stylesheet"
+     />
+</head>
+<body> 
+
+
+
+    {% if next %}
+    {% if user.is_authenticated %}
+        <p style="
+        background-color: red;
+        font-size: large;
+        font-weight: bold;
+        margin: 60px;
+    ">Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</p>
+    {% else %}
+        <p style="
+        background-color: red;
+        font-size: large;
+        font-weight: bold;
+        margin: 60px;
+    ">Please login to see this page.</p>
+    {% endif %}
+    {% endif %}
+  
+    <div class="container">
+        <div class="login new-user ">
+            
+            <h1>SIGIN UP</h1>
+            <form method="post" action="{% url 'register' %}">
+                {% csrf_token %}
+                {{form.username}}
+                {{form.first_name}}
+                {{form.last_name}}
+                {{form.email}}
+                {{form.password1}}
+                {{form.password2}}
+
+                <input type="submit" class="sigin" value="SIGIN UP">
+            </form>
+
+            <a class="back-button" href="{% url 'first' %}">&lt;  BACK</a> 
+            {% if form.errors %}
+            <div class="message-error">  <i class="fa-solid fa-circle-exclamation"></i> {{form.errors}}</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+{% comment %} <script src="{% static 'js/main.js' %}"></script> {% endcomment %}
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <span>Or</span>
+<div class="intra-sign"> <img class="img-sign"src="https://profile.intra.42.fr/assets/42_logo-7dfc9110a5319a308863b96bda33cea995046d1731cebb735e41b16255106c12.svg" > Intra</div> -->

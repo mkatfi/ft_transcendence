@@ -348,8 +348,8 @@ ul {
   position: absolute;
   margin: auto;
   left: 12px;
-  top: 150px;
-  bottom: 50px;
+  top: 20%;
+  /* bottom: 50px; */
 }
 
 .sidebar ul {
@@ -401,8 +401,11 @@ ul {
   color: rgb(253, 0, 127);
 }
 .display-t{
-  color: #eee;
-  /* font-size: x-large; */
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  filter: drop-shadow(5px 5px 8px rgb(253, 0, 127));
+  /* border-bottom: 2px solid rgb(253, 0, 127); */
 }
 
 .hamburger-input {
@@ -411,7 +414,6 @@ ul {
 
 .hamburger-label {
   background-color: transparent;
-  /* box-shadow: 5px 5px 10px black, -5px -5px 10px black; */
   border: 2.5px #25284A solid;
   border-radius: 20px;
   display: none;
@@ -435,14 +437,10 @@ ul {
 }
 
 @media (max-width: 768px) {
-  /* .sidebar {
-    top: 0;
-    height: 100vh;
-    border-radius: 0 20px 20px 0;
-  } */
+
   .sidebar {
     left: -90px;
-    top: -110px;
+    top: 20%;
     z-index: 10000;
 }
 
@@ -476,7 +474,7 @@ ul {
 {
   .sidebar {
     left: -90px;
-    top: -130px;
+    top: 20%;
     z-index: 10000;
 }
   .hamburger-label {
@@ -491,7 +489,7 @@ ul {
 {
   .sidebar {
     left: -90px;
-    top: -160px;
+    top: 20%;
     z-index: 10000;
 }
   .hamburger-label {
@@ -2370,7 +2368,7 @@ button:hover {
     top: 214px;
     left: -10px;
     opacity: 0;
-    box-shadow: 7px 0 0px white;
+    box-shadow: 7px 0 0px rgb(84, 255, 84);
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
     animation: animPing 2s linear infinite;
@@ -2382,7 +2380,7 @@ button:hover {
     opacity: 0;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    box-shadow: -7px 0 0px white;
+    box-shadow: -7px 0 0px rgb(250, 87, 109);
     animation: animPing 2s 1s linear infinite;
 }
 @keyframes animPing{

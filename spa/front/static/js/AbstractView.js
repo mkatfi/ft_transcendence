@@ -86,7 +86,9 @@ export default class AbstractView {
         <span></span>
     </label>
    <div class="sidebar">
-        <div class="display-t"> <span>  ${this.pageTitle}</span></div>
+        <div class="display-t"> <span>
+        <marquee>${this.pageTitle}</marquee>
+          </span></div>
         <ul>
             <li data-link >
             <a class=" ${activeLink[0].active} d-flex  p-3 align-items-center fs-5   rounded-2  ms-3 "  href="/home" data-link>

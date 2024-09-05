@@ -76,45 +76,52 @@ export default class AbstractView {
             element.active = "";
         })
         activeLink.map(element => console.log(`${element.name}  : ${element.active}`));
-        return `   
+
         
+        return `   
+    <input type="checkbox" id="hamburger" class="hamburger-input">
+    <label for="hamburger" class="hamburger-label">
+        <span></span>
+        <span></span>
+        <span></span>
+    </label>
    <div class="sidebar">
         <div class="display-t"> <span>  ${this.pageTitle}</span></div>
         <ul>
             <li data-link >
-            <a class=" ${activeLink[0].active} d-flex  p-3 align-items-center fs-5   rounded-2 mb-2 ms-3 "  href="/home" data-link>
+            <a class=" ${activeLink[0].active} d-flex  p-3 align-items-center fs-5   rounded-2  ms-3 "  href="/home" data-link>
               <i data-link class="fa-solid fa-house  fa-fw"></i>
             </a>
         </li>
           <li    data-link >
-            <a id="game_buttun" class=" ${activeLink[1].active}  d-flex  p-3 align-items-center fs-5  rounded-2 mb-2 ms-3 " data-link href="/games" >
+            <a id="game_buttun" class=" ${activeLink[1].active}  d-flex  p-3 align-items-center fs-5  rounded-2  ms-3 " data-link href="/games" >
               <i data-link class="fa-solid fa-gamepad fa-fw"></i>
             </a>
           </li>
           <li data-link >
-            <a class=" ${activeLink[2].active}   d-flex  p-3 align-items-center fs-5  rounded-2 mb-2 ms-3  " data-link href="/profile" >
+            <a class=" ${activeLink[2].active}   d-flex  p-3 align-items-center fs-5  rounded-2  ms-3  " data-link href="/profile" >
               <i data-link class="fa-solid fa-user  fa-fw"></i>
             </a>
           </li>
           <li data-link >
-              <a class="  ${activeLink[3].active}   d-flex  p-3 align-items-center fs-5  rounded-2 mb-2 ms-3  " data-link  href="/tournament" >
+              <a class="  ${activeLink[3].active}   d-flex  p-3 align-items-center fs-5  rounded-2  ms-3  " data-link  href="/tournament" >
                   <i data-link class="fa-solid fa-trophy fa-fw"></i>
             </a>
         </li>
           <li data-link >
-            <a class=" ${activeLink[4].active}   d-flex  p-3 align-items-center fs-5 rounded-2 mb-2 ms-3  "  href="/friends" >
+            <a class=" ${activeLink[4].active}   d-flex  p-3 align-items-center fs-5 rounded-2  ms-3  "  href="/friends" >
               <i data-link class="fa-solid fa-user-group fa-fw"></i>
             </a>
           </li>
       
           <li data-link >
-            <a class=" ${activeLink[5].active}   d-flex  p-3 align-items-center fs-5 rounded-2 mb-2 ms-3  "  href="/leaderboard" >
+            <a class=" ${activeLink[5].active}   d-flex  p-3 align-items-center fs-5 rounded-2  ms-3  "  href="/leaderboard" >
               <i data-link class="fa-solid fa-ranking-star"></i>
             </a>
           </li>
       
           <li data-link >
-            <a class=" ${activeLink[6].active}   d-flex  p-3 align-items-center fs-5 rounded-2 mb-2 ms-3  " href="/settings" >
+            <a class=" ${activeLink[6].active}   d-flex  p-3 align-items-center fs-5 rounded-2  ms-3  " href="/settings" >
               <i data-link class="fa-solid fa-gear"></i>
             </a>
           </li>
@@ -124,10 +131,7 @@ export default class AbstractView {
           <button type="button" class="btn btn-secondary   ">
            <a   > <i class="fa-solid fa-right-from-bracket"></i></a></button>
            </div>
-
-
- 
-           </div>
+      </div>
            
           `
 

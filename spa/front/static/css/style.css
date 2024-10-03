@@ -30,12 +30,14 @@
   text-wrap: wrap;
   display: flex;
   justify-content: space-around;
+  color: black;
 }
 
 
 
-.message-success {
+/* .message-success {
   background-image: linear-gradient(to right, #0abf3055  , #25b143a1 30%);
+  background-color: white;
   box-shadow: inset 0px 0px 10px green;
 }
 .message-request {
@@ -50,11 +52,11 @@
 .message-error {
   background-image: linear-gradient(to right, rgba(219, 36, 36, 0.712)  , rgba(255, 255, 0, 0) 30%);
   box-shadow: inset 0px 0px 10px red;
-}
+} */
 
 .message-holder {
   position: fixed;
-  width: 50%;
+  max-width: 300px;
   margin: 20px;
   top: 90px;
   right: 0;
@@ -65,7 +67,7 @@
 .message-success,
 .message-error,
 .message-request  {
-  color:white;
+  background-color: white;
   font-family: "Anton", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -76,8 +78,11 @@
   margin: 5px;
   padding: 10px;
 }
+
+.wh-container{
+  animation: displaynotf 1s linear forwards;
+}
 @keyframes displaynotf {
-  
   0%{
       transform: translate(50% ,0);
       right: 0;
@@ -90,34 +95,31 @@
   content: "";
   width: 100%;
   height: 10px;
-  background-color: green;
+  background-color: #198754;
   position: absolute;
-  box-shadow: 0px 0px 20px green;
+  /* box-shadow: 0px 0px 20px green; */
   right: 0;
   bottom: 0;
   border-top: black solid 1px;
   border-bottom: black solid 1px;
   box-shadow:  0px 0px 10px black ;
   animation: smalwidth 10s linear forwards; 
-
 }
 
 .message-info::after{
-  background-color: rgba(36, 177, 219, 0.37) ;
+  background-color: #0dcaf0 ;
 }
 .message-error::after{
-  background-color: rgba(219, 36, 36, 0.37) ;
+  background-color: #dc3545;
 }
 .message-request::after{
   background-color: violet;
 }
-.message-success svg {
+/* .message-success svg {
   filter: drop-shadow(0px 0px 10px green);
   padding: 5px;
   border-radius: 50%;
-}
-
-
+} */
 .message-request .hold-msg-content  img {
   width: auto;
   height: 50px;
@@ -232,7 +234,7 @@
 }
 
 .hide{
-    display: none;
+    display: none !important;
 }
 
 .cards-ser{
@@ -298,7 +300,7 @@
   left: 0;
   top: 0;
   z-index: 20000;
-  
+
 }
 
 /* DLG MESSAGE  */

@@ -76,6 +76,10 @@ export default class extends AbstractView {
         return ``;
     }
 
+    async inAuthpages(){
+        return true;
+      
+      }
     afterRender(){
         document.querySelector(".register-input").addEventListener("submit", this.registerUser.bind(this));
 

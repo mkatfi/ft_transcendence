@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import path ,include
 from django.conf import settings
 from django.conf.urls.static import static
-from usercontent.views import MyTokenObtainPairView,  is_auth, getUser
+from usercontent.views import  is_auth, getUser
+# MyTokenObtainPairView, 
 
 from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
     TokenRefreshView,
 )
 urlpatterns = [
@@ -28,7 +30,7 @@ urlpatterns = [
     path('', include('usercontent.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('api/rauth/', include('remote_auth.urls')),
-    path('api/login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/refresh/',TokenRefreshView.as_view(), name='token_refresh'),
     path('api/is_auth/', is_auth),
     path("api/getUser/", getUser, name="get_user"),

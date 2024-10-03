@@ -1,95 +1,9 @@
-
-
-export function createSocketConnection() {
-
-    let socket = null;
-    const accessToken = localStorage.getItem('access_token');
-
-    var loc = window.location;
-    var wsStart = 'ws://';
-    if (loc.protocol == 'https:') {
-        wsStart = 'wss://'
-    }
-    var endpoint = wsStart + loc.host ;
-    if (accessToken) {
-        socket = new WebSocket(`${endpoint}/ws/status/?token=${accessToken}`); // Adjust the URL as neede
-
-        socket.onmessage = function(event) {
-            console.log('WebSocket message received:', event);
-        };
-
-        socket.onclose = function(event) {
-
-
-
-            console.log('**************************\n\n\n\n\n\n\n socket for status is closed \n\n\n\n\n\n**************************');
-        };
-
-        socket.onerror = function(event) {
-            console.error('WebSocket error observed:', event);
-        };
-
-        return socket ;
-    } else {
-        console.error('No access token found, cannot create WebSocket connection.');
-    }
-}
-
-export function closeSocketConnection() {
-    if (socket) {
-        console.log("logout and colose socket x') ")
-        socket.close();
-        socket = null;
-    }
-}
-
-
-
-
-
-export function closeNotificationSocket() {
-    if (notf_socket) {
-        console.log("logout and colose socket x') ")
-        notf_socket.close();
-        notf_socket = null;
-    }
-}
-
-
-
-export function creatNotificationSocket(urlpath) {
-
-    let notf_socket = null;
-
-    const accessToken = localStorage.getItem('access_token');
-
-    var loc = window.location;
-    var wsStart = 'ws://';
-    if (loc.protocol == 'https:') {
-        wsStart = 'wss://'
-    }
-    var endpoint = wsStart + loc.host ;
-    if (accessToken) {
-        notf_socket = new WebSocket(`${endpoint}/ws/notf/?token=${accessToken}`); // Adjust the URL as needed
-
-        notf_socket.onclose = function(event) {
-            console.log('WebSocket is closed now.');
-        };
-
-        notf_socket.onerror = function(event) {
-            console.error('WebSocket error observed:', event);
-        };
-
-        return notf_socket;
-    } else {
-        console.error('No access token found, cannot create WebSocket connection.');
-    }
-}
+import { getCookie } from "./tools.js";
 
 
 export function  getMyUser(){
     try {
-      let access_token = localStorage.getItem('access_token');
+      let access_token = getCookie('access_token');
       // console.log("access token :",access_token);
       const parts = access_token.split('.');
       if (parts.length !== 3) {
@@ -127,7 +41,7 @@ export function creatChatSocket() {
 
     let chat_socket = null;
 
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = getCookie('access_token');
 
     var loc = window.location;
     var wsStart = 'ws://';
@@ -153,55 +67,89 @@ export function creatChatSocket() {
 }
 
 
+
 export class CostumConfigDialog {
     
-    constructor (){
-      
+    constructor() {
+        this.dlg = document.querySelector(".dlg-container");
+        this.dlgmsg = this.dlg.querySelector(".dlg-message");
+        this.okButton = this.dlg.querySelector(".dlg-ok");
+        this.cancelButton = this.dlg.querySelector(".dlg-cancel");
+        this.initEvents();  
     }
 
-    showDialog(msg,callback) {
+    initEvents() {
+        this.okButton.addEventListener("click", () => this.ok());
+        this.cancelButton.addEventListener("click", () => this.close());
+    }
 
-        const dlg = document.querySelector(".dlg-container");
-        let dlgmsg = dlg.querySelector(".dlg-message");
-
+    showDialog(msg, callback) {
         this.msg = msg;
         this.call = callback;
-        dlgmsg.textContent = this.msg;
-        dlg.style.display = "block";
+        this.dlgmsg.textContent = this.msg;
+        this.dlg.style.display = "block";
         document.querySelector(".freez-all").style.display = "";
-
     }
 
-    ok()
-    {
-        this.call();
-        this.close()
-        
+    ok() {
+        if (typeof this.call === "function") {
+            this.call();
+        }
+        this.close();
     }
-    close(){
-        const dlg = document.querySelector(".dlg-container");
 
-        dlg.style.display = "none";
+    close() {
+        this.dlg.style.display = "none";
         document.querySelector(".freez-all").style.display = "none";
-
     }
-
 }
 
 
 
+function iconNotif(type){
+
+    if (type == "success") 
+        return `<i class="me-2 text-success fs-3 fa-solid fa-circle-check"></i>`;
+    else if(type == "info")
+        return `<i class="me-2  text-info  fa-solid fs-3 fa-circle-info"></i>`;
+    else
+        return `<i class=" me-2  fs-3 text-danger  fa-solid fa-circle-xmark"></i>`;
+}
+
 export function messageHandling(type,description) {
-    
 
     let template_msg = document.querySelector(`#message-${type}-template`);
-          
     let clonemsg = template_msg.content.cloneNode(true);
-    clonemsg.querySelector(".hold-msg-content ").innerHTML =  `      <p> ${type} </p>
+    clonemsg.querySelector(".hold-msg-content ").innerHTML =  `      <p> ${iconNotif(type)} </p>
                                                         <p> ${description}</p>
                                                 `;
     let messageHolder =   document.querySelector(`.message-holder`);
+    messageHolder.appendChild(clonemsg);
+    setTimeout(() => {
+        messageHolder.firstElementChild.remove();
+    }, 10000);
+}
+
+
+export function notificationHtml({avatar,message}) {
+    let template_msg;
+    let clonemsg ;
+    let messageHolder;
+
+    template_msg = document.querySelector(`#message-request-template`);
+    clonemsg = template_msg.content.cloneNode(true);
+    clonemsg.querySelector(".hold-msg-content ").innerHTML =  
+    `     
+    <img src="${avatar}" alt=""> 
+    <p><i class="fa-solid fa-triangle-exclamation"></i> ${message}</p>   
+    <a href="/friends" data-link>
+        <i class="fas fa-arrow-right"></i>
+    </a>
+    `;
+    messageHolder =   document.querySelector(`.message-holder`);
     messageHolder.appendChild(clonemsg)
     setTimeout(() => {
         messageHolder.firstElementChild.remove();
     }, 10000);
+
 }

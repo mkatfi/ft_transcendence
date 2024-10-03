@@ -25,22 +25,33 @@ def chat_messages(chat: Chat, user_id):
         })
     return msgs
 
+def generate_chat_id(id1, id2):
+    chat_id = ''
+    if id1 > id2:
+        chat_id = str(id2) + str(id1)
+    if id1 < id2:
+        chat_id = str(id1) + str(id2)
+    return chat_id
+
 @api_view(['POST', 'GET'])
 @permission_classes([AllowAny])
 def chat(request):
     if request.method == "POST":
         data = request.data
-        current_uid = int(data['current_uid'])
-        other_uid = int(data['other_uid'])
+        current_uid = data['current_uid']
+        other_uid = data['other_uid']
+        chat_id = generate_chat_id(current_uid, other_uid)
         try:
-            chat = Chat.objects.get(chat_id=current_uid+other_uid)
+            chat = Chat.objects.get(chat_id=chat_id)
+            print("chat id ",chat.id,"--",chat_id,flush=True)
         except:
             return HttpResponse(json.dumps({'created': False ,'msgs': []}),
                 content_type='application/json')  
         msgs = chat_messages(chat, current_uid)
-        return HttpResponse(json.dumps({'created': True ,'msgs': msgs}),
+        return HttpResponse(json.dumps({'created': True ,'msgs': msgs,
+            'block': chat.block}),
             content_type='application/json')
-    return HttpResponse(json.dumps({'Message': 'this allow only POST'}),
+    return HttpResponse(json.dumps({'Message': 'this view allow only POST'}),
             content_type='application/json')
 
 
@@ -52,12 +63,16 @@ def send_msg(request):
         sender_id = int(data['sender_id'])
         receiver_id = int(data['receiver_id'])
         msg_text = data['message']
+        chat_id = generate_chat_id(sender_id, receiver_id)
         try:
-            chat = Chat.objects.get(chat_id=sender_id+receiver_id)
+            chat = Chat.objects.get(chat_id=chat_id)
+            if chat.block == True:
+                return HttpResponse(json.dumps({'status': 'block'}),
+                    content_type='application/json')
             chat.last_update = timezone.now()
             chat.save()
         except:
-            chat = Chat.objects.create(chat_id=sender_id+receiver_id)
+            chat = Chat.objects.create(chat_id=chat_id)
             chat.user1_id = sender_id
             chat.user2_id = receiver_id
             chat.save()
@@ -91,7 +106,10 @@ def send_to_receiver(message: Message, chat, user_id):
             'all_unread_msgs': all_unread_messages,
         },
     )
-    
+
+        
+
+
 @api_view(['POST', 'GET'])
 @permission_classes([AllowAny])
 def chats(request):
@@ -128,17 +146,35 @@ def unread_msgs(chat: Chat, user_id):
 def all_unread_msgs(user_id):
     unread_msgs = Message.objects.filter(receiver_id=user_id,
         is_read=False)
-    print("_______unres",unread_msgs)
     return unread_msgs.count()
+
 
 @api_view(['POST', 'GET'])
 @permission_classes([AllowAny])
 def all_unread_msgs_view(request):
     if request.method == 'POST':
         user_id = request.data['user_id']
-        all_unread_mssgs = all_unread_msgs(user_id)
-        print(all_unread_mssgs)
-        return HttpResponse(json.dumps({'all_unread_mssgs': all_unread_mssgs}), 
+        _all_unread_msgs = all_unread_msgs(user_id)
+        return HttpResponse(json.dumps({'all_unread_mssgs': _all_unread_msgs}),
             content_type='application/json')
-    return HttpResponse(json.dumps({'all_unread_mssgs': 0}), 
+    return HttpResponse(json.dumps({'all_unread_mssgs': 0}),
+            content_type='application/json')
+
+
+@api_view(['POST', 'GET'])
+@permission_classes([AllowAny])
+def block(request):
+    if request.method == 'POST':
+        data = request.data
+        current_uid = data['current_id']
+        other_uid = data['other_id']
+        chat_id = generate_chat_id(current_uid, other_uid)
+        try:
+            chat = Chat.objects.get(chat_id=chat_id)
+            chat.block = not(chat.block)
+            chat.save()
+        except:
+            return HttpResponse(json.dumps({ 'status':"ko" ,'blocked':  chat.block}),
+            content_type='application/json')
+        return HttpResponse(json.dumps({'status':"ok" ,'blocked': chat.block}),
             content_type='application/json')

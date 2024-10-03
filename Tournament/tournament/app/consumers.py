@@ -11,27 +11,24 @@ from .enums import Tourn_status
 
 class WSConsumer(WebsocketConsumer):
     def connect(self):
+        self.accept()
+
+    def receive(self, text_data):
+        data = json.loads(text_data)
+        trn_size = data['trn_size']
         try:
-            trn = Tournament.objects.latest("id")
+            trn = Tournament.objects.filter(size=trn_size).latest("id")
         except:
             print('connection Faild!!!!!!', flush=True)
             return
         self.room_group_name = f'trnGroup_{trn.pk}'
-        
-        user = self.scope.get("user", None)
-        # if user:
-        #     print('user_name: ', user.username)
-        # else:
-        #     print("no user")
-        print("user {} added to group: {}".format(user.username,
+
+        print("last_player added to group: {}".format(
             self.room_group_name), flush=True)
         async_to_sync(self.channel_layer.group_add)(
             self.room_group_name,
             self.channel_name,
         )
-        self.accept()
-
-    def receive(self, text_data):
         user = self.scope.get("user", None)
         print('consumer {} receive'.format(user.username), flush=True)
         
@@ -45,6 +42,7 @@ class WSConsumer(WebsocketConsumer):
             self.room_group_name,
             self.channel_name,
         )
+
 
     def update_tournament(self, event):
         print('send_tournament_update called!!!', flush=True)
@@ -64,12 +62,14 @@ class WSConsumer(WebsocketConsumer):
             'trn_name': trn_name,
         }))
 
+
     def start_matche(self, event):
         trn_id = event['trn_id']
         refresh = event['refresh']
         trn_name = event['trn_name']
         trn = Tournament.objects.get(id=trn_id)
         self.send_matche_start(trn, refresh, trn_name)
+
 
     def send_matche_start(self, trn: Tournament, refresh, trn_name):
         user = self.scope.get("user", None)
@@ -86,10 +86,12 @@ class WSConsumer(WebsocketConsumer):
                 'p2_img':m.player2.img_url,
                 'p2_name':m.player2.name,
                 'p2_pr_id':m.player2.profile_id,
+                'create_time': m.created_at.isoformat(),
             })
         # print('trn_name: ', trn_name, flush=True)
         self.send(text_data=json.dumps({
             'type': 'matche',
+            'trn_id': trn.pk,
             'm_res': m_res,
             'refresh': refresh,
             'matches': trn_matches,
@@ -121,7 +123,7 @@ class WSConsumer_trnInfo(WebsocketConsumer):
         trn_name = event['trn_name']
         trn_size = event['trn_size']
 
-        print("tournament_info plyrs:", plyrs, flush=True)
+        # print("tournament_info plyrs:", plyrs, flush=True)
         self.send(text_data=json.dumps({
             'players': plyrs,
             'unknown': unknown,

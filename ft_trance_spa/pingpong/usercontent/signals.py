@@ -54,7 +54,8 @@ def notification_created(sender, instance, created, **kwargs):
                 "type": "send_notification",
                 "message": instance.message,
                 "avatar"  : avatar_url,
-                "is_read" : instance.is_read
+                "is_read" : instance.is_read,
+                "size_notf":instance.notification_count,
             }
         )
 @receiver(post_save, sender=Friend_Request)

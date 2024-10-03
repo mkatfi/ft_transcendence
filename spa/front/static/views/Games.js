@@ -1,4 +1,5 @@
 import AbstractView from "../js/AbstractView.js";
+import { getCookie } from "../js/tools.js";
 import {
         DiplayManager,
         CommandManager,
@@ -129,7 +130,7 @@ export default class extends AbstractView {
     await this.setData();
 
     const postData = {
-      'access_token' : localStorage.getItem('access_token'),
+      'access_token' : getCookie('access_token'),
       'login'        : this.payload.username,
       'image'        : this.data.avatar,
     };
@@ -160,7 +161,7 @@ export default class extends AbstractView {
 
   afterRenderQueue()
   {
-    vars.headers.access_token = localStorage.getItem('access_token');
+    vars.headers.access_token = getCookie('access_token');
     vars.headers.login = this.payload.username;
     vars.headers.image = this.data.avatar;
 
@@ -197,7 +198,7 @@ export default class extends AbstractView {
     const sock_url = "ws://" + host + "/ws/game/online/"
     gameWS = new WebSocket(sock_url);
     var headrsgame = {
-      "access_token" :  localStorage.getItem('access_token'),
+      "access_token" : getCookie('access_token'),
       "login"        :  this.payload.username,
       "image"        :  this.data.avatar,
     }

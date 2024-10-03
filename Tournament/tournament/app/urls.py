@@ -7,5 +7,8 @@ urlpatterns = [
     path('tourn_info/', views.tourn_info),
     path('leave_trn/', views.leave_trn),
     path('trn_history/', views.tourn_history),
-    # path('matches', matches.start_matche, name='start_matche'),
+    path('trn_stats/', views.trn_stats),
+    path('matchresult/', views.matchresult),
+    path('matche_info/', views.matche_info),
+    # path('matches', matches.start_matche, name='start_matche'),trn_stats
 ]

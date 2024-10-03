@@ -14,24 +14,24 @@ from rest_framework.authtoken.models import Token
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes 
-from .serializer import MyTokenObtainPairSerializer
+# from .serializer import MyTokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse, HttpResponseRedirect
 import json
 
 
-class MyTokenObtainPairView(TokenObtainPairView):
-    serializer_class = MyTokenObtainPairSerializer
+# class MyTokenObtainPairView(TokenObtainPairView):
+#     serializer_class = MyTokenObtainPairSerializer
 
-from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework_simplejwt.tokens import RefreshToken
 
-def get_tokens_for_user(user):
-    refresh = RefreshToken.for_user(user)
-    return {
-        'refresh': str(refresh),
-        'access': str(refresh.access_token),
-    }
+# def get_tokens_for_user(user):
+#     refresh = RefreshToken.for_user(user)
+#     return {
+#         'refresh': str(refresh),
+#         'access': str(refresh.access_token),
+#     }
     
     
 @api_view(['POST'])
@@ -291,15 +291,17 @@ class FriendDetails(APIView):
             userfriend = User.objects.get(id=pk)
         except User.DoesNotExist:
             return Response({'error': 'User friend not found.'}, status=status.HTTP_404_NOT_FOUND)
-
         try:
             profile = Profile.objects.get(user=request.user)
             prfriend = Profile.objects.get(user=userfriend)
         except Profile.DoesNotExist:
             return Response({'error': 'Profile not found.'}, status=status.HTTP_404_NOT_FOUND)
+        print(userfriend,flush=True)    
+        print(request.user,flush=True)           
         if userfriend in profile.friends.all():
             profile.friends.remove(userfriend)
             prfriend.friends.remove(request.user)
+            
             return Response({"success": "Friend removed successfully"}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'User is not in your friends list.'}, status=status.HTTP_400_BAD_REQUEST)

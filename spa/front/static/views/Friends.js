@@ -1,5 +1,7 @@
 import AbstractView from "../js/AbstractView.js";
-import { navigateTo } from "../js/index.js";
+import { createUserClone, fetchWithAuth, handleResponse } from "../js/friendsTool.js";
+import { navigateTo, tokenIsValid } from "../js/index.js";
+import { getCookie } from "../js/tools.js";
 
 import { messageHandling , CostumConfigDialog} from "../js/utils.js";
 export default class extends AbstractView {
@@ -15,347 +17,207 @@ export default class extends AbstractView {
   await this.setDataProfiles();
   await this.setDataFriendRequest();
   this.myprofile = await this.getProfileById(this.payload.user_id);
-  console.log("freindes request ",this.friendsreq );
-
   const headernav = await this.getHeader();
-  let  texthtml = headernav +`<div class="content_frined">`;
-  texthtml += this.allUserFriendsList();
-  texthtml += this.allFriendRequestHtml();
-  texthtml += this.allUserHtml();
-  return ` ${texthtml}</div>  `
+  let  texthtml = headernav +`<div class="content_frined">
+  
+  <h1>Friends Suggestions</h1>
+  <div class="send-request-friend  send-request  friends-page scrool-friend d-grid m-0 gap-2 ">
+  </div>
+  <hr>
+  <h1 class="position-relative">Friends</h1>
+  <div class="scrool-friend   friends-page d-grid m-0 gap-2 dletefriendevent ">
+  </div>       
+  <hr>
+  <h1>Invitations</h1>
+  <div class="scrool-invitations  accept-delete-request"  id="1" >
+  <div class="invitations">
+  </div>
+  </div>  
+  <hr>
+  </div>  `;
+return texthtml;
 }
 
 
-async checkUesr(profile,username)
-{
-  
+shouldAddUser(pr) {
+  return pr.user.id !== this.payload.user_id && 
+    !this.myprofile.friends.some(e => e.username === pr.user.username);
+}
+getUserStatusClass(pr) {
+  let reqsend = this.mysendreq.find(e => e.receiver.username === pr.user.username);
+  let reqrecive = this.friendsreq.find(e => e.sender.username === pr.user.username);
+  let reqId = null;
+  let classStat = '';
+
+  if (reqsend) {
+    reqId = reqsend.id;
+    classStat = `<a class="deletef text-center btn"><i class="fa-solid fa-user-xmark"></i></a>`;
+  } else if (reqrecive) {
+    reqId = reqrecive.id;
+    classStat = `<a class="acceptf text-center btn"><i class="fas fa-check"></i></a>`;
+  } else {
+    classStat = `<a class="addf text-center btn"><i class="fa-solid fa-user-plus"></i></a>`;
+  }
+
+  return { classStat, reqId };
+}
+
+
+
+
+
+appendUserClone(prClone) {
+  let send_request = document.querySelector(".send-request");
+  send_request.append(prClone);
+}
+
+addCloneUser(pr){
+  if(this.shouldAddUser(pr)){
+    const { classStat, reqId } = this.getUserStatusClass(pr);
+    const prClone = createUserClone(pr, classStat, reqId);
+    this.appendUserClone(prClone);
+  }
+
 }
 allUserHtml(){
-
-  ``
-
-
-  let texthtml = `
-  <h1>Friends Suggestions</h1>
-  <div class="send-request-friend  send-request  friends-page scrool-friend d-grid m-0 gap-2 ">`;
-
-  let added= ``;
-  
-  // if (reqsend !== undefined) {
-  //   added = `
-  //   <div class="play-now addf" data-id="${profile.user.id}">
-  //     <a class="text-center btn">
-  //       <i class="fa-solid fa-user-check"></i>
-  //       <span> ADDED</span>
-  //     </a>
-  //   </div>
-  //   <div class="play-now  deletef" data-id="${reqsend.id}" >
-  //     <a class="text-center btn decline"><i class="fa-solid fa-user-xmark"></i>
-  //       <span> Cancel add </span></a>
-  //   </div>     
-
-  //   `         ;
-  // }
-  // else if (reqrecive !== undefined){
-  //     added = `          <div class="play-now acceptf  " data-id="${reqrecive.id}">
-  //     <a class="text-center btn" ><i class="fas fa-check"></i>
-  //         <span> ACCPET</span></a>
-  //     </div>`;
-  // }
-  // else {
-  //   added = `<div class="play-now addf" data-id="${profile.user.id}">
-  //         <a class="text-center btn">
-  //           <i class="fa-solid fa-user-plus"></i>
-  //         <span> ADD</span>
-  //       </a>
-  //     </div>
-      
-  //     `
-  // }
-
-
-  // <h1>Friends Suggestions</h1>
-  // <div class="friends-page scrool-friend d-grid m-0 gap-2">
-
-  // </div>
-
-  // ${added}
-  for (let profile of this.profiles) {
-
-    if (profile.user.id != this.payload.user_id) {
-      
-      console.log(`ID: ${profile.user.id}`);
-      console.log(`Username: ${profile.user.username}`);
-      console.log('----------------------------------');
-      console.log('----------------------------------',this.myprofile.friends);
-      if (this.myprofile.friends.find(e => e.username === profile.user.username) === undefined) {
-
-          let reqsend = this.mysendreq.find(e =>e.receiver.username === profile.user.username) ;
-          let reqrecive = this.friendsreq.find(e => e.sender.username === profile.user.username);
-
-        texthtml += `
-        <div class="friend  rad-6 p-4 position-relative   send-request-friend ">
-        <div class="contact_frind d-flex align-items-center">
-          <div class="ADD  addf " data-id="${profile.user.id}" >
-            <a class="text-center btn "><i class="fa-solid fa-user-plus"></i></a>
-          </div>
-          <div>
-            <a class="text-light" data-link href="/profilefriend?id=${profile.user.id}" ><button type="submit" class="btn btn-primary">Profile</button></a>
-          </div>
-        </div>
-        <div class="txt-c text-center">
-          <img decoding="async" class="rad-half mt-2 mb-2 " src="${profile.avatar}" alt="" />
-          <h4 class="m-1">${profile.user.username}</h4>
-        </div>
-      </div>
-`;
-              }
-              
-            }
-        }
-    texthtml += `</div>`;
-    return texthtml;
-
+this.profiles.forEach(pr =>{
+ this.addCloneUser(pr);
+})
 }
 getProfileById(id) {
   return this.profiles.find(profile => profile.user.id === id);
 }
+
+cloneFriendInUser(friend){
+  let status = "";
+  let temp;
+  let friendClone;
+  let addfriendList = document.querySelector(".dletefriendevent");
+  temp = document.querySelector(".friends-list-template");
+    if (this.getProfileById(friend.id).is_online) 
+      status = `active_frind`;
+  else 
+      status = `not-active_frind`;
+  friendClone = temp.content.cloneNode(true);
+  friendClone.querySelector(".txt-c h4").innerHTML =friend.username;
+  friendClone.querySelector(".txt-c img").src = this.getProfileById(friend.id).avatar;
+  friendClone.querySelector(".deletefriend").idTargetUser = friend.id;
+  friendClone.querySelector(".go-profile").idTargetUser = friend.id;
+  friendClone.querySelector(".status-frind").classList.toggle(status);
+  friendClone.querySelector(".status-frind div").classList.toggle(`${status}_1`);
+  addfriendList.append(friendClone);
+}
+
 allUserFriendsList(){
-  let texthtml = ``;
-  const profile = this.getProfileById(this.payload.user_id);
+let profile; 
+profile = this.getProfileById(this.payload.user_id);
+profile.friends.forEach(friend => {
+ this.cloneFriendInUser(friend);
 
-if (profile) {
-  console.log("PROFILE      :", profile); 
-} else {
-  console.log('Profile not found');
-}
-
-console.log("PROFILE     fffffffff :", profile.friends); 
-let status = "";
-  for (let friend of profile.friends) {
-      console.log(`ID: ${friend.id}`);
-      console.log(`Username: ${friend.username}`);
-      console.log(`isonline: ${this.getProfileById(friend.id).is_online}`);
-      console.log('----------------------------------');
-      if (this.getProfileById(friend.id).is_online) 
-          status = `active_frind`;
-      else 
-          status = `not-active_frind`;
-        
-          texthtml += `
-          <div class="dletefriendevent  friend rad-6 p-4 position-relative">
-            <div class="contact_frind d-flex align-items-center">
-              <div class="status-frind ${status}" aria-label="Not Active">
-                <div class="${status}_1"></div>
-              </div>
-            </div>
-            <div class="txt-c text-center">
-              <img decoding="async" class="rad-half mt-2 mb-2 " src="${this.getProfileById(friend.id).avatar}" alt="" />
-              <h4 class="m-1">${friend.username}</h4>
-            </div>
-            <div class="icons fs-15 p-relative">
-              <div class="friend-count_1 mb-10">
-                <i class="fa-regular fa-face-smile fa-fw"></i>
-                <span>99 Friend</span>
-              </div>
-              <div class="mb-10">
-                <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                <span>60 XP</span>
-              </div>
-              <div class="rating mt-10 mb-10">
-                <i class="fa-solid fa-star text-warning fs-13"></i>
-                <i class="fa-solid fa-star text-warning  fs-13"></i>
-                <i class="fa-solid fa-star text-warning  fs-13"></i>
-                <i class="fa-solid fa-star text-secondary fs-13"></i>
-                <i class="fa-solid fa-star text-secondary fs-13"></i>
-              </div>
-            </div>
-            <div class="info d-flex align-items-center justify-content-center fs-13">
-              <div>
-                <a class="text-center btn " data-link href="/profilefriend?id=${friend.id}" > PROFILE</a>
-                <a class="text-center btn btn-danger deletefriend " data-id="${friend.id}"  >  Remove</a>
-              </div>
-            </div>
-         </div>
-`;
-        }
-    return `
-    <h1 class="position-relative">Friends</h1>
-      <div class="scrool-friend   friends-page d-grid m-0 gap-2 dletefriendevent ">
-   ${texthtml} </div>       <hr>`;
+});
 
 }
-
 allFriendRequestHtml(){
-  let texthtml = 
-  `<h1>Invitations</h1>
-  <div class="scrool-invitations  accept-delete-request"  id="1" >
-  <div class="Invitations">
-  `;
-  for (let freq of this.friendsreq) {
-        texthtml += `
-                <div class="request">
-                    <img src="${freq.sender.profile.avatar}" alt="Sasuke">
-                    <div class="request-info">
-                        <div class="request-name">${freq.sender.username}</div>
-                        <div class="request-time">20 hrs ago</div>
-                    </div>
-                    <div class="request-actions">
-                    <button  class="no_accepte  deletef" data-id="${freq.id}" >✕</button>
-                    <button class="accepte acceptf" data-id="${freq.id}">✓</button>
-                    </div>
-                </div>
-        `;
-    }
-    texthtml += `
-    </div>
-    </div>  
-  <hr>`;
-    return texthtml;
+  let freqClone ;
+  let invite = document.querySelector(".invitations");
+  let temp = document.querySelector(".invitations-template");
+  this.friendsreq.forEach(freq =>{
+    freqClone = temp.content.cloneNode(true);
+    freqClone.querySelector("img").src = freq.sender.profile.avatar;
+    freqClone.querySelector(".deletef").idTargetReq=freq.id;
+    freqClone.querySelector(".acceptf").idTargetReq=freq.id;
+    invite.append(freqClone);
+  })
 }
 async sendRequestFriend(e){
-    let access_token = localStorage.getItem("access_token");
-    const addf = e.target.closest(".addf"); 
-
-    if (!addf) {
-      return ;
+    const id = e.currentTarget.idTargetUser;
+    if (!id){
+      messageHandling("error", "Failed to remove friend: Invalid ID.");
+      return;
     }
-    const id =addf.dataset.id;
-
     try {
-      const response = await fetch(`/api/addfriend/${id}/`,{
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${access_token}`
-        },
-      })
-      let responseData = await response.json();
-      if (response.ok)
-        {
-          const keyserr = Object.keys(responseData);    
-          const valueerr = Object.values(responseData);  
-          messageHandling(keyserr[0],valueerr[0]);
-        } 
-      else 
-      {
-        console.log("Faild to add new friend: ",responseData);
-        navigateTo("/friends");
-      }
+      const response = await fetchWithAuth(`/api/addfriend/${id}/`);
+      await handleResponse(response);
+      navigateTo("/friends");
     } catch (error) {
-      console.log("error :",error) 
-      messageHandling("error",error)
-      navigateTo("/login")     
+      console.error("Failed to send friend request:", error);
     }
-
   }
 
-  async acceptRequestFriend(e){
-    let access_token = localStorage.getItem("access_token");
-    const acceptf = e.target.closest(".acceptf"); 
-    if (!acceptf) {
-      return ;
-    }
-    const id =    acceptf.dataset.id;
-    try {
-      const response = await fetch(`api/acceptfriend/${id}/`,{
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${access_token}`
-        },
-      })
-      let responseData = await response.json();
-
-      if (response.ok) {
-        console.log("new friend accepted successfuly :",responseData); 
-        const keyserr = Object.keys(responseData);    
-        const valueerr = Object.values(responseData);  
-        messageHandling(keyserr[0],valueerr[0]);
-        navigateTo("/friends");       
-      }
-      else 
-        console.log("Faild to accept new friend: ",responseData);
-    } catch (error) {
-      console.log("error :",error)     
-      messageHandling("error",error)
-      navigateTo("/login") 
-    }
-
+async acceptRequestFriend(e){
+  const id =    e.currentTarget.idTargetReq;
+  if (!id){
+    messageHandling("error", "Failed to remove friend: Invalid ID.");
+    return;
   }
-  async deleteRequestFriend(e){
-    let access_token = localStorage.getItem("access_token");
-
-    const deletef = e.target.closest(".deletef"); 
-    console.log(deletef);
-    if (!deletef) {
-      return ;
-    }
-    const id =    deletef.dataset.id;
-    try {
-      const response = await fetch(`api/acceptfriend/${id}/`,{
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${access_token}`
-        },
-      })
-      let responseData = await response.json();
-      if (response.ok) {
-    console.log("new friend accepted successfuly :",responseData); 
-
-    const keyserr = Object.keys(responseData);    
-    const valueerr = Object.values(responseData);  
-    messageHandling(keyserr[0],valueerr[0]);
-        navigateTo("/friends");       
-      }
-      else 
-        console.log("Faild to accept new friend: ",responseData);
-    } catch (error) {
-      console.log("error :",error)      
-      
-    }
-    
-  }
-  async afterRender() {
-    document.querySelector(".send-request").addEventListener("click",this.sendRequestFriend.bind(this));
-    document.querySelector(".accept-delete-request").addEventListener("click",this.acceptRequestFriend.bind(this));
-    document.querySelector(".accept-delete-request").addEventListener("click",this.deleteRequestFriend.bind(this));
-    document.querySelector(".dletefriendevent").addEventListener("click",this.deleteFriendSure.bind(this));
+  try {
+    const response = await fetchWithAuth(`api/acceptfriend/${id}/`);
+    await handleResponse(response);
+    navigateTo("/friends");
+  } catch (error) {
+    console.error("Failed to accept friend request:", error);
+    messageHandling("error","Failed to accept friend request:");
   }
 
-  async deleteFriend(id){
-    let access_token = localStorage.getItem("access_token");
-    try {
-      const response = await fetch(`/api/deletefriend/${id}/`,{
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${access_token}`
-        },
-      })
-      let responseData = await response.json();
-      if (response.ok) {
-    console.log("new friend accepted successfuly :",responseData); 
-      const keyserr = Object.keys(responseData);    
-      const valueerr = Object.values(responseData);  
-      messageHandling(keyserr[0],valueerr[0]);
-        navigateTo("/friends");       
-      }
-      else 
-        console.log("Faild to accept new friend: ",responseData);
-    } catch (error) {
-      console.log("error :",error)      
-    }
+}
 
-
+async deleteRequestFriend(e){
+  const id = e.currentTarget.idTargetReq;
+  if (!id){
+    messageHandling("error", "Failed to remove friend: Invalid ID.");
+    return;
   }
-
-
-  async deleteFriendSure(e){
-    const deletefriend = e.target.closest(".deletefriend");
-    if (!deletefriend) {
-      return ; 
-    }
-    const id = deletefriend.dataset.id;
-    dialog.showDialog("Sure you want to remove this friend ?", ()=> this.deleteFriend(id));
+  try {
+    const response = await fetchWithAuth(`api/acceptfriend/${id}/`, 'DELETE');
+    await handleResponse(response);
+    navigateTo("/friends");
+  } catch (error) {
+    console.error("Failed to delete friend request:", error);
   }
 }
 
 
+  async afterRender() {
+    this.allUserFriendsList();
+    this.allUserHtml();
+    this.allFriendRequestHtml();
+    document.querySelectorAll(".addf").forEach(element=>{
+      element.addEventListener("click",e=>{ this.sendRequestFriend(e) });
+    })
+    document.querySelectorAll(".acceptf").forEach(element=>{
+      element.addEventListener("click", e =>{this.acceptRequestFriend(e)});
+    })
+    document.querySelectorAll(".deletef").forEach(element=>{
+      element.addEventListener("click",e=>(this.deleteRequestFriend(e)));
+    });
+      document.querySelector(".dletefriendevent").addEventListener("click", (e) => {
+      if (e.target.classList.contains("deletefriend")) {
+        this.deleteFriendSure(e);
+      }
+    });
+  }
+  removeFriendFromMyprofile(id){
+    this.myprofile.friends = this.myprofile.friends.filter(friend => friend.id !== id);
+  }
+  async deleteFriend(deletefriend){
+    const id = deletefriend.idTargetUser;
+    try {
+      const response = await fetchWithAuth(`/api/deletefriend/${id}/`, 'DELETE');
+      const responseData = await handleResponse(response);
+      const parentElement = deletefriend.closest('.dletefriendevent');
+     this.removeFriendFromMyprofile(id)
+      if (parentElement) parentElement.remove();
+      this.addCloneUser(this.getProfileById(id));
+
+    } catch (error) {
+      console.error("Failed to delete friend:", error);
+    }
+  }
+  async deleteFriendSure(e){
+    const deletefriend = e.target;
+    if (!deletefriend) {
+      return ; 
+    } 
+    dialog.showDialog("Sure you want to remove this friend ?", ()=> {this.deleteFriend(deletefriend)}  );
+  }
+}

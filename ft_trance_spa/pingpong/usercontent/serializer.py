@@ -4,28 +4,28 @@ from .models import Profile,Friend_Request,Notification
 
 
 
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework_simplejwt.views import TokenObtainPairView
+# from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+# from rest_framework_simplejwt.views import TokenObtainPairView
 
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    @classmethod
-    def get_token(cls, user):
-        token = super().get_token(user)
+# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+#     @classmethod
+#     def get_token(cls, user):
+#         token = super().get_token(user)
 
-        # Add custom claims
-        token['username'] = user.username
-        token['email'] = user.email
+#         # Add custom claims
+#         token['username'] = user.username
+#         token['email'] = user.email
         
-        # ...
-        profile = Profile.objects.get(user=user)
-        avatar_url = profile.avatar.url if profile.avatar else None
-        print(avatar_url)
-        token['profile']= {
-            'bio': profile.bio,
-            'avatar': avatar_url,
-            'friends': [friend.username for friend in profile.friends.all()]
-        }
-        return token
+#         # ...
+#         profile = Profile.objects.get(user=user)
+#         avatar_url = profile.avatar.url if profile.avatar else None
+#         print(avatar_url)
+#         token['profile']= {
+#             'bio': profile.bio,
+#             'avatar': avatar_url,
+#             'friends': [friend.username for friend in profile.friends.all()]
+#         }
+#         return token
 
 
 class UserSerializer(serializers.ModelSerializer):

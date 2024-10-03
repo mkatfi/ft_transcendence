@@ -15,9 +15,10 @@ def tourn_subscribing(request, data, trn_size):
     else:
         print("USER NOT SUBSCRIBE", flush=True)
         plyr = get_or_create_player(data, tourn)
-        t_players = tourn.trn_players.count()
-        print('trn_players: ', t_players, flush=True)
-        if t_players == trn_size:
+        players = tourn.trn_players.all()
+        players_nmb = players.count()
+        print('trn_players: ', players_nmb, flush=True)
+        if players_nmb == trn_size:
             tourn.status = Tourn_status.ST.value
             tourn.save()
             create_matches(tourn)
@@ -72,9 +73,9 @@ def get_or_create_tourn(data, trn_size):
 def is_user_subscribe(user_id):
     try:
         tourn = Tournament.objects.filter(size=4).latest("id")
-        # tourn.status = Tourn_status.PN.value
+        # tourn.status = Tourn_status.EN.value
         # tourn.save()
-        print('TOURN_MACHI_END', tourn.status)
+        print('TOURN_STATUS: ', tourn.status)
         plyr = Player.objects.get(tournament=tourn, profile_id=user_id)
         if tourn.status != Tourn_status.EN.value:
             return plyr

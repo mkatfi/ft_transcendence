@@ -1,5 +1,6 @@
 import AbstractView from "../js/AbstractView.js";
-import { navigateTo } from "../js/index.js";
+import { navigateTo, tokenIsValid } from "../js/index.js";
+import { getCookie } from "../js/tools.js";
 
 import { messageHandling , CostumConfigDialog} from "../js/utils.js";
 
@@ -92,7 +93,7 @@ export default class extends AbstractView {
 
         event.preventDefault();
         console.log("inside funstin update paylo",this.payload)
-        let access_token = localStorage.getItem("access_token")
+        let access_token = getCookie("access_token")
         const formdata = new FormData(event.target);
         try {
             const response = await fetch(`/api/profile/${this.payload.user_id}/`,
@@ -109,7 +110,13 @@ export default class extends AbstractView {
             if (response.ok) {
                 console.log('Avatar updated successfully', responseData);
                 navigateTo("/profile")
-            } else {
+            }
+            else if(response.status == 401){
+                tokenIsValid();
+                messageHandling("info", "Session refreshed. Please click  again.");
+            }
+            
+            else {
                 console.error('Update avatar failed', responseData);
             }
 
@@ -125,7 +132,7 @@ export default class extends AbstractView {
 
         event.preventDefault();
         console.log("inside funstin update paylo",this.payload)
-        let access_token = localStorage.getItem("access_token")
+        let access_token = getCookie("access_token")
         const formdata = new FormData(event.target);
         try {
             const response = await fetch(`/api/changepassword/${this.payload.user_id}/`,
@@ -144,9 +151,13 @@ export default class extends AbstractView {
                 const keyserr = Object.keys(responseData);    
                 const valueerr = Object.values(responseData);  
                 messageHandling(keyserr[0],valueerr[0]);
-
                 navigateTo("/profile")
-            } else {
+            }
+            else if(response.status == 401){
+                tokenIsValid();
+                messageHandling("info", "Session refreshed. Please click  again.");
+            }
+            else {
                 const keyserr = Object.keys(responseData);    
                 const valueerr = Object.values(responseData);  
                 messageHandling(keyserr[0],valueerr[0]);
@@ -163,7 +174,7 @@ export default class extends AbstractView {
     async updateUser(event){
         event.preventDefault();
         console.log("inside funstin update paylo",this.payload)
-        let access_token = localStorage.getItem("access_token")
+        let access_token = getCookie("access_token")
         const formdata = new FormData(event.target);
 
         try {
@@ -173,7 +184,6 @@ export default class extends AbstractView {
                     headers: {
                     'Authorization': `Bearer ${access_token}`
                     },
-                    // body: JSON.stringify(data)
                     body: formdata
                 }
             );
@@ -182,7 +192,12 @@ export default class extends AbstractView {
             if (response.ok) {
                 console.log('Avatar updated successfully', responseData);
                 navigateTo("/profile")
-            } else {
+            } 
+            else if(response.status == 401){
+                tokenIsValid();
+                messageHandling("info", "Session refreshed. Please click  again.");
+            }
+            else {
                 console.error('Update avatar failed', responseData);
                 messageHandling("error",`${Object.keys(responseData)[0]} : ${ Object.values(responseData)[0]}`);
             }
@@ -207,7 +222,7 @@ export default class extends AbstractView {
 
 
     async updateProfileAvatar(file) {
-        let access_token = localStorage.getItem('access_token');
+        let access_token = getCookie('access_token');
         const formData = new FormData();
             formData.append('avatar', file);
             // const data = Object.fromEntries(formData.entries());
@@ -215,7 +230,7 @@ export default class extends AbstractView {
                 const response = await fetch(`/api/profile/${this.payload.user_id}/`, {
                     method: 'PUT',
                     headers: {
-                        'Authorization': `Bearer ${access_token}`
+                        'Authorization': `Bearer ${getCookie('access_token')}`
                     },
                     // body: JSON.stringify(data)
                     body: formData
@@ -232,7 +247,12 @@ export default class extends AbstractView {
                     // refreshAccessToken();
 
                     navigateTo("/settings")
-                } else {
+                } 
+                else if(response.status == 401){
+                    tokenIsValid();
+                    messageHandling("info","somthing is wrong")
+                }
+                else {
                     messageHandling("error",`${Object.keys(responseData)[0]} : ${ Object.values(responseData)[0]}`);
                     console.error(`Update avatar failedff `, responseData);
                 }

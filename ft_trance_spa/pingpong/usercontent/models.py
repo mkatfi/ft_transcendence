@@ -45,5 +45,11 @@ class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,default=1)
     timestamp = models.DateTimeField(default=timezone.now)
     is_read = models.BooleanField(default=False)
+    notification_count = models.IntegerField(default=0)
+
+    def save(self, *args, **kwargs):
+        self.notification_count = Notification.objects.filter(user=self.user).count() + 1
+        super(Notification, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.message

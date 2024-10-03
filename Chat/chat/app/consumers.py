@@ -40,8 +40,8 @@ class ChatConsumer(WebsocketConsumer):
         all_unread_msgs = Message.objects.filter(receiver_id=user_id,
             is_read=False)
         self.send(text_data=json.dumps({
-            'all_unread_msgs': all_unread_msgs,
             'type': 'unread_msgs',
+            'all_unread_msgs': all_unread_msgs,
         }))
 
 

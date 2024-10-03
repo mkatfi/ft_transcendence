@@ -6,7 +6,7 @@ from django.core.asgi import get_asgi_application
 from channels.auth import AuthMiddlewareStack
 from app.routing import ws_urlpatterns
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tournament_logic.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tournament.settings')
 django_asgi_app = get_asgi_application()
 
 application = ProtocolTypeRouter({

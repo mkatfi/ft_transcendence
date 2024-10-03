@@ -1,7 +1,7 @@
 .mainqueueBox
 {
   height: 70vh;
-  color: var(--yallow-color);
+  color: #ffc400;;
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -49,12 +49,13 @@
     align-items: center;
     flex-direction: column;
 
-    color: var(--yallow-color);
+    color: #ffc400;
     font-family: "Bebas Neue", sans-serif;
     font-style: normal;
     font-size: 50px;
   }
 
   .button-card:hover {
-    background-color: var(--violet-color-op);
+    background-color: #f011e5;
+    color: aliceblue;
   }

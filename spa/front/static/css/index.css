@@ -506,7 +506,7 @@ ul {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(4,1fr);
-  grid-template-rows: repeat(2,400px);
+  grid-template-rows: repeat(2,380px);
   grid-template-areas: " box2 box2 box2 box2"
                       "box1 box1 box3 box3";
 }
@@ -601,7 +601,12 @@ font-size: 50px;
 .box4 {
  grid-area: box4;
 }
-
+@media (max-width: 1020px) {
+  .content_index{
+    margin-left: 95px;
+    margin-right: 0px;
+  }  
+}
 @media (max-width: 940px) {
   .content_index{
     margin-left: 95px;
@@ -635,7 +640,12 @@ font-size: 50px;
  
 }
 
-@media (max-width: 730px) {
+@media (max-width: 768px) {
+  .content_index{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+  }
   .wrapper {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3,250px);

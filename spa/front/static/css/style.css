@@ -147,21 +147,31 @@
 /* <-------------------------------------------------------------------------------THIS FOR request-friend  */
 /* <-------------------------------------------------------------------------------THIS FOR FRIENDS  */
 
+.link-link{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .dropdown-menu {
-  background-color: transparent;
-
+  background-color: transparent;  
+  width: 400px;
   background-image: linear-gradient(to right, violet  , rgba(238, 130, 238, 0.377) 30%);
   box-shadow: inset 0px 0px 10px violet;
   color:white;
   font-family: "Anton", sans-serif;
   font-weight: 400;
+  font-size: medium;
   font-style: normal;
 }
+
 .dropdown-item {
   color: white;
 }
-
+.dropdown-item li{
+  width: 50%;
+  text-wrap: wrap;
+}
 .dropdown-item:hover{
   background-image: linear-gradient(to right, #0abf3055  , #25b143a1 30%);
   box-shadow: inset 0px 0px 10px green;
@@ -174,8 +184,8 @@
   color: white !important;
 } 
 .scrollable-menu {
-  height: auto;
-  max-height: 200px;
+  height: 100px;
+  max-height: 150px;
   overflow-x: hidden;
 }
 
@@ -190,27 +200,43 @@
 }
 
 .scrollable-menu::-webkit-scrollbar-thumb {
-
   background-image: linear-gradient(to right, violet  , rgba(238, 130, 238, 0.377) 30%);
-
-
 }
 
 
-
-
-
-
-
-
-
-
+@media screen and (max-width : 900px) {
+  .dropdown-menu {
+    width: 350px;
+    font-weight: 300;
+    font-size: medium;
+  }
+  .scrollable-menu {
+    height: 100px;
+    max-height: 150px;
+    overflow-x: hidden;
+  }
+  .scrollable-menu::-webkit-scrollbar {
+    width: 7px;
+  }
+}
+@media screen and (max-width : 540px) {
+  .dropdown-menu {
+    width: 250px;
+    font-weight: 200;
+    font-size: small;
+  }
+  .scrollable-menu {
+    height: 100px;
+    max-height: 150px;
+    overflow-x: hidden;
+  }
+  .scrollable-menu::-webkit-scrollbar {
+    width: 4px;
+  }
+}
 
 /* --------------------------------------------------HEADER MEASSAGE NOTIFICATIONS------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------------- */
-
-
-
 
 .user-ser {
 	display: flex;

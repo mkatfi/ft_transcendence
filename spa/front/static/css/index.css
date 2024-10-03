@@ -362,7 +362,7 @@ ul {
   border-radius: 20px;
   display: none;
   cursor: pointer;
-  position: fixed;
+  position: absolute;
   top: 100px;
   left: 10px;
   z-index: 1000;
@@ -671,7 +671,39 @@ font-size: 50px;
   .box2 .btn{
     font-size: 7px;
   }
+}
 
+@media (max-width: 540px) {
+  .content_index{
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 20px;
+  }
+  .wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3,250px);
+    grid-template-areas: "box2"
+    "box1"
+    "box3"
+    "box4";
+  }
+  .wrapper .box2 p{
+    font-size: 10px;
+    color: white;
+  }
+  .wrapper .box2 h3{
+    font-size: 15px;
+    color: gold;
+  }
+  .user-profile {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: repeat(2,300px)!important;
+    grid-template-areas: "profile"
+    "level"  !important;
+  }
+  .box2 .btn{
+    font-size: 7px;
+  }
 }
 
 

@@ -10,7 +10,7 @@ networks:
     image: nginx:alpine
     restart: unless-stopped
     ports:
-      - "8081:80"
+      - "8082:80"
 
     volumes:
       - ../spa/front:/var/www/html/

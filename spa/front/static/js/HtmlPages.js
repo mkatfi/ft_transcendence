@@ -295,6 +295,45 @@ export const loginHTML = `
                         </span>
                     </button>
                     <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton1">
+
+
+                    <li data-link="" class="link-link">
+                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
+                       <i class="fa fa-times"></i> 
+                    </button>
+                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
+                    </li>
+
+                    <li data-link="" class="link-link">
+                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
+                       <i class="fa fa-times"></i> 
+                    </button>
+                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
+                    </li>
+                    <li data-link="" class="link-link">
+                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
+                       <i class="fa fa-times"></i> 
+                    </button>
+                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
+                    </li>
+                    <li data-link="" class="link-link">
+                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
+                       <i class="fa fa-times"></i> 
+                    </button>
+                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
+                    </li>
+                    <li data-link="" class="link-link">
+                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
+                       <i class="fa fa-times"></i> 
+                    </button>
+                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
+                    </li>
+                
+                    
+
+
+
+
                         ${linkilnotification}
                     </ul>
                 </div>

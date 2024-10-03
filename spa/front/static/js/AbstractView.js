@@ -232,15 +232,10 @@ async  allMessagesNotRead() {
     this.linkilnotification = this.notifications.notf
       .reverse()
       .map((e) => {
-        return `<li data-link><a class="dropdown-item  " href="/friends"   data-link> ${
-          e.message
-        }  | ${this.getTime(e.timestamp)}</a>  
-        
-        <button type="button" class="btn btn-danger bg-danger rm-notification"   data-id="${
-          e.id
-        }">
-        <i class="fa fa-times"></i>
-      </button>
+        return `<li data-link><a class="dropdown-item  " href="/friends"   data-link> ${e.message}  | ${this.getTime(e.timestamp)}</a> 
+        <button type="button" class="btn btn-danger bg-danger rm-notification"   data-id="${e.id}">
+          <i class="fa fa-times"></i> 
+        </button>
         </li>\n`;
       })
       .toString();

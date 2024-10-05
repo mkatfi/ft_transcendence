@@ -9,7 +9,7 @@
 }
 .queueBox{
     height: 80%;
-    width: 70%;
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: center; 
@@ -59,3 +59,78 @@
     background-color: #f011e5;
     color: aliceblue;
   }
+  @media  (max-width: 900px) {
+  .mainqueueBox{
+    /* height: 75vh; */
+    margin-top: 10%;
+  }
+  .queueBox{
+      height: 80%;
+      width: 80%;
+  }
+  .queueBox h1{
+    font-weight: 700;
+    font-style: normal;
+  }
+  .queuetitle{
+    height: 20%;
+    font-weight: 700;
+    font-style: normal;
+  }
+  .button-card {
+    width: 90%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 16px;
+    margin: 10px;
+    font-style: normal;
+    font-size: 50px;
+  }
+}
+@media (max-width: 540px){
+  .queueBox h1{
+    font-weight: 500;
+  }
+  .queuetitle{
+    height: 10%;
+    font-weight: 100;
+  }
+  .button-card {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 15px;
+    margin: 10px;
+    font-style: normal;
+    font-size: 40px;
+  }
+}
+@media (max-width: 400px){
+  .queueBox h1{
+    font-weight: 500;
+    font-size: unset;
+  }
+  .queuetitle{
+    height: 10%;
+    font-weight: 100;
+    font-size: unset;
+
+  }
+  .button-card {
+    width: 100%;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    font-size: 15px;
+    margin: 10px;
+    font-style: normal;
+    /* font-size: 40px; */
+    font-size: unset;
+
+  }
+}

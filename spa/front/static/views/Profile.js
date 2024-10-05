@@ -70,6 +70,56 @@ export default class extends AbstractView {
         </div>
     </div>
     <div class="separator"></div>
+
+
+     <div class="histor d-flex justify-content-evenly bd-highlight">
+        <div class="player_01">
+            <img src="${this.data.avatar}" alt="Profile Picture">
+            <div class="Usernametohistory">${this.data.user.username}</div>
+        </div>
+        <div class="player_03 d-flex justify-content-between align-items-center">
+            <div class="buut">2</div>
+            <div class="tow_poin">:</div>
+            <div class="buut">1</div>
+        </div>
+        <div class="player_02">
+            <img src="imag_1/pop.jpg" alt="Profile Picture">
+            <div class="Usernametohistory">Split abid monsif</div>
+        </div>
+    </div>
+    <div class="separator"></div>
+     <div class="histor d-flex justify-content-evenly bd-highlight">
+        <div class="player_01">
+            <img src="${this.data.avatar}" alt="Profile Picture">
+            <div class="Usernametohistory">${this.data.user.username}</div>
+        </div>
+        <div class="player_03 d-flex justify-content-between align-items-center">
+            <div class="buut">2</div>
+            <div class="tow_poin">:</div>
+            <div class="buut">1</div>
+        </div>
+        <div class="player_02">
+            <img src="imag_1/pop.jpg" alt="Profile Picture">
+            <div class="Usernametohistory">Split abid monsif</div>
+        </div>
+    </div>
+    <div class="separator"></div>
+     <div class="histor d-flex justify-content-evenly bd-highlight">
+        <div class="player_01">
+            <img src="${this.data.avatar}" alt="Profile Picture">
+            <div class="Usernametohistory">${this.data.user.username}</div>
+        </div>
+        <div class="player_03 d-flex justify-content-between align-items-center">
+            <div class="buut">2</div>
+            <div class="tow_poin">:</div>
+            <div class="buut">1</div>
+        </div>
+        <div class="player_02">
+            <img src="imag_1/pop.jpg" alt="Profile Picture">
+            <div class="Usernametohistory">Split abid monsif</div>
+        </div>
+    </div>
+    <div class="separator"></div>
     </div>
 </div>
 <div class="separator"></div>

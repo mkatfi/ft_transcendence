@@ -63,20 +63,35 @@ export default class extends AbstractView {
                             <img src="/image/Leonardo_Phoenix_Create_a_visually_stunning_image_of_a_muscula_2.jpg" alt="Ping Pong Gameplay" class="floating-image">
                         </div>
                     </section>
-
+                    <div class="image-marquee">
+                        <marquee behavior="scroll" direction="left" scrollamount="6">
+                            <div class="marquee-item">
+                                <img src="/image1.jpg" alt="Image 1" width="150" height="150">
+                                <p>Name 1</p>
+                            </div>
+                            <div class="marquee-item">
+                                <img src="/image2.jpg" alt="Image 2" width="150" height="150">
+                                <p>Name 2</p>
+                            </div>
+                            <div class="marquee-item">
+                                <img src="/image3.jpg" alt="Image 3" width="150" height="150">
+                                <p>Name 3</p>
+                            </div>
+                            <div class="marquee-item">
+                                <img src="/image4.jpg" alt="Image 4" width="150" height="150">
+                                <p>Name 4</p>
+                            </div>
+                        </marquee>
+                    </div>
                     <section id="features" class="section scroll-reveal">
                         <div class="content-box">
-                            <fieldset>
-                                <legend>
-                                    <h2 class="slide-in-left">Game Features</h2>
-                                </legend>
-                                <ul class="feature-list">
-                                    <li class="pop-in delay-1">Single-Player & Multiplayer Modes</li>
-                                    <li class="pop-in delay-2">Adjustable Difficulty Settings</li>
-                                    <li class="pop-in delay-3">Engaging Animations & Fun Power-Ups</li>
-                                    <li class="pop-in delay-4">Realistic Table Tennis Physics</li>
-                                </ul>
-                            </fieldset>
+                            <h2 class="slide-in-left">Game Features</h2>
+                            <ul class="feature-list">
+                                <li class="pop-in delay-1">Single-Player & Multiplayer Modes</li>
+                                <li class="pop-in delay-2">Adjustable Difficulty Settings</li>
+                                <li class="pop-in delay-3">Engaging Animations & Fun Power-Ups</li>
+                                <li class="pop-in delay-4">Realistic Table Tennis Physics</li>
+                            </ul>
                         </div>
                         <div class="image-sr">
                             <img src="/image/Leonardo_Phoenix_Create_a_visually_stunning_image_of_a_muscula_2.jpg" alt="Ping Pong Gameplay" class="floating-image">

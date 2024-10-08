@@ -318,7 +318,6 @@ export default class extends AbstractView {
                             <ul>
                                 <li><a href="#welcome">Home</a></li>
                                 <li><a href="#features">Features</a></li>
-                                <li><a href="#how-to-play">How to Play</a></li>
                                 <li><a href="#get-started">Get Started</a></li>
                             </ul>
                         </nav>
@@ -379,18 +378,11 @@ export default class extends AbstractView {
                         </div>
                     </section>
 
-                    <section id="how-to-play" class="section scroll-reveal">
-                        <div class="content-box">
-                            <h2>How to Play</h2>
-                            <p>Use simple controls to move your paddle, serve the ball, and return shots. The goal is to outsmart your opponent and score points by landing the ball on their side of the table. Watch out for special power-ups that can turn the tide of the game!</p>
-                        </div>
-                    </section>
-
                     <section id="get-started" class="section scroll-reveal">
                         <div class="content-box">
                             <h2>Get Started</h2>
                             <p>Click below to dive into the action and experience the thrill of ping pong right at your fingertips. Get ready to serve, rally, and dominate the table!</p>
-                            <a href="#" class="cta-button">Start Playing Now</a>
+                            <a href="/login" class=" btn cta-button">Start Playing Now</a>
                         </div>
                     </section>
                 </div>
@@ -398,45 +390,47 @@ export default class extends AbstractView {
         `;
     }
 
-    async postRender() {
-        const sections = document.querySelectorAll('.scroll-trigger');
+    
+
+    // async postRender() {
+    //     const sections = document.querySelectorAll('.scroll-trigger');
   
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.1
-        };
+    //     const observerOptions = {
+    //         root: null,
+    //         rootMargin: '0px',
+    //         threshold: 0.1
+    //     };
   
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('scroll-active');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
+    //     const observer = new IntersectionObserver((entries, observer) => {
+    //         entries.forEach(entry => {
+    //             if (entry.isIntersecting) {
+    //                 entry.target.classList.add('scroll-active');
+    //                 observer.unobserve(entry.target);
+    //             }
+    //         });
+    //     }, observerOptions);
   
-        sections.forEach(section => {
-            observer.observe(section);
-        });
+    //     sections.forEach(section => {
+    //         observer.observe(section);
+    //     });
   
-        // Add index to feature list items for staggered animation
-        const featureItems = document.querySelectorAll('#features .feature-list li');
-        featureItems.forEach((item, index) => {
-            item.style.setProperty('--item-index', index);
-        });
+    //     // Add index to feature list items for staggered animation
+    //     const featureItems = document.querySelectorAll('#features .feature-list li');
+    //     featureItems.forEach((item, index) => {
+    //         item.style.setProperty('--item-index', index);
+    //     });
   
-        // Add hover effect to CTA button
-        const ctaButton = document.querySelector('#get-started .cta-button');
-        if (ctaButton) {
-            ctaButton.addEventListener('mouseover', () => {
-                ctaButton.style.setProperty('--hover', '1');
-            });
-            ctaButton.addEventListener('mouseout', () => {
-                ctaButton.style.setProperty('--hover', '0');
-            });
-        }
-    }
+    //     // Add hover effect to CTA button
+    //     const ctaButton = document.querySelector('#get-started .cta-button');
+    //     if (ctaButton) {
+    //         ctaButton.addEventListener('mouseover', () => {
+    //             ctaButton.style.setProperty('--hover', '1');
+    //         });
+    //         ctaButton.addEventListener('mouseout', () => {
+    //             ctaButton.style.setProperty('--hover', '0');
+    //         });
+    //     }
+    // }
 
     async inAuthpages() {
         return true;

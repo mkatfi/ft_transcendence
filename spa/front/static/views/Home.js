@@ -28,12 +28,26 @@ export default class extends AbstractView {
         </div>
         <img src="static/images/qauchevs.png" alt="">
       </div>
-      <div class=" d-flex align-items-end justify-content-end box1 rounded-5"> 
-      <img src="static/images/mhyb.png" alt="">
-       </div>
-       <div class=" d-flex align-items-end justify-content-end box3 rounded-5"> 
-       <img src="static/images/yppi.png" alt="">
+      <div class=" d-flex align-items-end justify-content-between box1 rounded-5"> 
+      <img src="static/images/ann-1.png" alt="">
+      <div class="ktab-box   ">
+      <p class="text-box-1">Ping Pong Tournement</p>
+      <div class="play-now">
+      <a class="text-center btn btn-box " href="/games"><i class="fa-solid fa-play"></i>
+      <span> PlayNow</span></a></div>
+      </div>
+      <img src="static/images/aadd.png" alt="">
+      </div>
+      <div class=" d-flex align-items-end justify-content-between box3 rounded-5"> 
+       <div class="ktab-box-3 ">
+          <p class="text-box-3 ">WELCOME TO GIME PING PONG</p>
+          <div class="play-now">
+          <a class="text-center btn btn-box-3" href="/games"><i class="fa-solid fa-play"></i>
+              <span> PlayNow</span></a>
+            </div>
         </div>
+      <img src="static/images/aad.png" alt="">
+      </div>
     </div>
     </div>
     `

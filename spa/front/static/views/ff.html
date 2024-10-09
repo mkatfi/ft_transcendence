@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -277,5 +277,191 @@
       </div>
     </main>
 
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    /* Vertical Scroll Animation Styles */
+    body{
+      background-color: black;
+      color: aqua;
+    }
+.content-lander {
+  position: relative;
+  height: 300vh; /* Increase the scrollable area */
+  overflow-x: hidden;
+}
+
+.scroll-section {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.scroll-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s ease-out;
+}
+
+.scroll-item {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s, transform 0.5s;
+}
+
+.scroll-item.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('static/images/addd.png');
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+
+.floating-paddle {
+  position: absolute;
+  width: 50px;
+  height: 80px;
+  background-color: #ff4081;
+  border-radius: 5px;
+  transition: transform 0.5s ease-out;
+}
+
+.floating-paddle.left {
+  left: -100px;
+}
+
+.floating-paddle.right {
+  right: -100px;
+}
+
+@keyframes rotateIn {
+  from {
+    transform: perspective(400px) rotateY(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(400px) rotateY(0);
+    opacity: 1;
+  }
+}
+
+.rotate-in {
+  animation: rotateIn 1s forwards;
+}
+
+/* Add more specific styles for each scroll section as needed */
+  </style>
+
+
+<div class="content-lander">
+  <div class="scroll-section">
+      <div class="parallax-bg"></div>
+      <div class="scroll-content">
+          <div class="scroll-item">
+              <h1>Welcome to the Ultimate Ping Pong Game!</h1>
+              <p>Experience the thrill of table tennis like never before.</p>
+          </div>
+          <div class="scroll-item">
+              <img src="static/images/ping-pong-player.png" alt="Ping Pong Player">
+          </div>
+      </div>
+      <div class="floating-paddle left"></div>
+      <div class="floating-paddle right"></div>
+  </div>
+  
+  <div class="scroll-section">
+      <div class="scroll-content">
+          <div class="scroll-item">
+              <h2>Game Features</h2>
+              <ul class="feature-list">
+                  <li>Single-Player & Multiplayer Modes</li>
+                  <li>Adjustable Difficulty Settings</li>
+                  <li>Engaging Animations & Fun Power-Ups</li>
+                  <li>Realistic Table Tennis Physics</li>
+              </ul>
+          </div>
+      </div>
+  </div>
+  
+  <div class="scroll-section">
+      <div class="scroll-content">
+          <div class="scroll-item">
+              <h2>Get Started</h2>
+              <p>Click below to dive into the action and experience the thrill of ping pong right at your fingertips.</p>
+              <a href="/login" class="btn cta-button rotate-in">Start Playing Now</a>
+          </div>
+      </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const scrollSections = document.querySelectorAll('.scroll-section');
+    const scrollItems = document.querySelectorAll('.scroll-item');
+    const parallaxBg = document.querySelector('.parallax-bg');
+    const leftPaddle = document.querySelector('.floating-paddle.left');
+    const rightPaddle = document.querySelector('.floating-paddle.right');
+
+    let currentSection = 0;
+
+    function activateSection(index) {
+        scrollItems.forEach(item => item.classList.remove('active'));
+        const itemsInSection = scrollSections[index].querySelectorAll('.scroll-item');
+        itemsInSection.forEach(item => item.classList.add('active'));
+    }
+
+    function updateScroll() {
+        const scrollPosition = window.scrollY;
+        const windowHeight = window.innerHeight;
+        
+        scrollSections.forEach((section, index) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSection = index;
+                activateSection(currentSection);
+            }
+        });
+
+        // Parallax effect
+        parallaxBg.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+
+        // Paddle animations
+        const progress = (scrollPosition / (document.body.scrollHeight - windowHeight));
+        leftPaddle.style.transform = `translateX(${progress * 200}px) rotate(${progress * 360}deg)`;
+        rightPaddle.style.transform = `translateX(${-progress * 200}px) rotate(${-progress * 360}deg)`;
+    }
+
+    window.addEventListener('scroll', updateScroll);
+    updateScroll(); // Initial call to set the initial state
+});
+</script>
 </body>
 </html>

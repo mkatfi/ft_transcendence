@@ -605,12 +605,18 @@ export default class extends AbstractView {
     if (data.intourn == 'no'){
       content = `
       <div class='trnModeParent' id="trn">
-      <div class="trnMode" id="localTrn">
-      Local Tournament
-      </div>
-      <div class="trnMode" id="remotTrn">
-      Remot Tournament
-      </div>
+        <div class="trnMode" id="localTrn">
+          Local Tournament
+          <div class='strt-mtche-1'>
+                START
+          </div>
+        </div>
+        <div class="trnMode" id="remotTrn">
+          Remot Tournament
+          <div class='strt-mtche-1'>
+                START
+          </div>
+        </div>
       </div>
       `;
     }

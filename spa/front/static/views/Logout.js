@@ -280,7 +280,7 @@
 //         return true;
 //     }
 // }
-
+/**************************************************** */
 import AbstractView from "../js/AbstractView.js";
 import WebSocketManager from "../js/Websocket.js";
 import { SetCookie } from "../js/tools.js";
@@ -296,6 +296,9 @@ export default class extends AbstractView {
         console.log("Logged out and closed all WebSockets");
         WebSocketManager.closeAllSockets();
         this.setTitle("Logout");
+
+          // Call the function to set up scroll animations
+        // this.setupScrollAnimations();
     }
 
     async searchHandle() {
@@ -340,10 +343,10 @@ export default class extends AbstractView {
                         <img src="static/images/aad.png" alt="Ping Pong Player">
                     </div>
 
-                    <section id="welcome" class="section scroll-reveal">
+                    <section id="welcome" class="section ">
                         <div class="content-box">
                             <p>Are you ready to test your reflexes and skills in the fast-paced world of ping pong ? Whether you're a beginner or a seasoned player, our game offers endless fun and challenge. Play solo against AI or compete with your friends in exciting multiplayer matches. With intuitive controls, customizable difficulty levels, and dynamic gameplay, every match will keep you on the edge of your seat!</p>
-                            <img src="static/images/addd.png" alt="Ping Pong Gameplay" class="floating-image">
+                            <img src="static/images/tour.png" alt="Ping Pong Gameplay" class="floating-image">
                         </div>
                     </section>
 
@@ -389,7 +392,46 @@ export default class extends AbstractView {
             </div>
         `;
     }
+    // setupScrollAnimations() {
+    //     const sections = document.querySelectorAll('.section.scroll-reveal');
+    //     const scrollItems = document.querySelectorAll('.scroll-item, .slide-in-left, .feature-list li, .pop-in');
+    
+    //     const observerOptions = {
+    //         root: null,
+    //         rootMargin: '0px',
+    //         threshold: 0.1
+    //     };
+    
+    //     const observer = new IntersectionObserver((entries, observer) => {
+    //         entries.forEach(entry => {
+    //             if (entry.isIntersecting) {
+    //                 entry.target.classList.add('active');
+    //                 if (entry.target.classList.contains('section')) {
+    //                     const animatedElements = entry.target.querySelectorAll('.slide-in-left, .feature-list li, .pop-in');
+    //                     animatedElements.forEach(el => el.classList.add('active'));
+    //                 }
+    //             } else {
+    //                 entry.target.classList.remove('active');
+    //                 if (entry.target.classList.contains('section')) {
+    //                     const animatedElements = entry.target.querySelectorAll('.slide-in-left, .feature-list li, .pop-in');
+    //                     animatedElements.forEach(el => el.classList.remove('active'));
+    //                 }
+    //             }
+    //         });
+    //     }, observerOptions);
+    
+    //     sections.forEach(section => {
+    //         observer.observe(section);
+    //     });
+    
+    //     scrollItems.forEach(item => {
+    //         observer.observe(item);
+    //     });
+    // }
 
+    async inAuthpages() {
+        return true;
+    }
     
 
     // async postRender() {
@@ -432,7 +474,164 @@ export default class extends AbstractView {
     //     }
     // }
 
-    async inAuthpages() {
-        return true;
-    }
 }
+
+// import AbstractView from "../js/AbstractView.js";
+// import WebSocketManager from "../js/Websocket.js";
+// import { SetCookie } from "../js/tools.js";
+
+// export default class extends AbstractView {
+//     constructor() {
+//         super();
+//         console.log("Logout constructor called");
+//         localStorage.removeItem('access_token');
+//         localStorage.removeItem('refresh_token');
+//         SetCookie('access_token', null);
+//         SetCookie('refresh_token', null);
+//         console.log("Logged out and closed all WebSockets");
+//         WebSocketManager.closeAllSockets();
+//         this.setTitle("Logout");
+
+//         // Call the function to set up scroll animations
+//         this.setupScrollAnimations();
+//     }
+
+    // setupScrollAnimations() {
+    //     const scrollSections = document.querySelectorAll('.scroll-section');
+    //     const scrollItems = document.querySelectorAll('.scroll-item');
+    //     const parallaxBg = document.querySelector('.parallax-bg');
+    //     const leftPaddle = document.querySelector('.floating-paddle.left');
+    //     const rightPaddle = document.querySelector('.floating-paddle.right');
+
+    //     let currentSection = 0;
+
+    //     const activateSection = (index) => {
+    //         scrollItems.forEach(item => item.classList.remove('active'));
+    //         const itemsInSection = scrollSections[index].querySelectorAll('.scroll-item');
+    //         itemsInSection.forEach(item => item.classList.add('active'));
+    //     };
+
+    //     const updateScroll = () => {
+    //         const scrollPosition = window.scrollY;
+    //         const windowHeight = window.innerHeight;
+            
+    //         scrollSections.forEach((section, index) => {
+    //             const sectionTop = section.offsetTop;
+    //             const sectionHeight = section.offsetHeight;
+                
+    //             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+    //                 currentSection = index;
+    //                 activateSection(currentSection);
+    //             }
+    //         });
+
+    //         // Parallax effect
+    //         parallaxBg.style.transform = `translateY(${scrollPosition * 0.5}px)`;
+
+    //         // Paddle animations
+    //         const progress = (scrollPosition / (document.body.scrollHeight - windowHeight));
+    //         leftPaddle.style.transform = `translateX(${progress * 200}px) rotate(${progress * 360}deg)`;
+    //         rightPaddle.style.transform = `translateX(${-progress * 200}px) rotate(${-progress * 360}deg)`;
+    //     };
+
+    //     window.addEventListener('scroll', updateScroll);
+    //     updateScroll(); // Initial call to set the initial state
+    // }
+
+//     async searchHandle() {
+//         // Logic for handling search functionality if needed
+//     }
+
+//     async getSidebar() {
+//         return ``; // Optional: return a sidebar if needed
+//     }
+
+//     async getHtml() {
+//         return `
+//             <div class="container-lander">
+//                 <header class="h-colx">
+//                     <div class="hser">
+//                         <div class="logo-colx">
+//                             <img src="static/images/Untitled design.png" alt="Logo">
+//                         </div>
+//                         <nav>
+//                             <ul>
+//                                 <li><a href="#welcome">Home</a></li>
+//                                 <li><a href="#features">Features</a></li>
+//                                 <li><a href="#get-started">Get Started</a></li>
+//                             </ul>
+//                         </nav>
+//                         <div class="auth-buttons">
+//                             <button><a href="/login" data-link="">Login again</a></button>
+//                         </div>
+//                     </div>
+//                 </header>
+
+//                 <div class="content-lander">
+//                     <div class="lander">
+//                         <section class="hero-leader scroll-animate">
+//                             <div class="floating-paddle left"></div>
+//                             <div class="floating-paddle right"></div>
+//                             <div class="hero-content-leader">
+//                                 <h1 class="fade-in-up">Welcome to the Ultimate Ping Pong Game!</h1>
+//                                 <p class="fade-in-up delay-1">Experience the thrill of table tennis like never before.</p>
+//                             </div>
+//                         </section>
+//                         <img src="static/images/aad.png" alt="Ping Pong Player">
+//                     </div>
+
+//                     <section id="welcome" class="section scroll-reveal">
+//                         <div class="content-box">
+//                             <p>Are you ready to test your reflexes and skills in the fast-paced world of ping pong? Whether you're a beginner or a seasoned player, our game offers endless fun and challenge. Play solo against AI or compete with your friends in exciting multiplayer matches. With intuitive controls, customizable difficulty levels, and dynamic gameplay, every match will keep you on the edge of your seat!</p>
+//                             <img src="static/images/tour.png" alt="Ping Pong Gameplay" class="floating-image">
+//                         </div>
+//                     </section>
+
+//                     <div class="image-marquee">
+//                         <div class="anime-name">
+//                             <h1> 🏓 </h1>
+//                             <h1>Ping Pong Game!</h1>
+//                             <h1> 🏓 </h1>
+//                             <h1>Ping Pong Game!</h1>
+//                             <h1> 🏓 </h1>
+//                             <h1>Ping Pong Game!</h1>
+//                             <h1> 🏓 </h1>
+//                             <h1>Ping Pong Game!</h1>
+//                             <h1> 🏓 </h1>
+//                             <h1>Ping Pong Game!</h1>
+//                             <h1> 🏓 </h1>
+//                         </div>
+//                     </div>
+
+//                     <section id="features" class="section scroll-reveal">
+//                         <div class="content-box">
+//                             <h2 class="slide-in-left">Game Features</h2>
+//                             <ul class="feature-list">
+//                                 <li class="pop-in delay-1">Single-Player & Multiplayer Modes</li>
+//                                 <li class="pop-in delay-2">Adjustable Difficulty Settings</li>
+//                                 <li class="pop-in delay-3">Engaging Animations & Fun Power-Ups</li>
+//                                 <li class="pop-in delay-4">Realistic Table Tennis Physics</li>
+//                             </ul>
+//                         </div>
+//                         <div class="image-sr">
+//                             <img src="static/images/_afebd3b8-c13b-4dbb-bd56-632bcc0be2f1.jpeg" alt="Game Features">
+//                         </div>
+//                     </section>
+
+//                     <section id="get-started" class="section scroll-reveal">
+//                         <div class="content-box">
+//                             <h2>Get Started</h2>
+//                             <p>Click below to dive into the action and experience the thrill of ping pong right at your fingertips. Get ready to serve, rally, and dominate the table!</p>
+//                             <a href="/login" class="btn cta-button">Start Playing Now</a>
+//                         </div>
+//                     </section>
+//                 </div>
+//             </div>
+//         `;
+//     }
+
+//     async inAuthpages() {
+//         return true;
+//     }
+// }
+

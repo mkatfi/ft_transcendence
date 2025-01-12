@@ -1,8 +1,9 @@
 import json
 from datetime import datetime
+import django
+django.setup()
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.layers import get_channel_layer
-import requests
 import asyncio
 import time
 from asgiref.sync import sync_to_async
@@ -12,51 +13,20 @@ import requests.cookies
 from django.http import JsonResponse, HttpRequest,HttpResponseServerError,HttpResponseRedirect
 from django.db import connection
 
-def decode(headers):
-
-    data = {}
-    for key, value in headers:
-        decoded_key = key.decode('utf-8')
-        decoded_value = value.decode('utf-8')
-        data[decoded_key] = decoded_value
-    
-    return data
-
-def is_auth(headers):
-    auth_url = "http://django:8000/api/protected/"
-    default_headers = requests.utils.default_headers()
-
-    headers_costum = {
-            'Content-Type': 'application/json',
-            'Authorization': f"Bearer {headers.get('access_token')}",
-        }
-    headers_dict = default_headers.copy()
-    headers_dict.update(headers_costum)
-    response = requests.get(auth_url, headers=headers_dict)
-    if response.status_code != 200:
-        raise ValueError("authentification required")
-    
-    return True
-
-
-def my_custom_sql_function():
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT my_function()")
-        result = cursor.fetchall()
-        return result
+import redis
+from django.conf import settings
 
 async def delete_from_queue(id):
     ele = queue.objects.filter(socket_id=id)
     if await sync_to_async(ele.exists)():
         r = await sync_to_async(ele.delete)()
 
-    
-
 class sockets(AsyncWebsocketConsumer):
     def __init__(self):
         super().__init__()
-        self.group_name = "testNAME"
+        self.group_name = "queue_group"
         self.login = None
+        self.player_id = None
         self.isPut = False
 
     async def connect(self):
@@ -68,7 +38,8 @@ class sockets(AsyncWebsocketConsumer):
         try:
             await self.channel_layer.group_discard(self.group_name, self.channel_name)
         except Exception as e:
-            print("exited befor creating groupe --")
+            pass
+            # print("exited befor creating groupe --")
 
     async def chat_message(self, event):
         message = event["message"]
@@ -79,9 +50,10 @@ class sockets(AsyncWebsocketConsumer):
             self.isPut = True
             try :
                 data = json.loads(text_data)
-                is_auth(data)
+                # print(data)
                 self.group_name = f'in_queue_{self.login}'
                 self.login = data.get('login')
+                self.player_id = data.get('id')
                 await self.channel_layer.group_add(
                         self.group_name, 
                         self.channel_name
@@ -89,31 +61,48 @@ class sockets(AsyncWebsocketConsumer):
                 await self.placeinQueue()
 
             except Exception as e:
-                print(e)
-                print("faile ----------------")
+                # print(e)
+                # print("faile ----------------")
                 # await self.send('authantication required')
                 await self.close()
 
         pass
 
     async def placeinQueue(self):
-        ele = queue.objects.filter(login=self.login)
+        ele = await sync_to_async(queue.objects.filter)(player_id=self.player_id)
         if await sync_to_async(ele.exists)():
-            await sync_to_async(ele.delete)()
-        var = queue()
-        var.socket_id = self.channel_name
-        var.login = self.login
-        var.groupe = self.group_name
+            await self.canscel_signal("user already registerd for game")
+            return
+        
+        redis_instance = redis.StrictRedis.from_url(settings.CACHES['default']['LOCATION'])
+        sufix = "to_not_invite"
+        val  = redis_instance.get(f'{sufix}_{self.player_id}')
+        redis_instance.close()
+
+        if val:
+            await self.canscel_signal("user already playing a game")
+            return
+
+        var = queue(
+                player_id = self.player_id,
+                socket_id = self.channel_name,
+                login     = self.login,
+                groupe    = self.group_name
+            )
         r = await sync_to_async(var.save)()
 
         queryset = queue.objects.order_by("joined_at")[:2]
         data = await sync_to_async(list)(queryset)
+        # print(data)
         if len(data) == 2:
-            
             await delete_from_queue(data[0].socket_id)
             await delete_from_queue(data[1].socket_id)
-            res = await self.create_game(data[0].login, data[1].login)
-            await self.redirect_signal(data[0].groupe, data[1].groupe)
+            # print("deleting both and creating  game")
+            res = await self.create_game(data[0].player_id, data[1].player_id)
+            if res == None:
+                await self.canscel_signal2("game service can't create this match", data[0].groupe, data[1].groupe)
+            else :
+                await self.redirect_signal(data[0].groupe, data[1].groupe)
             
 
     async def create_game(self, p1, p2):
@@ -123,11 +112,39 @@ class sockets(AsyncWebsocketConsumer):
             'player1' : p1,
             'player2' : p2,
         }
-        res = await sync_to_async(requests.post)(url=url,json=data)
-        return res
+        # print("msg set to game is ")
+        # print(data)
+        # sends name
+        try:
+            
+            res = await sync_to_async(requests.post)(url=url,json=data, timeout=5)
+            if res.ok:
+                return res
+            else:
+                return None
+        except Exception as e:
+            # print(f"exception {e}")
+            return None    
+
+    async def canscel_signal2(self, message, g1, g2):
+        ch = get_channel_layer()
+        await ch.group_send(g1, {
+                'type': 'cancel_search', 
+                "message": message
+            })
+
+        await ch.group_send(g2, {
+                'type': 'cancel_search', 
+                "message": message
+            })
+
+    async def canscel_signal(self, message):
+        await self.send(json.dumps({
+            'action' : "cancel_search",
+            'message': message,
+        }))
 
     async def redirect_signal(self, p1, p2):
-
         ch = get_channel_layer()
         json_data = {
             'action' : 'redirect',

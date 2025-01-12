@@ -17,6 +17,8 @@ RUN pip install --upgrade pip && \
 
 RUN rm -f requirements.txt
 
+EXPOSE 8000
+
 # COPY ./service .
 CMD ["bash","./script.sh"]
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

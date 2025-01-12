@@ -1,15 +1,18 @@
 import AbstractView from "../js/AbstractView.js";
 import { Local_trn } from "./local_trn.js";
-import GamesView from '../views/Games.js';
+import {online_game, gameend, empty_, remove_game_belong} from '../js/online2.js';
+// import { vars } from "./Games.js";
+import { removeFrame } from "../js/tools.js";
+import { fetch_data } from "../js/BaseUtils.js";
+import { tokenIsValid } from "../js/index.js";
 
-var butn1 = null;
-var butn2 = null;
-var joined = false;
-var socket = null;
-var trnInfoSocket = null;
-var displaytype = 3;
-var type = 'none';
+let butn1 = null;
+let joined = false;
+let socket = null;
+let trnInfoSocket = null;
+let type = 'none';
 let trns_id = [];
+let matche_res = null
 
 export default class extends AbstractView {
   constructor() {
@@ -18,90 +21,64 @@ export default class extends AbstractView {
     this.pageTitle = "TOURNAMENT";  
   }
 
+
   async afterRender()
   {
-    console.log('TYPE: ', type);
     if (joined == false){
       if (type == 'remotTrn'){
-        console.log('%%%%%%% AFTER RANDER remotTrn %%%%%%%%%%');
-        butn1 = document.getElementById("trn4");
-        console.log(butn1);
-        butn1.addEventListener("click" , this.trn_subscribe.bind(this, 4, 'update'));
-        
-        butn2 = document.getElementById("trn8");
-        console.log(butn2);
-        butn2.addEventListener("click" , this.trn_subscribe.bind(this, 8, 'update'));
-        await this.trn_mumbers('trn4_info', 4);
-        await this.trn_mumbers('trn8_info', 8);
+        butn1 = document.querySelector(".start-R-trn-bottun");
+        if (butn1)
+          butn1.addEventListener("click" , this.trn_subscribe.bind(this, 'update'));
+
+        await this.trn_mumbers('trn4_info');
         for (let id of trns_id){
-          var trn_btn = document.getElementById(id);
-          trn_btn.addEventListener('click', this.trn_history_choose.bind(this, id));
+          let trn_btn = document.getElementById(id);
+          if (trn_btn)
+            trn_btn.addEventListener('click', this.trn_history_choose.bind(this, id));
         }
       }
       if (type == 'none'){
-        console.log('%%%%%%% AFTER RANDER None %%%%%%%%%%');
-        var localTrn = document.getElementById('localTrn');
-        localTrn.addEventListener("click", this.local_tournament.bind(this));
-        var remotTrn = document.getElementById('remotTrn');
-        remotTrn.addEventListener("click", this.remot_tournament.bind(this));
+        let localTrn = document.getElementById('localTrn');
+        if (localTrn)
+          localTrn.addEventListener("click", this.local_tournament.bind(this));
+        let remotTrn = document.getElementById('remotTrn');
+        if (remotTrn)
+          remotTrn.addEventListener("click", this.remot_tournament.bind(this));
       }
     }
-    else if (type == 'remotTrn'){
-      var elem = document.getElementById('leav_trn');
-      elem.addEventListener('click', this.leave_trn.bind(this));
+    if (type == 'remotTrn' && joined){
+      let elem = document.getElementById('leav_trn');
+      if (elem)
+        elem.addEventListener('click', this.leave_trn.bind(this));
     }
-    else if (type == 'game')
-    {
-      let gv = new GamesView()
-      gv.data = this.data;
-      gv.payload = this.payload;
-      gv.afterRenderGame();
-    }
-    else if (type == 'matche'){
-      console.log('###### matche_afterRendere ########')
-      this.matche_afterRendere();
-    }
+
   }
 
+
   async in_trn(){
-    const req_data = {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.data),
-    }
+    let data = JSON.stringify(this.data);
     const url = '/tournament/is_inTourn/';
-    const response = await fetch(url, req_data);
-    if (response.ok){
-      const resp_data = await response.text();
-      var data = JSON.parse(resp_data);
-      return data;
-    }
+    return await fetch_data(url, 'POST', data)
   }
 
   // For Unsubscribe players
-  async trn_mumbers(element_id, plyrs_num){
-
-    var url = `/tournament/tourn_info/?trn_size=${plyrs_num}`;
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.ok){
-      const data = await response.text();
-      var trn_data = JSON.parse(data);
-      if (trn_data.created == 'true')
-        this.display_trn_mumbers(element_id, trn_data);
-    } 
+  async trn_mumbers(element_id){
+    let url = `/tournament/tourn_info/`;
+    let trn_data = await fetch_data(url, 'GET');
+    let display = false;
+    if (trn_data.created)
+      display = this.display_trn_mumbers(element_id, trn_data);
+    if (!display) {
+      let btn = document.querySelector(".start-R-trn-bottun");
+      if (btn)
+          btn.innerHTML = "Create New";
+    }
   }
   
   display_trn_mumbers(element_id, trn_data){
-    var content = '';
-    var players = trn_data.players;
-    var unknown = trn_data.unknown;
+    let content = '';
+    let players = trn_data.players;
+    let unknown = trn_data.unknown;
     for (const player of players){
       content += `
       <div class="player_tour">
@@ -117,79 +94,110 @@ export default class extends AbstractView {
       `;
     }
 
-    document.getElementById(element_id).innerHTML = content;
+    if (players.length == 0 || players.length == 4)
+      return false;
+    let trn_info = document.getElementById(element_id);
+    if (trn_info){
+      trn_info.style.display = "flex";
+      trn_info.innerHTML = content;
+    }
+    return true;
   }
 
-  
-  async trn_subscribe(trn_size, task){
-    
-    var content = "";
-    var url = `/tournament/trn_subscribe/?trn_size=${trn_size}`;
-    
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.data),
-    });
 
-    if (response.ok)
-      {
-        const resp_data = await response.text();
-        var data = JSON.parse(resp_data);
-        type = data.type;
-        localStorage.setItem('inTourn', true);
-        joined = true;
-        if (task == 'update' && trnInfoSocket != null)
-          trnInfoSocket.close();
-        // Tourn
-        // var className = `option_${data.trn_size}`;
-        if (data.type == 'remotTrn'){
-          content = `
-          <div class='trn-p-grid' id="trn">
-            ${this.trn_Players(data, task)}
-          </div>`;
-        }
-        // Matche
-        if (data.type == 'matche'){
-          content = this.display_matche(data, task);
-          content = await this.display_matche(data, task);
-          return content;
-        }
-      
+  onmsg_trn_info(trn_data) {
+    let display = this.display_trn_mumbers('trn4_info', trn_data);
+    if (!display) {
+      let btn = document.querySelector(".start-R-trn-bottun");
+      if (btn)
+          btn.innerHTML = "Create New";
+      let trn_info = document.getElementById('trn4_info');
+      if (trn_info){
+        trn_info.style.display = "none";
+        trn_info.innerHTML = "";
       }
-      else
-        content = "error";
-    
-      // WEB SOCKET //
-      if (joined == false | socket == null){
-        socket = new WebSocket('ws://'+ window.location.host +`/ws/tourn/`)
-        
-        socket.onopen = function(){
-          socket.send(JSON.stringify({
-            'trn_size': trn_size,
-          }));
-        }
-        
-        socket.onmessage = async e =>{
-          const trn_data = JSON.parse(e.data);
-          console.log("SSSSSSocket type: =====>", trn_data.type);
-          if (trn_data.type == 'tourn')
-            this.trn_Players(trn_data, 'update');
-          if (trn_data.type == "matche")
-            await this.display_matche(trn_data, 'update');
-        };
-      }
-      return content;
     }
+    else{
+      let btn = document.querySelector(".start-R-trn-bottun");
+      if (btn)
+          btn.innerHTML = "Join";
+    }
+  }
+  
+  async trn_subscribe(task){
     
-  // for subscribed users 
+    let content = "";
+    let url = `/tournament/trn_subscribe/?trn_size=4`;
+    let data = JSON.stringify(this.data);
+    let response = await fetch_data(url, 'POST', data);
+
+    if (response)
+    {
+      type = response.type;
+      localStorage.setItem('inTourn', true);
+      joined = true;
+      if (task == 'update' && trnInfoSocket != null){
+        trnInfoSocket.close();
+      }
+
+      if (socket)
+        socket.close();
+
+      // Tourn
+      if (response.type == 'remotTrn'){
+        content = `
+        <div class='trn_players-in' id="trn">
+          ${this.trn_Players(response, task)}
+        </div>`;
+      }
+      // Matche
+      if (response.type == 'matche'){
+        content = await this.display_matche(response, task);
+      }
+      
+      // WEB SOCKET //
+      let loc = window.location;
+      let wsPrefix = 'ws://';
+      if (loc.protocol == 'https:') {
+          wsPrefix = 'wss://'
+      }
+      socket = new WebSocket(wsPrefix+ window.location.host +`/ws/tourn/`)
+
+      socket.onmessage = async e =>{
+        const trn_data = JSON.parse(e.data);
+        if (trn_data.type == 'tourn')
+          this.trn_Players(trn_data, 'update');
+
+        if (trn_data.type == "matche"){
+          await this.display_matche(trn_data, 'update');
+        }
+
+        if (trn_data.type == "matche_end"){
+          if (trn_data.user_id == this.data.user.id){
+            let _matche_res = trn_data.matche_res
+            _matche_res.type = 'op_left'
+            _matche_res.subject = ''
+            matche_res = _matche_res
+          }
+        }
+      };
+    }
+    else
+      content = "error";
+  
+    return content;
+  }
+    
+  // for subscribed users
   trn_Players(data, task) {
-    var content = "";
-    console.log('++++++++++ task: '+task+' ++++++++++');
-    var players = data.players;
-    var unknown = data.unknown;
+    let content = `
+    <div class="button_div1">
+      <div class="leave_trn"  id="leav_trn">Leave Tournament</div>
+    </div>
+    <div class="trn_players_box">
+    `;
+    let players = data.players;
+    let unknown = data.unknown;
     for (const playr of players)
       content += this.generatePlayerHTML(playr);
     for (let i = 0 ; i < unknown; i++)
@@ -197,15 +205,17 @@ export default class extends AbstractView {
     
     content = ` 
     ${content} 
-    <div class='choose-button btn leave_trn' id="leav_trn">
-      leave tournament
-    </div>`;
+    </div>
+    `;
     if (task == 'update'){
-      var trn =document.getElementById('trn');
-      trn.innerHTML = content;
-      trn.className = 'trn-p-grid';
-      var elem = document.getElementById('leav_trn');
-      elem.addEventListener('click', this.leave_trn.bind(this));
+      let trn = document.getElementById('trn');
+      if (trn){
+        trn.innerHTML = content;
+        trn.className = 'trn_players-in';
+      }
+      let elem = document.getElementById('leav_trn');
+      if (elem)
+        elem.addEventListener('click', this.leave_trn.bind(this));
     }
     else{
       return content;
@@ -213,72 +223,58 @@ export default class extends AbstractView {
   }
     
   async leave_trn(){
-    var url = `/tournament/leave_trn/`;
-    console.log(this.data);
+    let url = `/tournament/leave_trn/`;
     
-    if(socket)
-      socket.close();
-    var response = await fetch(url,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.data),
-    });
-    if (response.ok){
-      console.log('player leave_trn');
-      var content = await this.generateTournChoiceHtml('false');
-      var trn = document.getElementById('trn');
-      trn.innerHTML = content;
-      trn.className = 'container_tour';
-      await this.trn_mumbers('trn4_info', 4);
-      await this.trn_mumbers('trn8_info', 8);
-      joined = false;
-      localStorage.setItem('inTourn', false);
-      
-      // Socket
-      trnInfoSocket = new WebSocket('ws://'+ window.location.host +`/ws/tourn_info/`);
-      trnInfoSocket.onmessage = e =>{
-        console.log('======TOUR_INFO======');
-        const trn_data = JSON.parse(e.data);
-        if (trn_data.trn_size == 4)
-          this.display_trn_mumbers('trn4_info', trn_data);
-        if (trn_data.trn_size == 8)
-          this.display_trn_mumbers('trn8_info', trn_data);
-      };
-      this.afterRender();
+    let data = JSON.stringify(this.data);
+    let response = await fetch_data(url, 'POST', data);
+    if (response){
+      if (socket)
+        socket.close();
+      this.remot_tournament()
     }
     
   }
   
-  async trn_history_choose(id){
+  async trn_history_choose(id, cancel){
 
-    var url = `tournament/trn_history/?trn_id=${id}`;
-    var response = await fetch(url);
-    if (response.ok){
-      var data = await response.text();
-      var trn_hstry = JSON.parse(data);
-      var class_name = `.parent-container-${trn_hstry.size}`;
-      console.log("TRN_HISTORY: ", trn_hstry);
-      this.show_trn_history(trn_hstry);
-      document.querySelector(".btn-exit").addEventListener("click" ,()=>{
-      document.querySelector(class_name).style.display = "none";
-      document.querySelector(".freez-all").style.display = "none";
-      })
+    let url = `tournament/trn_history/?trn_id=${id}`;
+    let trn_hstry = await fetch_data(url, 'GET', null);
+    if (trn_hstry.status == 'ok'){
+      this.show_trn_history(trn_hstry, cancel);
+      if (cancel){
+        let bottun = document.querySelector(".btn___exit");
+        if (bottun)
+          bottun.addEventListener("click" , this.remove_trnHistory.bind(this, true))
+      }
     }
   }
 
-  generateTrnMatche(matche){
+  remove_trnHistory(close_socket=false){
+    if (close_socket && socket){
+      socket.close()
+    }
+    let trn_hstry = document.querySelector('.parent-container-4');
+    if (trn_hstry)
+      trn_hstry.style.display = "none";
+    let freez = document.querySelector(".trn_freez-all");
+    if (freez)
+      freez.style.display = "none";
+  }
+
+  generateTrnMatche(matche, p_top){
+    let p_bottm = matche.p1
+    if (p_top == matche.p1)
+      p_bottm = matche.p2
     return `
-        <div class="plyr-box">
-          <img src='${matche.p1.img}'>
-          <span class='text'>${matche.p1.name}</span>
-          <div class="score1">${matche.p1.score}</div>
+        <div class="plyr-box player-up">
+          <img src='${p_top.img}'>
+          <div class='text'>${p_top.name}</div>
+          <div class="score1">${p_top.score}</div>
         </div>
-        <div class="plyr-box">
-          <img src='${matche.p2.img}'>
-          <span class='text'>${matche.p2.name}</span>
-          <div class="score1">${matche.p2.score}</div>
+        <div class="plyr-box player-down">
+          <img src='${p_bottm.img}'>
+          <div class='text'>${p_bottm.name}</div>
+          <div class="score1">${p_bottm.score}</div>
         </div>`;
   }
 
@@ -297,202 +293,253 @@ export default class extends AbstractView {
     `;
   }
 
-  show_trn_history(data){
-    let size = data.size;
-    var content = `
-    <div class="position-absolute top-0 end-0 btn-exit "><button type="button" class="btn btn-danger bg-danger"><i class="fa-solid fa-x"></i></button></div>
-    <div class="child-col m-r">`;
-    for (let i; i < size-4; i++){
-      content += this.generateTrnMatche(data.matches[i]);
-      if (i + 1 < 4){
-        content += `
-          <div class='vid'></div>`;
+  show_trn_history(data, cancel){
+    let content = ``;
+    if (cancel){
+      content = `
+      <div class="position-absolute top-0 end-0 btn___exit">
+        <button type="button" class="btn btn-danger bg-danger">
+          <i class="fa-solid fa-x"></i>
+        </button>
+      </div>`
+    }
+    content += `<div class="child-col m-r  part-r">`;
+  
+    for (let i = 0; i < 2; i++){4
+      if (i < data.matches.length){
+        let matche = data.matches[i]
+        let p_top =  matche.p1.score==5 ? matche.p1 : matche.p2
+        if (i)
+          p_top =  matche.p1.score==5 ? matche.p2 : matche.p1
+        content += this.generateTrnMatche(matche, p_top);
       }
       else
-        content += `</div><div class="child-col m-l>`;
-    }
-
-    for (let i = size-4; i < size-2; i++){
-      if (i < data.matches.length)
-        content += this.generateTrnMatche(data.matches[i]);
-      else
         content += this.generateTrnMatche_vid();
-      if (i + 1 < 2)
-        content += `<div class='vid'></div>`;
-      else
+      if (i)
         content += `</div>`;
+      else
+        content += `<div class='vid'></div>`;
     }
-    let index = size - 2;
-    if (index < data.matches.length){
+    if (data.matches.length == 3){
+      let matche = data.matches[2]
       content += `
-      <div class="child-col m-l">
-        ${this.generateTrnMatche(data.matches[index])}
+      <div class="child-col m-l part-l">
+        ${this.generateTrnMatche(matche, matche.p1)}
       </div>
       `;
     }
     else{
       content += `
-      <div class="child-col m-l">
+      <div class="child-col m-l part-l">
         ${this.generateTrnMatche_vid()}
       </div>
       `;
     }
 
-    var trn = document.getElementById('trn_hstry')
-    trn.className = `parent-container-${size}`
-    trn.style.display = "grid";
-    document.querySelector(".freez-all").style.display = "";
-    trn.innerHTML = content;
-  }
-
-  get_game_view()
-  {
-    let gv = new GamesView();
-    return gv.GameHtml();
+    let trn = document.getElementById('trn_hstry');
+    if (trn){
+      trn.className = `parent-container-4`;
+      trn.style.display = "grid";
+      trn.innerHTML = content;
+    }
+    document.querySelector(".trn_freez-all").style.display = "block";
   }
 
   
 
   async display_matche(data, task){
-    var matches = data.matches;
-    var content = "";
-    var id = this.data.user.id;
-    var matche = null;
-    let gv = new GamesView()
-    gv.data = this.data;
-    gv.payload = this.payload;
-    let gcontent = await gv.GameHtml();
-    for (var m of matches){
-      if (m.p1_pr_id == id || m.p2_pr_id == id){
+    let id = this.data.user.id;
+    let matches = data.matches;
+    let matche = null;
+    removeFrame();
+    for (let m of matches){
+      if (m.p1_id == id || m.p2_id == id){
         matche = m;
         break;
       }
     }
     if (matche){
-      let create_time = new Date(matche.create_time);
-      let now = new Date();
-      let wDuration = 5000;
-      content = this.generateMatcheHtml(matche);
-      if (create_time.getTime() + wDuration >= now.getTime()){
-        let timeleft = create_time.getTime() + wDuration - now.getTime();
-        console.log('waiting: ', timeleft, ' ms');
-        
-        // displaye matche
-        setTimeout(()=>{
-          console.log('in_start');
-          // displaye board game
-          var trn = document.getElementById('trn');
-          trn.className = 'container_tour';
-          
-          trn.innerHTML = gcontent;
-          gv.afterRenderGame();
-
-        }, timeleft);
-      }
-      else{
-        console.log('out_start');
-        // displaye board game
-        content = "AAAA";
-        content = gcontent;
-        type = "game";
-        
-      }
+      // console.log('PLAYER HAVE A MATCHE')
+      return await this.matche_animation(matche, task, data, id);
     }
     else {
-      this.trn_history_choose(data.trn_id);
+      // console.log('PLAYER DONT HAVE A MATCHE')
+      let content = await this.remot_tournament();
+      await this.trn_history_choose(data.trn_id, 1);
+      if(socket)
+        socket.close();
+      return content
+    }
+  }
+
+  async matche_animation(matche, task, data, id){
+    let vars = {
+      "headers" : {
+        "access_token" : localStorage.getItem('access_token'),
+        "login" : this.data.user.username,
+        "id" : id,
+        "image" : this.data.avatar,
+      }
+    }
+    // vars.headers.access_token = localStorage.getItem('access_token');
+    // vars.headers.login = this.data.user.username;
+    // vars.headers.id = id;
+    // vars.headers.image = this.data.avatar;
+    let content = "";
+    let create_time = new Date(matche.create_time);
+    let now = new Date();
+    let wDuration = 5000;
+    content = this.generateMatcheHtml(matche);
+    if (create_time.getTime() + wDuration >= now.getTime()){
+      let timeleft = create_time.getTime() + wDuration - now.getTime();
+      
+      // displaye matche
+      empty_();
+      setTimeout(async()=>{
+        this.remove_trnHistory();
+        const valid = await tokenIsValid();
+        if(valid)
+        {
+          online_game(vars);
+          var trn = document.getElementById('trn');
+          if (trn)
+            trn.innerHTML = '';
+        }
+      }, timeleft);
+
+      let set_interval = setInterval(async ()=>{
+        if (gameend || matche_res){
+          clearInterval(set_interval);
+          let _gamend = gameend? gameend : matche_res
+          matche_res = null
+          if (_gamend.type == 'op_left'){
+            remove_game_belong()
+          }
+          setTimeout(async ()=> {
+            // console.log('gameend is filld: ', _gamend);
+            await this.save_matche(matche, _gamend);
+          }, 2000);
+        }}, 1000);
+    }
+    else{
+      if (matche.status == 'unplayed'){
+        let gameres = {
+          'p1score': (id != matche.p1_id)*5, 
+          'p2score': (id != matche.p2_id)*5,
+          'winer': (id != matche.p1_id)+(id != matche.p2_id)*2,
+        }
+        if(socket)
+          socket.close()
+        content = await this.save_matche(matche, gameres)
+        content = `
+        <div class="container_tour" id="trn">
+          ${content}
+        </div>`;
+        return content
+      }
+      content = await this.remot_tournament();
+      await this.trn_history_choose(data.trn_id, 0);
     }
 
-    
     if (task == 'return'){
       content = `
-      <div class='battle-arena' id="trn">
+      <div class='matche' id="trn">
         ${content}
       </div>`;
       return content;
     }
-    var trn = document.getElementById('trn');
-    trn.className = 'matche';
-    trn.innerHTML = content;
-    this.matche_afterRendere();
-
+    let trn = document.getElementById('trn');
+    if (trn){
+      trn.className = 'matche';
+      this.remove_trnHistory();
+      trn.innerHTML = content;
+    }
   }
 
 
-  
+  async save_matche(matche, game_res){
+    // console.log('-------matche_save-----')
+    let id = this.data.user.id;
+    let url = `/tournament/matchresult/`;
+    let p1_score = (game_res.winer == 1) * 5
+    let p2_score = (game_res.winer == 2) * 5
+    if (game_res.subject == 'end'){
+      p1_score = game_res.p1score
+      p2_score = game_res.p2score
+    }
+    else if (matche.status == "played")
+      return
+    let data = JSON.stringify({
+      'id': matche.id,
+      'p1_score': p1_score,
+      'p2_score': p2_score,
+      'winner': game_res.winer,
+    });
+    let response = await fetch_data(url, 'POST', data);
+    let content = ''
+    let cond = (!(response.new_round) && !(response.trn_end));
+    if (response.winner_id == id && cond){
+      content = await this.remot_tournament();
+      await this.trn_history_choose(response.trn_id, 0);
+    }
+    else if (response.winner_id != id || response.trn_end){
+      content = await this.remot_tournament();
+      await this.trn_history_choose(response.trn_id, 1);
+    }
+    return content
+  }
 
   async generateTournChoiceHtml(render)
   {
-    var content = `
+    let content = `
     <div class="option_4" id="trn4">
-      4
-      <div class='players' id=trn4_info>
+      <div class='players' id='players'>
+        <div class="players_holder" id='trn4_info'></div>
+      </div>
+      <div class="start-remot-tourn">
+        <div class="start-R-trn-bottun">Join</div>
       </div>
     </div>
-    <div class="option_8" id="trn8">
-      8
-      <div class='players' id=trn8_info>
-      </div>
-    </div>
-    
-    <div id='tourns' class='option_history scrool-friend'>
-    <div class="choose-to-tournament">
+    <div class="trns_list scrool-friend-tour">
     `;
     
-    var url = `/tournament/trn_history/`;
-    var response = await fetch(url,{
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(this.data),
-    });
-    if (response.ok){
-        const data = await response.text();
-        var trn_data = JSON.parse(data);
-        var trns = trn_data.trns;
-        console.log('TOURNAMENTS: ', trns);
-        
-        
-        for (var trn of trns){
-          var icon = '';
-          if (trn.won)
-            icon = '<i class="fas fa-trophy trophy-icon"></i>';
-          content += `
-          <div class='choose'>
-          <img src="/media/torn_${trn.size}.avif">
+    let url = `/tournament/trn_history/`;
+    let data = JSON.stringify(this.data);
+    let response = await fetch_data(url, 'POST', data)
+    let trns = response.trns;
+    for (let trn of trns){
+      let icon = '';
+      let Date = trn.created_at;
+      if (trn.won)
+        icon = '<i class="fas fa-trophy trophy-icon"></i>';
+      content += `
+        <div class="choose">
+          <img src="/media/pong_trn.webp" class="choose_image">
           <div class="choose-info">
             <div class="choose-name">${trn.name} ${icon}</div>
-            <div class="choose-tournament-type">Tournament: ${trn.size} players</div>
-            <div class="choose-level">Level Reached: ${trn.won}</div>
+            <div class="choose-level">Date: ${trn.created_at}</div>
           </div>
           <div id="bracket"></div>
-          <div id="${trn.id}">
-          <button class="choose-button">show</button>
+          <div id="${trn.id}" class="choose-button">
+            show
           </div>
-          </div>
-          </div>
-          `;
-          trns_id.push(trn.id);
-        }
-        console.log('ID = ', trns_id)
-      }
-      content += `
-      </div>`;
-      // if (render == 'true') {
-      //   content = `
-      //   <div class='container_tour' id="trn">
-      //   </div>`;
-      // }
-      type = 'remotTrn';
-      return content;
+        </div>
+      `;
+      trns_id.push(trn.id);
+    }
+    content += `
+    </div>`;
+
+    type = 'remotTrn';
+    return content;
   }
 
   generatePlayerHTML(player)
   {
     return `
-      <div class="player_tour">
+      <div class="player_tour-in">
           <img src="${player.image_url}" alt="No image" width="140" class="player_img">
-          <h3>${player.username}</h3>
+          <div class='name'>${player.name}</div>
       </div>
     `;
   }
@@ -500,147 +547,107 @@ export default class extends AbstractView {
   generatePlaceholderHTML()
   {
     return `
-      <div class="player_tour">
+      <div class="player_tour-in">
           <img src="media/unkonu_p.png" alt="No image" width="140" class="player_img">
-          <h3>waiting player...</h3>
+          <div class='name'>waiting player...</div>
       </div>
     `;
   }
 
-  // generateMatcheHtml(matche) {
-  //   return `
-  //       <div class='player_tour'>
-  //        <img src='${matche.p1_img}' alt="No image" width="140">
-  //        <h3>${matche.p1_name}</h3>
-  //       </div>
-  //       <div class='player_tour'>
-  //         <img src='${matche.p2_img}' alt="No image" width="140">
-  //         <h3>${matche.p2_name}</h3>
-  //       </div>
-  //       `
-  // }
-
-  generateMatcheHtml(matche, id){
+  generateMatcheHtml(matche) {
     return `
-    <div class="l-matche">
-        <div class='l-plyr m-r l-p'>
-            ${matche.p1_name}
+        <div class="player p_1">
+            <div class="p_img"><img src="${matche.p1_img}"></div>
+            <div class="name">${matche.p1_name}</div>
         </div>
-        <div class='vs'>
-            VS
-            <div class='strt-mtche' id='${id}'>
-                Start
-            </div>
+        <div class='m_vs'>VS</div>
+        <div class="player p_2">
+            <div class="p_img"><img src="${matche.p2_img}"></div>
+            <div class="name">${matche.p2_name}</div>
         </div>
-        <div class='l-plyr m-l m-r r-p'>
-            ${matche.p2_name}
-        </div>
-       
-    </div>
-    ;`
-}
-  
-  matche_afterRendere(){
-    // document.addEventListener('DOMContentLoaded', () => {
-      const bilash = document.getElementById('bilash');
-      const proPlayers = document.getElementById('pro-players');
-      const nameUsers = document.querySelector('.name-user');
-      const vsCircle = document.querySelector('.vs-circle');
-      // debugger
-      console.log('Matche after render======|||||')
-      setTimeout(() => {
-          bilash.style.left = '60%';
-          proPlayers.style.right = '60%';
-          nameUsers.style.right = '60%';
-      }, 1000);
-
-      setTimeout(() => {
-          vsCircle.style.transform = 'translate(-50%, -50%) scale(1)';
-          vsCircle.style.opacity = '1';
-          // energyField.style.opacity = '1';
-      }, 1800);
-
-      setInterval(() => {
-          // lightning.style.opacity = '1';
-          // setTimeout(() => {
-          //     lightning.style.opacity = '0';
-          // }, 300);
-
-          vsCircle.style.animation = 'pulse 3.5s ease-in-out';
-          setTimeout(() => {
-              vsCircle.style.animation = 'none';
-          }, 100);
-      }, 5000);
+    `;
   }
 
+
   async remot_tournament(){
-    var content = "";
+
+    let content = "";
+    joined = false;
     
     content = await this.generateTournChoiceHtml("true");
-    trnInfoSocket = new WebSocket('ws://'+ window.location.host +`/ws/tourn_info/`);
+    let loc = window.location;
+    let wsPrefix = 'ws://';
+    if (loc.protocol == 'https:') {
+        wsPrefix = 'wss://'
+    }
+    trnInfoSocket = new WebSocket(wsPrefix+ window.location.host +`/ws/tourn_info/`);
     trnInfoSocket.onmessage = e =>{
-      console.log("==========TRN_INFO on message============");
-      const trn_data = JSON.parse(e.data);
-      if (trn_data.trn_size == 4)
-        this.display_trn_mumbers('trn4_info', trn_data);
-      if (trn_data.trn_size == 8)
-        this.display_trn_mumbers('trn8_info', trn_data);
+      let trn_data = JSON.parse(e.data);
+      this.onmsg_trn_info(trn_data)
     };
-    var trn = document.getElementById('trn');
-    trn.className = 'container_tour';
-    trn.innerHTML = content;
-    type = "remotTrn";
+    let trn = document.getElementById('trn');
+    if (trn){
+      trn.className = 'container_tour';
+      trn.innerHTML = content;
+      type = "remotTrn";
+    }
     this.afterRender();
-    
+    return content
   }
   
   async getHtml() {
-    await this.setPayload();
-    await this.setData();
-    var content = '';
+    let content = '';
     type = 'none';
-    var data = await this.in_trn();
+    let data = await this.in_trn();
     if (data.intourn == 'yes')
-      content = await this.trn_subscribe(data.trn_size, 'return');
+      content = await this.trn_subscribe('return');
     if (data.intourn == 'no'){
+      joined = false
       content = `
-      <div class='trnModeParent' id="trn">
-        <div class="trnMode" id="localTrn">
-          Local Tournament
-          <div class='strt-mtche-1'>
-                START
-          </div>
-        </div>
-        <div class="trnMode" id="remotTrn">
-          Remot Tournament
-          <div class='strt-mtche-1'>
-                START
-          </div>
+      <div class="tournament-section" id ="trn">
+        <div class="cards-container"> 
+            <div class="content-tour-1  d-flex align-items-center justify-content-center">
+              <img src="static/images/cup.png" alt="Online Tournament Trophy" class="online-trophy">
+              <div class="tap-tap d-flex align-items-start justify-content-around ">
+                <h2>Online Tournament</h2>
+                <p>PLAY WITH FRIENDS ONLINE IN A SHARED ENVIRONMENT FOR FACE-TO-FACE MATCHES.</p>
+                <button class="join-btn" id="remotTrn">Join</button>
+              </div>
+            </div>
+              <div class="content-tour-1  d-flex align-items-center justify-content-center ">
+              <img src="static/images/cup-manita.png" alt="Local Tournament Trophy" class="local-trophy">
+              <div class="tap-tap d-flex align-items-start justify-content-around ">
+                <h2>Local Tournament</h2>
+                <p>COMPETE ONLINE AGAINST PLAYERS WORLDWIDE IN REAL-TIME TOURNAMENTS.</p>
+                <button class="join-btn"  id="localTrn">Join</button>
+              </div>
+            </div>
         </div>
       </div>
       `;
     }
-    
-    
+
     const headernav = await this.getHeader();
     return headernav + `
     <div class='content_tour'>
-    <div class="Tournament-brack"> Tournament Break </div>
-    ${content}
-    <div class="parent-container-4" id='trn_hstry'></div>
+      <div class="Tournament-brack"> Tournament Break </div>
+        ${content}
     </div>
     `;  
     
   }
   
   local_tournament(){
-    var trn = document.getElementById('trn');
-    var local_trn = new Local_trn;
-    trn.innerHTML = local_trn.rejester();
-    var strt_trn = document.querySelector('.rejister_trn');
-    strt_trn.addEventListener('submit', e=> {
-      local_trn.trn_start(event);
-    });
+    let trn = document.getElementById('trn');
+    let local_trn = new Local_trn;
+    if (local_trn)
+      trn.innerHTML = local_trn.rejester();
+    let strt_trn = document.querySelector('.rejister_trn');
+    if (strt_trn){
+      strt_trn.addEventListener('submit', e=> {
+        local_trn.trn_start(event);
+      });
+    }
   }
 
 }

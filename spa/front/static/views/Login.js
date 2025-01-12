@@ -4,12 +4,9 @@ import { messageHandling } from "../js/utils.js";
 import { CheckTokenExpire, SetCookie,getCookie } from "../js/tools.js";
 import { loginHTML } from "../js/HtmlPages.js";
 
-const ACCESS_TOKEN_LIFETIME = 60* 60 * 1000;
-const REST_TIME = 2 * 60 * 1000;
 export default class extends AbstractView {
     constructor() {
         super();
-        console.log("Login constructor called");
         this.setTitle("Login");
     }
 
@@ -36,7 +33,6 @@ export default class extends AbstractView {
             return responseData;
         } else {
             const errorMessage = `${Object.keys(responseData)[0]} : ${Object.values(responseData)[0]}`;
-            messageHandling("error", errorMessage);
             throw new Error(errorMessage);
         }
     }
@@ -66,7 +62,7 @@ export default class extends AbstractView {
             this.setTokens(result.access, result.refresh);
             this.handleSuccess("User login successfully", "/home");
         } catch (error) {
-            console.error(error);
+            messageHandling("error",error.message)
         }
     }
     async  registerUser(event) {
@@ -78,7 +74,7 @@ export default class extends AbstractView {
             this.handleResponse(response, responseData);
             this.handleSuccess("User registered successfully", "/login");
         } catch (error) {
-            console.error(error);
+            messageHandling("error",error.message)
         }
     }
 
@@ -89,16 +85,20 @@ export default class extends AbstractView {
     async inAuthpages(){return true;}
 
     afterRender() {
-        document.querySelector(".login-input").addEventListener("submit", this.loginUser.bind(this));
-        document.querySelectorAll(".login-with-intra").forEach((e)=>{   e .addEventListener("click", this.loginWithIntra.bind(this));   });                 
-        document.querySelector(".register-input").addEventListener("submit", this.registerUser.bind(this));
+        const loginInput = document.querySelector(".login-input");
+        const loginIntra =  document.querySelectorAll(".login-with-intra");
+        const registerInput = document.querySelector(".register-input");
+        if (loginInput)   loginInput.addEventListener("submit", this.loginUser.bind(this));
+        if (registerInput) registerInput.addEventListener("submit", this.registerUser.bind(this));
+        
+        loginIntra.forEach((e)=>{   e.addEventListener("click", this.loginWithIntra.bind(this));   });                 
 
         const container = document.getElementById('container_login');
         const registerBtn = document.getElementById('register');
         const loginBtn = document.getElementById('login');
 
-        registerBtn.addEventListener('click', () => {container.classList.add("active");});
-        loginBtn.addEventListener('click', () => {container.classList.remove("active");});
+      if (registerBtn) registerBtn.addEventListener('click', () => {if (container)  container.classList.add("active");});
+      if (loginBtn)   loginBtn.addEventListener('click', () => { if (container)  container.classList.remove("active");});
     }
  
 }

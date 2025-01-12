@@ -37,3 +37,7 @@ django-channels-jwt==0.0.3
 PyJWT==2.8.0
 
 
+
+gunicorn 
+uvicorn[standard]
+httpx

@@ -1,53 +1,84 @@
 
-let globalData ={
+const globalData ={
 
     profiles : null,
     data:null,
     inChatPage: false,
     currentView : null,
+    soketQueue : null,
 
 }
 export default globalData;
 
 
-export function setLoader(b){
-  if (b) {
-    document.querySelector(".load-page").style.display = "block";
-    document.querySelector(".freez-all").style.display = "block";
-  }
-  else{
-    document.querySelector(".load-page").style.display = "none";
-    document.querySelector(".freez-all").style.display = "none";
-  }
+export function setLoader(b) {
+  const loadPage = document.querySelector(".load-page");
+  const freezeAll = document.querySelector(".freez-all");
 
+  if (loadPage && freezeAll) {
+    if (b) {
+      loadPage.style.display = "block";
+      freezeAll.style.display = "block";
+    } else {
+      loadPage.style.display = "none";
+      freezeAll.style.display = "none";
+    }
+  }
 }
 
-export function clone_messageOther(messg,img) {
-    let you_tempmsg = document.querySelector(".you-tempmsg")
-    let _clone = you_tempmsg.content.cloneNode(true);
-            _clone.querySelector(".you-message").innerText= messg;
-            _clone.querySelector("img").src = img;
-        return _clone;
+
+// Function to clone a message for another user (received message)
+export function clone_messageOther(messg, img) {
+  const youTempMsg = document.querySelector(".you-tempmsg");
+
+  if (youTempMsg) {
+    const _clone = youTempMsg.content.cloneNode(true);
+    const messageElement = _clone.querySelector(".you-message");
+    const imgElement = _clone.querySelector("img");
+
+    if (messageElement) messageElement.innerText = messg  || "not difine";
+    if (imgElement) imgElement.src = img || "";
+
+    return _clone;
   }
+  return null;
+}
+
   
   export function  clone_messageCurrent(messg,img) {
-    let me_tempmsg = document.querySelector(".me-tempmsg")
-    let clone = me_tempmsg.content.cloneNode(true);
-    clone.querySelector(".me-message").innerText = messg;
-    clone.querySelector("img").src = img;
-        return clone;
+    const  meTempMsg = document.querySelector(".me-tempmsg")
+    if (!meTempMsg) return;
+    const  clone = meTempMsg.content.cloneNode(true);
+
+    const meMsg = clone.querySelector(".me-message");
+    const imgMsg = clone.querySelector("img");
+    if (meMsg) meMsg.innerText = messg;
+    if (imgMsg) imgMsg.src = img;
+    return clone;
   }
 
 
   export function getProfileById(id) {
-    console.log(id);
     return globalData.profiles.find(profile => profile.user.id === id);
   }
 
-  export function SetCookie(name,value,expire){
-
-    document.cookie = `${name} = ${value} `
+//   export function SetCookie(name, value) {
+//     document.cookie = `${name}=${value}; path=/`;
+// }
+export function SetCookie(name, value, days = 0) {
+  let expires = '';
+  // if (days) {
+  //     const date = new Date();
+  //     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  //     expires = `; expires=${date.toUTCString()}`;
+  // } else 
+  if (value === null) {
+      // Set to a past date to delete the cookie
+      expires = '; expires=Thu, 01 Jan 1970 00:00:00 UTC';
   }
+  document.cookie = `${name}=${value || ''}${expires}; path=/`;
+}
+
 
   export function getCookie(name){
 
@@ -61,7 +92,6 @@ export function clone_messageOther(messg,img) {
       }
     })
     return result ;
-    console.log(result);
   }
 
 
@@ -69,7 +99,14 @@ export function clone_messageOther(messg,img) {
 
     const currnetTime =Math.floor( Date.now() / 1000);
     const refreshTime = time - currnetTime;
-    // console.log(time);
-    // console.log(currnetTime);
     return refreshTime;
+  }
+
+
+  export function removeFrame() {
+    const fuser = document.querySelector(".freined-profile-user");
+    const holdvi = document.querySelector(".height-view");
+    if (fuser) fuser.style.display = "none";
+    if (holdvi) holdvi.style.display = "none";
+    
   }

@@ -18,12 +18,7 @@ export const chatPageHTML =`
               <div class="last-chat"></div>
             </div>
 
-          <div class="tourn-warn-chat" >
-          <i class="fa-solid fa-gamepad"></i>
-             <div class="chat-warn-tourn">Attention [PlayerName]! Your next game is about to begin. Please be ready at [Time].
 
-            </div>
-          </div>
       </div>
         <div class="chat-box">
         </div>
@@ -41,6 +36,7 @@ export const chatPageHTML =`
                         <ul class="dropdown-menu">
                         <li class="profile-from-chat"></li>
                         <li class="block-user-chat"></li>
+                        <li class="invite-game-chat"></li>
                         </ul>
                     </div>
                 </div>
@@ -50,13 +46,296 @@ export const chatPageHTML =`
                 </form>`
     
    export let inputHtml =` 
-        <input id="chat-message-input" name="message" type="text" size="100" placeholder="type message ..." >
-        <label for="submit-message" class="submit-button-style"><i class="fa-solid fa-paper-plane"></i></label>
-        <input type="submit" value="sned" id="submit-message" hidden>`;
+      <div class="input-container">
+   <input id="chat-message-input" name="message" type="text" maxlength=10000 placeholder="type  message ..."   />
+   <label for="submit-message" class="submit-button-style">
+        <i class="fa-solid fa-paper-plane"></i>
+    </label>
+    <label  class="submit-button-style emoji-label">
+    <div class="emoji-menu">
+            
+    <div class="emoji">😀</div>
 
+    <div class="emoji">😃</div>
 
+    <div class="emoji">😄</div>
 
+    <div class="emoji">😁</div>
 
+    <div class="emoji">😆</div>
+
+    <div class="emoji">😅</div>
+
+    <div class="emoji">😂</div>
+
+    <div class="emoji">🤣</div>
+
+    <div class="emoji">😊</div>
+
+    <div class="emoji">😇</div>
+
+    <div class="emoji">🙂</div>
+
+    <div class="emoji">🙃</div>
+
+    <div class="emoji">😉</div>
+
+    <div class="emoji">😌</div>
+
+    <div class="emoji">😍</div>
+
+    <div class="emoji">🥰</div>
+
+    <div class="emoji">😘</div>
+
+    <div class="emoji">😗</div>
+
+    <div class="emoji">😙</div>
+
+    <div class="emoji">😚</div>
+
+    <div class="emoji">😋</div>
+
+    <div class="emoji">😜</div>
+
+    <div class="emoji">😝</div>
+
+    <div class="emoji">😛</div>
+
+    <div class="emoji">🤑</div>
+
+    <div class="emoji">🤗</div>
+
+    <div class="emoji">🤔</div>
+
+    <div class="emoji">🤭</div>
+
+    <div class="emoji">🤫</div>
+
+    <div class="emoji">🤥</div>
+
+    <div class="emoji">😶</div>
+
+    <div class="emoji">😐</div>
+
+    <div class="emoji">😑</div>
+
+    <div class="emoji">😒</div>
+
+    <div class="emoji">🙄</div>
+
+    <div class="emoji">😬</div>
+
+    <div class="emoji">🤥</div>
+
+    <div class="emoji">😏</div>
+
+    <div class="emoji">😌</div>
+
+    <div class="emoji">😔</div>
+
+    <div class="emoji">😪</div>
+
+    <div class="emoji">🤤</div>
+
+    <div class="emoji">😴</div>
+
+    <div class="emoji">😷</div>
+
+    <div class="emoji">🤒</div>
+
+    <div class="emoji">🤕</div>
+
+    <div class="emoji">🤢</div>
+
+    <div class="emoji">🤮</div>
+
+    <div class="emoji">🤧</div>
+
+    <div class="emoji">🥵</div>
+
+    <div class="emoji">🥶</div>
+
+    <div class="emoji">🥴</div>
+
+    <div class="emoji">😵</div>
+
+    <div class="emoji">🤯</div>
+
+    <div class="emoji">🤠</div>
+
+    <div class="emoji">🥳</div>
+
+    <div class="emoji">😎</div>
+
+    <div class="emoji">🤓</div>
+
+    <div class="emoji">🧐</div>
+
+    <div class="emoji">😕</div>
+
+    <div class="emoji">😟</div>
+
+    <div class="emoji">🙁</div>
+
+    <div class="emoji">☹️</div>
+
+    <div class="emoji">😮</div>
+
+    <div class="emoji">😯</div>
+
+    <div class="emoji">😲</div>
+
+    <div class="emoji">😳</div>
+
+    <div class="emoji">🥺</div>
+
+    <div class="emoji">😦</div>
+
+    <div class="emoji">😧</div>
+
+    <div class="emoji">😨</div>
+
+    <div class="emoji">😰</div>
+
+    <div class="emoji">😥</div>
+
+    <div class="emoji">😢</div>
+
+    <div class="emoji">😭</div>
+
+    <div class="emoji">😱</div>
+
+    <div class="emoji">😖</div>
+
+    <div class="emoji">😣</div>
+
+    <div class="emoji">😞</div>
+
+    <div class="emoji">😓</div>
+
+    <div class="emoji">😩</div>
+
+    <div class="emoji">😫</div>
+
+    <div class="emoji">🥱</div>
+
+    <div class="emoji">😤</div>
+
+    <div class="emoji">😡</div>
+
+    <div class="emoji">😠</div>
+
+    <div class="emoji">🤬</div>
+
+    <div class="emoji">😈</div>
+
+    <div class="emoji">👿</div>
+
+    <div class="emoji">💀</div>
+
+    <div class="emoji">☠️</div>
+
+    <div class="emoji">💩</div>
+
+    <div class="emoji">🤡</div>
+
+    <div class="emoji">👹</div>
+
+    <div class="emoji">👺</div>
+
+    <div class="emoji">👻</div>
+
+    <div class="emoji">👽</div>
+
+    <div class="emoji">👾</div>
+
+    <div class="emoji">🤖</div>
+
+    <div class="emoji">😺</div>
+
+    <div class="emoji">😸</div>
+
+    <div class="emoji">😹</div>
+
+    <div class="emoji">😻</div>
+
+    <div class="emoji">😼</div>
+
+    <div class="emoji">😽</div>
+
+    <div class="emoji">🙀</div>
+
+    <div class="emoji">😿</div>
+
+    <div class="emoji">😾</div>
+
+    <div class="emoji">👋</div>
+
+    <div class="emoji">🤚</div>
+
+    <div class="emoji">🖐️</div>
+
+    <div class="emoji">✋</div>
+
+    <div class="emoji">🖖</div>
+
+    <div class="emoji">👌</div>
+
+    <div class="emoji">🤌</div>
+
+    <div class="emoji">🤏</div>
+
+    <div class="emoji">✌️</div>
+
+    <div class="emoji">🤞</div>
+
+    <div class="emoji">🤟</div>
+
+    <div class="emoji">🤘</div>
+
+    <div class="emoji">🤙</div>
+
+    <div class="emoji">👈</div>
+
+    <div class="emoji">👉</div>
+
+    <div class="emoji">👆</div>
+
+    <div class="emoji">👇</div>
+
+    <div class="emoji">☝️</div>
+
+    <div class="emoji">👍</div>
+
+    <div class="emoji">👎</div>
+
+    <div class="emoji">✊</div>
+
+    <div class="emoji">👊</div>
+
+    <div class="emoji">🤛</div>
+
+    <div class="emoji">🤜</div>
+
+    <div class="emoji">👏</div>
+
+    <div class="emoji">🙌</div>
+
+    <div class="emoji">👐</div>
+
+    <div class="emoji">🤲</div>
+
+    <div class="emoji">🤝</div>
+
+    <div class="emoji">🙏</div>
+    </div>
+        <i class="fa-solid fa-face-smile"></i>
+        </label>
+        <input type="submit" value="send" id="submit-message" hidden>
+        </div>
+
+        `;
 
 export const loginHTML = `
         
@@ -68,7 +347,7 @@ export const loginHTML = `
 
                     <div class="social-icons   "  >
                         <a  class="login-with-intra  " >
-                            <img    src="https://profile.intra.42.fr/assets/42_logo-7dfc9110a5319a308863b96bda33cea995046d1731cebb735e41b16255106c12.svg" alt="">
+                            <img    src="/media/intraLogo.svg" alt="">
                         </a>
                     </div>
                     <span>or use your email for registeration</span>
@@ -76,17 +355,6 @@ export const loginHTML = `
                             <input type="text"
                             name="username"
                             placeholder="Enter Username"/>
-                            <i class='bx bxs-user'></i>
-                        </div>
-                        <div class="input-box">
-                            <input type="text" name="first_name" required placeholder="Enter First Name"/>
-                            <i class='bx bxs-user'></i>
-                        </div>
-                        <div class="input-box">
-                            <input type="text"
-
-                            name="last_name"
-                            placeholder="Enter Last Name"/>
                             <i class='bx bxs-user'></i>
                         </div>
                         <div class="input-box">
@@ -120,7 +388,7 @@ export const loginHTML = `
                         <h1>Sign In</h1>
                         <div class="social-icons">     
                             <a class="login-with-intra ">
-                                <img class="login-with-intra pe-auto"   src="https://profile.intra.42.fr/assets/42_logo-7dfc9110a5319a308863b96bda33cea995046d1731cebb735e41b16255106c12.svg" alt="">
+                                <img class="login-with-intra pe-auto"   src="/media/intraLogo.svg" alt="">
                             </a>
                         </div>
                         <span>or use your email password</span>
@@ -131,12 +399,6 @@ export const loginHTML = `
                             <div class="input-box">
                                 <input type="password" name="password"  placeholder="Enter Password" required>
                         <i class='bx bxs-lock-alt'></i>
-                    </div>
-                    <div class="remember-forgot">
-                        <label>
-                            <input type="checkbox"> Remember me
-                        </label>
-                        <a href="#">Forgot Password ?</a>
                     </div>
                     <button  type="submit" class="signin" value="SIGN IN">Sign In</button>
                     <div class="pragraph_up">
@@ -246,11 +508,6 @@ export const loginHTML = `
                 </a>
             </li>
             <li data-link>
-                <a class="${activeLink[5].active} d-flex p-3 align-items-center fs-5 rounded-2 ms-3" data-link href="/leaderboard">
-                    <i class="fa-solid fa-ranking-star"></i>
-                </a>
-            </li>
-            <li data-link>
                 <a class="${activeLink[6].active} d-flex p-3 align-items-center fs-5 rounded-2 ms-3" data-link href="/settings">
                     <i class="fa-solid fa-gear"></i>
                 </a>
@@ -263,77 +520,33 @@ export const loginHTML = `
     export function headerHTML(msgs,notfnums,linkilnotification,avatar){
         return `
         <header class="headbar d-flex w-100 justify-content-between align-items-center p-2">
-            <img class="img-fluid mt-0" src="imag_1/po.jpg" alt="Logo">
+            <img class="img-fluid mt-0" src="static/images/Untitled.png" alt="Logo">
             
             <div class="search position-relative">
-                <input type="search" class="p-2 ps-5 rounded-3" placeholder="Type A Keyword">
+                <input type="search" class="search-filter   ps-5 rounded-3" placeholder="Type A Keyword">
                 <div class="cards-ser">
-                    <a class="user-ser go-profile hide" >
-                        <div class="username-ser"></div>
-                        <div class="avatar-ser">
-                            <img src="avatar1.png" alt="User Avatar">
-                        </div>
-                    </a>
+                  
                 </div>
             </div>
             
-            <div class="icons d-flex align-items-center">
-                <button type="button" class="btn btn-primary position-relative bg-transparent chat-icon me-2">
-                    <a data-link href="/chat"><i class="fa-solid fa-message"></i></a>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger all-number-msg">
-                        ${msgs}
-                        <span class="visually-hidden">unread messages</span>
-                    </span>
-                </button>
+            <div class="icons header-hold-icons  d-flex align-items-center">
+            <div class="chat-icon">
+                <a data-link href="/chat"><i class="fa-solid fa-message"></i></a>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger all-number-msg">
+                    ${msgs || ""}
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </div>
                 
-                <div class="dropdown me-3">
+                <div class="dropdown me-3 bell-notif">
                     <button class="btn btn-primary dropdown-toggle bg-transparent position-relative" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-bell fa-lg"></i>
                         <span class=" notif-nums position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            ${notfnums}
+                            ${notfnums || ""}
                             <span class="visually-hidden">unread notifications</span>
                         </span>
                     </button>
-                    <ul class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton1">
-
-
-                    <li data-link="" class="link-link">
-                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
-                       <i class="fa fa-times"></i> 
-                    </button>
-                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
-                    </li>
-
-                    <li data-link="" class="link-link">
-                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
-                       <i class="fa fa-times"></i> 
-                    </button>
-                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
-                    </li>
-                    <li data-link="" class="link-link">
-                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
-                       <i class="fa fa-times"></i> 
-                    </button>
-                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
-                    </li>
-                    <li data-link="" class="link-link">
-                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
-                       <i class="fa fa-times"></i> 
-                    </button>
-                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
-                    </li>
-                    <li data-link="" class="link-link">
-                    <button type="button" class="btn btn-danger bg-danger rm-notification" data-id="5">
-                       <i class="fa fa-times"></i> 
-                    </button>
-                    <a class="dropdown-item  " href="/friends" data-link="">  You have a new friend request from mka  | 2024-10-03 16:44</a>  
-                    </li>
-                
-                    
-
-
-
-
+                    <ul class="dropdown-menu scrollable-menu  notification-list " aria-labelledby="dropdownMenuButton1">
                         ${linkilnotification}
                     </ul>
                 </div>
@@ -345,7 +558,6 @@ export const loginHTML = `
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" data-link href="/profile">Profile</a></li>
                         <li><a class="dropdown-item" data-link href="/settings">Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li class="dlg-btn" data-url="/logout" data-msgtxt="Are you sure you want to logout?">
                             <a class="dropdown-item">Logout</a>
@@ -356,3 +568,9 @@ export const loginHTML = `
         </header>
         `;
     }
+
+
+    export const messageForBolocked = `<div class="chat-message blocked-message">
+    You have been blocked from this chat. You can no longer send messages or interact with this conversation.
+</div>
+`;

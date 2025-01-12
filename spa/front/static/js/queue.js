@@ -1,10 +1,16 @@
+import { tokenIsValid } from "./index.js";
+import globalData from "./tools.js";
+import { messageHandling } from "./utils.js";
 
 
-export function NormalQueue(vars) {
+
+
+export function NormalQueue(vars, callback) {
+
   if (vars.pressed1 == true){
     vars.crono1.dom = null;
     vars.dom_btn_normal.innerHTML = vars.version1_of_buteen1;
-    vars.dom_btn_normal.style.background = "linear-gradient(180deg, rgba(218,60,135,0.3477766106442577) 0%, rgba(0,0,0,0) 50%, rgba(130,57,45,0.3617822128851541) 100%)";
+    vars.dom_btn_normal.style.background ="var(--color-light-dark)";
     
     vars.crono1.sec = 0;
     vars.crono1.min = 0;
@@ -12,23 +18,29 @@ export function NormalQueue(vars) {
     vars.crono1.task = null;
 
     vars.sock.close();
-
+    vars.sock = null;
+    
     vars.pressed1 = false;
     return;
   }
   
   vars.pressed1 = true;
-  console.log(vars.version2_of_buteen1)
   vars.dom_btn_normal.innerHTML = vars.version2_of_buteen1;
   vars.dom_btn_normal.style.backgroundColor = 'black';
 
   vars.sock = new WebSocket(vars.sock_url);
+  globalData.soketQueue =  vars.sock;
   vars.sock.onopen = function() {
-    console.log(vars.headers)
     vars.sock.send(JSON.stringify(vars.headers));
   };
 
-  console.log(vars.sock)
+  vars.sock.onclose = function(event) {
+    if (!event.wasClean) {
+      messageHandling("error",`match making service didnt respond`);
+      NormalQueue(vars);
+    }
+  };
+
   vars.sock.onmessage = function(event){
 
     try {
@@ -37,19 +49,28 @@ export function NormalQueue(vars) {
       {
         vars.sock.close();
         NormalQueue(vars);
-        var btn = document.getElementById("game_buttun");
-        btn.click();
-        // window.location.pathname = obj.url;
+        // start game
+        tokenIsValid().then(e=>{
+          if(e)
+            callback(vars);
 
+        })
+      }
+      if (obj.action == 'cancel_search')
+      {
+        vars.sock.close();
+
+        messageHandling("error",obj.message);
+        NormalQueue(vars);
       }
     } catch (error) {
-      console.log("error couth:");
-      console.log(error);
+      // console.log("error couth:");
+      // console.log(error);
+      messageHandling("error",error.message);
     }
   }
   vars.crono1.dom = document.getElementById('crono1')
   vars.crono1.task = setInterval(clock, 1000, vars.crono1);
-  console.log('done');
 }
 
 export function get_string_of_time_unit(t)

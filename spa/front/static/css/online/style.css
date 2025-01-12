@@ -1,293 +1,368 @@
-/* :root{
-    --dark-color : #25284A;
-    --green-color: #33d1cc;
-    --red-color:#ef5a6b;
-    --yallow-color :#ffc400;
-    --section-color :#eff7fa;
-    --op-dark-color:#2e325c;
-    --gray-color:#737aae;
-    --violet-color:#6f32ff;
-    --violet-color-op:#6f32ff52;
-    --blue-color: #0da9e9;
-    --dark-yellow-color :#F59401;
-    --black :#000
+
+
+#gameview{
+    --game-p1-color : #763CAC;
+    --game-p2-color : #00C9A9;
+    --game-bg-color : #190634;
+    --game-border-color: rgba(241, 241, 241, 0.158);
+    --game-ball-color: rgb(180, 177, 176);
+    
+    /* height: 20%; */
+    /* max-height: 80vh; */
+    max-width: calc(80vh * 1.25);
+    width: 80%;
+    aspect-ratio: 1.25 / 1;
+    
+    border: solid 0.1rem var(--game-border-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-body{
-    background-color: var(--black);
-    color: rgb(238, 238, 238);
-    height: 100vh;
-    width: 100vw;
+
+#gamecard
+{
+    width: 80vw;
+    height: 80vh;
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 20001;
+}
+
+#gameHolder{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#scorePannel
+{
+    height: 10.714285714%;
+    width: 100%;
+    background-color: var(--game-bg-color);
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    position: relative;
+
+}
+
+#Playerscore1
+{
+    height: 100%;
+    width: 45%;
+    background-color: var(--game-p1-color);
+    border: solid 0.1rem var(--game-border-color);
+    clip-path: polygon(0% 0%,
+    80% 0%,
+    100% 100%,
+    0 100%);
+
+}
+
+.pname{
+    transform: translate(0%, 0%);
+    max-width: 8ch;  
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+    height: 100%;
+    
+}
+
+.containerScore1
+{
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    font-size: 2vw;
+    margin-left: 5%;
+    padding-left: 5%;
+    
+
+    font-family: "Titan One", sans-serif;
+    font-weight: bold;
+/* 
+    letter-spacing: 8px; */
+}
+
+#Playerscore2
+{
+    height: 100%; 
+    width: 45%;
+    background-color: var(--game-p2-color);
+    clip-path: polygon(20% 0%,
+    100% 0%,
+    100% 100%,
+    0 100%);
+    font-size: 2vw;
+    display: flex;
+    align-items :end;
+    justify-content: end;
+    
+}
+
+.containerScore2
+{
+    height: 100%;
+    width: 70%;
+
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+    
+    margin-right: 5%;
+    padding-right: 5%;
+
+    font-family: "Titan One", sans-serif;
+    font-weight: bold;
+    font-size: 100px;
+    /* letter-spacing: 8px; */
+}
+
+#rounddiplayer{
+    position: absolute;
+    height: 100%;
+    width: 20%;
+    left: 50%;
+    color: white;
+    font-family: "Titan One", sans-serif;
+    font-weight: bold;
+    /* letter-spacing: 8px; */
+    transform: translate(-50%, 0%);
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    gap: 0px; 
+}
+#rounddiplayer h2
+{
+    font-size: 2vw;
     margin: 0;
 }
 
-/* ------- */
-.gameview{
+#rounddiplayer h1
+{
+    font-size: 2vw;
+    margin: 0;
+
+}
+
+#overlay{
+    position: absolute;
     height: 100%;
     width: 100%;
-    color: rgb(238, 238, 238);
-    background-color: var(--black);
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
+    z-index: 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-#scoeHolder
+.corner{
+    height: 70%;
+    aspect-ratio: 1.5 / 1;
+}
+
+.half
 {
-    width: 700px;
-    background-color: var(--black);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-
-
-}
-
-.gameheader{
-    width: 50%;
-    height: 100%;
-    background-color: gray; 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.playerimg{
     height: 100%;
     width: 50%;
-    z-index: -1;
 }
 
-
-#wh1
+.half1
 {
-    z-index: 3;
-    margin-right: 5%;
-}
-#wh2
-{
-    z-index: 3;
-    margin-left: 5%;
+   display: flex;
+   align-content: start;
+   justify-content: start;
 }
 
 
+.corner1{
 
-
-.headersep{
-    z-index: 1;
-    width: 0;
-    text-align: center;
-}
-
-
-
-.gameheader1{
+    background-color: var(--game-p1-color);
     clip-path: polygon(0% 0%,
-    100% 0%,
-    70% 100%,
-    0% 100%);
-    background-image: url('https://cdn.intra.42.fr/users/2aaa24c2f68fc8417922ec999682f612/monabid.jpg');
-    background-size: 30% 100%;
-    background-repeat: no-repeat;
-    filter: grayscale();
-
+                        105% 0%,
+                        0% 103%,
+                        0% 100%
+                        );
+    border-radius: 3%;
+    margin: 2% 3%;
 }
 
-.gameheader1::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    background: linear-gradient(to right,rgba(0, 0, 0, 0.562), rgb(1, 1, 1));
-}
-
-.gameheader1::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    background: linear-gradient(to right,rgba(0, 0, 0, 0.342), rgba(1, 1, 1, 0.644));
-}
-
-.gameheader2{
-    background-image: url('https://cdn.intra.42.fr/users/3e7d3dd26c2be1f602ed1d631b17bdbb/mkatfi.JPG');
-    background-size: 30% 100%;
-    background-position: 100%;
-    background-repeat: no-repeat;
-    filter: grayscale();
-    clip-path: polygon(0% 0%,
-    100% 0%,
-    100% 100%,
-    30% 100%);
-}
-.gameheader2::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    background: linear-gradient(to left,rgba(0, 0, 0, 0.562), rgb(1, 1, 1));
-}
-.gameheader2::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    background: linear-gradient(to right,rgba(0, 0, 0, 0.342), rgba(1, 1, 1, 0.644));
-}
-
-.playename{
-    z-index: 3;
-    color: yellow;
-}
-
-/* ------------------------ */
-#gameHolder
+.half2
 {
-    position: relative;
-    width: 80%;
-    height: 80%;
     display: flex;
-    justify-content: center;
-    align-items: center;  
-
+    align-items: end;
+    justify-content: end;
 }
-#game
-{
-    position: relative;
-    width: 80%;
-    height: 80%;
-}
-#ball
-{
-    position: absolute;
-    /* top : 50%; */
-    left: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50% 50% 50% 50%;
-    background-color: rgb(180, 177, 176);
-    z-index: 1;
-}
-
-#counterHoler
-{
-    width: 100%;
-    height: 100%;
-    position: absolute;
+.corner2{
+    background-color: var(--game-p2-color);
+    clip-path: polygon(96% 0%,
+                        100% 0%,
+                        100% 100%,
+                        -6% 100%
+                        );
     display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: end;
+    justify-content: end;
+    border-radius: 3%;
+    margin: 2%;
+
+    /* filter: drop-shadow(0 0 0.75rem  var(--game-p2-color)); */
+}
+
+
+
+.Pimg
+{
+    height: 40%;
+    /* width: 40%; */
+    aspect-ratio: 1 / 1;
+    background-color: azure;
+    border-radius: 50%;
+    border: solid 2px var(--game-bg-color);
+    /* filter: grayscale(); */
+ 
+}
+
+.pimg1
+{
+    margin-top: 10%;
+    margin-left: 10%;
+
+}
+
+.pimg2
+{
+    margin-bottom: 10%;
+    margin-right: 10%;
+}
+
+.counet{
+    position: absolute;
+    /* text-align: center ; */
+    /* height: 30%;
+    width: 30%; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
-}
+    font-family: "Titan One", sans-serif;
+    font-weight: bold;
+    /* letter-spacing: 8px; */
 
-#counter
-{
-    width: 100%;
-    margin: 0; 
-    padding: 0; 
+    font-size: 20vh;
     text-align: center;
-    font-size: 100px;
-    font-family: Sans-serif;
-    z-index: 2;
+    gap :0px;
+    margin: 0;
+    padding: 0;
+
+    z-index: 5;
+    color: white;
 }
-
-#board{
-    left: 0;
+#board
+{
+    height: calc(100% - 10.714285714%);
     width: 100%;
-    height: 100%;
-    background-color: var(--dark-color);
-    z-index: -1;
-
+    border: solid 0.1rem var(--game-border-color);
+    background-color: var(--game-bg-color);
     display: flex;
-    flex-direction: row;
+    /* align-items: center; */
     justify-content: space-between;
-    align-items: marginTop;
-
-    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
-    rgba(0, 0, 0, 0.15) 0px 36px 30px 0px inset,
-    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset,
-    rgba(0, 0, 0, 0.06) 0px 2px 1px inset,
-    
-      rgba(0, 0, 0, 0.09) 0px 4px 2px,
-    rgba(0, 0, 0, 0.09) 0px 8px 4px,
-    rgba(0, 0, 0, 0.09) 0px 16px 8px,
-    rgba(0, 0, 0, 0.09) 0px 32px 16px;
-
-    /* box-shadow: rgba(116, 116, 116, 0.185) 10px 5px 5px 5px inset,
-    rgba(116, 116, 116, 0.185) -10px -5px 5px 5px inset; */
+    position: relative;
 }
 
 .player{
-    width : 5px;
+    position: absolute;
+    width : 1%;
     height: 10%;
+    
 }
+
 
 #playerLeft{
-    margin-top:  1px;
-    margin-left: 3%;
-    background-color: blue;
+
+    background-color: var(--game-p1-color);
     border-top-left-radius: 50%;
     border-bottom-left-radius: 50%;
-    /* outline: 5px solid blue; */
-    
-
 }
 
-#midline{
-    width: 4px;
+#controlls1
+{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    height: 20%;
+    width: 30%;
+    top: 50%;
+    left: 25%;
+
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-direction: column;
+}
+
+#controlls1 p {
+    text-align: center; 
+    color: rgba(128, 128, 128, 0.7);
+}
+
+#controlls2
+{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    height: 20%;
+    width: 30%;
+    top: 50%;
+    left: 75%;
+
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-direction: column;
+}
+
+#controlls2 p {
+    text-align: center; 
+    color: rgba(128, 128, 128, 0.7);
+}
+
+
+#midleline
+{
     height: 100%;
-    background-color: red;
-    z-index: -1;
+    width: 0.2%;
+    background-color: var(--game-border-color);
+    
 }
 
 #playerRigth {
-    margin-top:  1px;
-    margin-right: 3%;
-    background-color : green;
+    
+    background-color : var(--game-p2-color);
     border-top-right-radius: 50%;
     border-bottom-right-radius: 50%;
-    /* background-color: rgb(19, 151, 37); */
+
 }
 
+#ball
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width : 2%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50% 50% 50% 50%;
+    background-color: var(--game-ball-color);
+    z-index: 3;
 
-.gameview h1 {
-    font-size: 2em; /* Initial font size */
-}
-
-@media (max-width: 600px) {
-    .gameview h1 {
-        font-size: 1.5em; /* Adjust font size for smaller screens */
-    }
-}
-
-@media (max-width: 400px) {
-    .gameview h1 {
-        font-size: 1em; /* Adjust font size for even smaller screens */
-    }
-}
-
-.gameview h3 {
-    font-size: 1.5em; /* Initial font size */
-}
-
-@media (max-width: 600px) {
-    .gameview h3 {
-        font-size: 1em; /* Adjust font size for smaller screens */
-    }
-}
-
-@media (max-width: 400px) {
-    .gameview h3 {
-        font-size: .5em; /* Adjust font size for even smaller screens */
-    }
 }

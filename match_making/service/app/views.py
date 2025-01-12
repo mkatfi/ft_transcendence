@@ -21,7 +21,6 @@ def get_queue(request):
 class in_queue(APIView):
     def post(self, request):
         data = json.loads(request.body)
-        print(data)
         if not queue.objects.filter(socket_id=data.get("channel_id")):
             return HttpResponse("FALSE")
         else:
@@ -30,16 +29,12 @@ class in_queue(APIView):
 
 class quit_queue(APIView):
     def post(self, request):
-        print ("recived at quite queue:")
         data = json.loads(request.body)
-        print (data)
         ele = queue.objects.filter(socket_id=data.get("channel_id"))
         ele.delete()
         return HttpResponse("deleted")
     
-    def get(self, request):
-        print ("get hadi")
-    
+
 class match_maker(APIView):
     def get(self, request):
         res = {
@@ -73,8 +68,6 @@ class put_in_queue(APIView):
         var.socket_id = id
         var.login = name
         var.save()
-        print("sockid ide :")
-        print(var.socket_id)
         res = {
             "cmd" : "wait",
             "player1": None,

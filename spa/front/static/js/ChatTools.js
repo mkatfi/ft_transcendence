@@ -1,4 +1,11 @@
 
+import { clone_messageOther ,getProfileById,getCookie,CheckTokenExpire,SetCookie, setLoader} from "../js/tools.js";
+import { chatHtml } from "./HtmlPages.js";
+import { tokenIsValid } from "./index.js";
+import { messageHandling } from "./utils.js";
+
+
+
 export async function getDataChats() {
     try {
   
@@ -9,17 +16,15 @@ export async function getDataChats() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getCookie("access_token")}`,
+
         },
         body: JSON.stringify(____data)
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to fetch friendsrequest');
-      }
-      const responseData = await response.json();
+      const responseData =  await handleResponse2(response);
       this.chats = responseData.chats;
     } catch (error) {
-      console.error('An error occurred:', error);
+      messageHandling("error",error);
     }
   
   }
@@ -34,19 +39,37 @@ export async function getDataChats() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getCookie("access_token")}`,
+
         },
         body: JSON.stringify(____data)
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to block user');
-      }
-      this.isBlock = await response.json();
+      this.isBlock = await handleResponse2(response);
     } catch (error) {
-      console.error('An error occurred:', error);
+      messageHandling("error",error);
     }
   }
 
+
+
+  export async function handleResponse2(response) {
+    const responseData = await response.json();
+  
+    if (response.ok) {
+      return responseData;
+    } else if (response.status === 401 || response.status === 403) {
+      const refreshed = await tokenIsValid();
+      if (refreshed) {
+        throw new Error("RetryRequest"); 
+      }
+
+      messageHandling("error", "Session expired, please log in again.");
+    } else {
+      const errorDetail = responseData.detail || 'An error occurred';
+      throw new Error(errorDetail);
+    }
+  }
+  
 
   export async function getMessages(id){
     try {
@@ -58,17 +81,15 @@ export async function getDataChats() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie("access_token")}`,
+
         },
         body: JSON.stringify(____data)
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to fetch friendsrequest');
-      }
-      this.responseDataMsgs = await response.json();
+      this.responseDataMsgs = await handleResponse2(response);
   
     } catch (error) {
-      console.error('An error occurred:', error);
+      messageHandling("error",error);
     }
     
   }
@@ -86,73 +107,101 @@ export async function getDataChats() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${getCookie("access_token")}`,
+
         },
         body: JSON.stringify(____data)
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to fetch friendsrequest');
-      }
+
+      await handleResponse2(response);
     } catch (error) {
-      console.error('An error occurred:', error);
+      messageHandling("error",error);
     }
   
   }
-  
-
- export function getProfilesHtmlClone(user_id,profiles,classselect,tmp){
-  
-    let ulHolder = document.querySelector(classselect);
-    let templi = document.querySelector(tmp);
-      profiles.forEach(user => {
-      if (user.user.id != user_id) {
-        let clone = templi.content.cloneNode(true);
-        clone.querySelector("img").src = user.avatar;
-        clone.querySelector("div").innerHTML = user.user.username;
-        clone.querySelector("li").classList.toggle("hide");
-        clone.querySelector("li").idTargetUser = user.user.id;
-        ulHolder.append(clone);
-      }
-    })
-  }
 
 
-  // Setup the chat toggle button to open/close chat list
+
+// Setup the chat toggle button to open/close chat list
 export function setupChatToggleButton() { 
   const toggleButton = document.querySelector(".btn-open-chat-list");
-  toggleButton.addEventListener("click", (e) => {
-    const chatBox = document.querySelector(".contact-chat-box");
-    const isOpen = chatBox.classList.toggle("openC");
-    e.currentTarget.innerHTML = isOpen
-      ? `<i class="fa-solid fa-rectangle-xmark"></i>`
-      : `<i class="fa-solid fa-rectangle-list"></i>`;
-  });
+  if (toggleButton) {
+    toggleButton.addEventListener("click", (e) => {
+      const chatBox = document.querySelector(".contact-chat-box");
+
+      if (chatBox) {
+        chatBox.classList.toggle("openC");
+        e.currentTarget.innerHTML =``;
+      }
+    });
+  }
 }
 
 // Setup filter input listeners for filtering chat contacts
-export function  setupFilterListeners() {
+export function setupFilterListeners() {
   const filterInput = document.querySelector("#filter");
-  filterInput.addEventListener('input', (e) => filterData(e.target.value));
+  if (filterInput) {
+    filterInput.addEventListener("input", (e) => filterData(e.target.value));
+    
+    filterInput.addEventListener("blur", () => {
+      const searchResults = document.querySelectorAll(".chat-search ul li");
+      searchResults.forEach((item) => item.classList.add("hide"));
+    });
+  } 
+}
+ 
+
+ // Filter data based on input value
+export function filterData(value) {
+  const allListSrch = document.querySelectorAll(".chat-search ul li");
   
-  filterInput.addEventListener("blur", () => {
-    const searchResults = document.querySelectorAll(".chat-search ul li");
-    searchResults.forEach(item => item.classList.add("hide"));
+  allListSrch.forEach((item) => {
+    const usernameElement = item.querySelector("div");
+    if (usernameElement) {
+      const username = usernameElement.innerText;
+      item.classList.toggle("hide", !username.toLowerCase().includes(value.toLowerCase()));
+    }
+
+    item.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+    });
   });
 }
 
+export function renderChatBoxHeaderUtil(user,avatar) {
+  const divChatBox = document.querySelector(".chat-box");
+  if (!divChatBox) return; 
+  divChatBox.innerHTML = chatHtml;
 
-export function filterData(value){
-  let allListSrch = document.querySelectorAll(".chat-search ul li");
-   allListSrch.forEach(item =>{
-     item.addEventListener("mousedown", (e) => {
-       e.preventDefault();
-     });
-   let username = item.querySelector("div").innerText;
-   if (username.toLowerCase().includes(value.toLowerCase())) 
-     item.classList.remove("hide");
-   else
-     item.classList.add("hide");
-   })
- 
- }
- 
+  const chatBoxHeader = divChatBox.querySelector(".chat-box-header");
+  if (!chatBoxHeader) return; 
+
+  const userAvatar = chatBoxHeader.querySelector("img");
+  const userProfileLink = chatBoxHeader.querySelector(".profile-from-chat");
+  const inviteGame = chatBoxHeader.querySelector(".invite-game-chat");
+
+  if (userAvatar) userAvatar.src = avatar;
+  
+  chatBoxHeader.idForSubmitMessage = user.id;
+  const userNameElement = chatBoxHeader.querySelector("h2");
+  if (userNameElement) userNameElement.textContent = user.username;
+
+
+  if (inviteGame) {
+    inviteGame.innerHTML = `<a class="dropdown-item go-profile">Invite Game</a>`;
+  }
+  if (userProfileLink) {
+    userProfileLink.innerHTML = `<a class="dropdown-item go-profile">Profile</a>`;
+  }
+
+  return [userProfileLink,inviteGame] ;
+}
+
+
+export function setBlockOption(element, actionText, formContent) {
+  if (element) {
+    element.innerHTML = `<a class="dropdown-item">${actionText}</a>`;
+    const formMessageElement = document.querySelector(".form-submit-messge");
+    if (formMessageElement) formMessageElement.innerHTML = formContent;
+  }
+}

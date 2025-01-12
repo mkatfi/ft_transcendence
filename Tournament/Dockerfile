@@ -14,8 +14,10 @@ RUN python -m pip install -U 'channels[daphne]'
 
 RUN pwd
 
+EXPOSE 8000
+
 WORKDIR /user/app
 
 RUN cd /user/app
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["bash", "./script.sh"]

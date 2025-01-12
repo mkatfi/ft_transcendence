@@ -1,264 +1,370 @@
-export class DiplayManager
+import {Game2} from './game.js';
+import { consts2 } from "./game_view.js";
+import {Game_listner} from './game_listener.js';
+import {remove_offgame_belong}from './offline.js';
+
+
+// should removed
+var preveGame = null;
+var onlineGame = null;
+var objtype = null;
+var socket = null;
+var arrowclickstat = false;
+
+
+export function remove_game_belong(){
+  if (onlineGame)
+  {
+    onlineGame.runing = false;
+    onlineGame.ayoubFuntionDelete();
+  }else{
+    if (preveGame)
+    {
+      preveGame.runing = false;
+      preveGame.ayoubFuntionDelete();
+    }
+  }
+  onlineGame = null;
+  objtype = null;
+  if (socket)
+    socket.close();
+  socket = null;
+  arrowclickstat = false;
+}
+
+export let gameend = null;
+
+function setsender(msg){
+  objtype = 'sender'
+  onlineGame = new Game2(
+    consts2,
+    {
+     'p1':{
+        'name'  : msg.p1name,
+        'image' : msg.p1img,
+      },
+      'p2':{
+        'name'  : msg.p2name,
+        'image' : msg.p2img,
+      },
+    },
+    socket
+  );
+  onlineGame.display();
+  onlineGame.readysignal();
+}
+
+function setlistner(msg)
 {
-    constructor(consts){
-        this.defX = consts.board_width;
-        this.defY = consts.board_heigth;
-        this.windowW = document.getElementById('game').clientWidth;
-        this.windowH = document.getElementById('game').clientHeight;
-        this.ballSize = consts.ball_size
-        this.playerW = consts.player_w
-        this.pSize = consts.board_heigth * (consts.player_heigth_in_percent/ 100)
-        this.p1StartingPositionX = consts.board_width * (consts.player_heigth_in_percent / 100)
-    }
-
-    displayBall(ballx, bally, dom){
-        var x = parseFloat(ballx) / parseFloat(this.defX);
-        x *= this.windowW;
-        var y = parseFloat(bally) / parseFloat(this.defY);
-        y *= this.windowH
-
-        dom.style.left = x.toString() + 'px';
-        dom.style.top  = y.toString() + 'px';
-    }
-
-    displayPlayer(py, dom){
-    
-        var y = parseFloat(py) / parseFloat(this.defY);
-        y *= this.windowH;
-        dom.style.marginTop = y.toString() + 'px';
-
-    }
-
-    get_vertual_scaleX(x)
-    {
-      var v =  parseFloat(x) / this.windowW;
-      return v * this.defX;
-    }
-
-    get_vertual_scaleY(y){
-      var v =  parseFloat(y) / this.windowH;
-      return v * this.defY;
-    }
-
-    resize(size, original, virtual)
-    {
-        var v =  parseFloat(size) / parseFloat(original);
-        return v * virtual
-    }
-    onResize(cmdmanager)
-    { 
-        var oldw = this.windowW
-        var oldh = this.windowH
-        const headbar = document.querySelector('.headbar')
-        let styleHeadbar = getComputedStyle(headbar)
-        let headbarsize = parseInt(headbar.clientHeight);
-        console.log("Aaaaaaaaaaaaaaa")
-        console.log(headbarsize)
-        var w = document.getElementById('gameview').clientWidth;
-        var h = (document.getElementById('gameview').clientHeight ) * 0.8;
-
-        var coaf = this.defX / this.defY;
-        console.log(w)
-        console.log(h)
-        if (w / h > coaf)
-            w = h * 1.4;
-        else
-            h = w / 1.4;
   
-        this.windowH = h
-        this.windowW = w
+  objtype = 'listner';
+  onlineGame = new Game_listner(
+    consts2,
+    {
+      'p1':{
+        'name'  : msg.p1name,
+        'image' : msg.p1img,
+      },
+      'p2':{
+        'name'  : msg.p2name,
+        'image' : msg.p2img,
+      },
+     },
+     socket
+  );
+  onlineGame.display();
+  
+  onlineGame.setkeys(
+    {
+      'up' : lisner_keyup,
+      'down': lisner_keydown,
+      'aim' : lisner_aim_keydown,
+    }
+  );
+  arrowclickstat = false;
 
-        let contenth = document.querySelector(".content");
-        let barh = document.querySelector(".headbar");
-        console.log(";;;;;;")
-        console.log(contenth.clientHeight - barh.clientHeight)
-        document.getElementById("gameview").style.height = (contenth.clientHeight - barh.clientHeight) + 'px'
+  onlineGame.readysignal();
 
-        console.log(document.getElementById("gameview").clientHeight)
+}
 
-        document.getElementById('game').style.height = h + 'px';
-        document.getElementById('game').style.width = w + 'px';
-        cmdmanager.gameHolder.style.height =  h + 'px';
-        cmdmanager.gameHolder.style.width =  w + 'px';
-        cmdmanager.scoeHolder.style.width =  w + 'px';
-        cmdmanager.scoeHolder.style.height =  h + 'px';
+export function empty_(){
+  gameend = null;
+}
 
-        // scoeHolder.style.height = h * 0.2
-        
-        // ball size h is same as W
-        var ball    = document.getElementById('ball');
-        ball.style.height = this.resize(this.ballSize, this.defY, this.windowH) + 'px'
-        ball.style.width = this.resize(this.ballSize, this.defY, this.windowH) + 'px'
-
-        // player size
-        var p1      = document.getElementById('playerLeft');
-        p1.style.width = this.resize(this.playerW, this.defX, this.windowW)+ 'px'
-        p1.style.height  = this.resize(this.pSize,  this.defY, this.windowH)+ 'px'
-        p1.style.marginLeft = this.resize(this.p1StartingPositionX,  this.defX, this.windowW)+ 'px'
-        
-        var p2      = document.getElementById('playerRigth');
-        p2.style.width = this.resize(this.playerW, this.defX, this.windowW)+ 'px'
-        p2.style.height  = this.resize(this.pSize,  this.defY, this.windowH)+ 'px'
-        p2.style.marginRight = this.resize(this.p1StartingPositionX,  this.defX, this.windowW)+ 'px'
+export function online_game(vars){
+    const messageQueue = [];
+    const protocol =  ((window.location.protocol == "https:") ? "wss://" : "ws://");
+    const host = window.location.host;
+    const url = "/ws/game_service/online/";
+    const fullUrl = protocol + host + url;
     
-        //player posission
-
-        p1.style.marginTop = this.resize(p1.style.marginTop, oldh, this.windowH) + 'px'
-        p2.style.marginTop = this.resize(p2.style.marginTop, oldh, this.windowH) + 'px'
-
-
-        ball.style.top = this.resize(ball.style.top, oldh, this.windowH) + 'px'
-        ball.style.left = this.resize(ball.style.left, oldw, this.windowW) + 'px'
+    remove_game_belong();
+    remove_offgame_belong();
+    socket = new WebSocket(fullUrl);
+    // socket = new WebSocket(`ws://${window.location.host}/ws/game_service/online/`);
+    
+    socket.onclose = function(event) {
+      if (!event.wasClean) {
+        messageHandling("error",`game service didnt respond`);
+        remove_game_belong()
       }
+    };
+
+    socket.onmessage = function(event){
+      try
+      {
+        let msg = JSON.parse(event.data);
+
+        if (msg.subject == 'eng_game_view')
+        {
+          if (onlineGame) onlineGame.ayoubFuntionDelete();
+        } 
+
+        if (msg.subject == 'init')
+        {
+          if (msg.type == 'sender'){
+            setsender(msg);
+          }
+          else if (msg.type == 'listner'){
+            setlistner(msg);
+          }
+        }
+        
+        if (msg.subject == 'senderNotReady' && objtype == 'listner')
+        {
+          setTimeout((event) => {
+            if (onlineGame)
+              onlineGame.readysignal();
+          }, 1000)
+        }
+  
+        if (msg.subject == 'startgame' && objtype == 'sender')
+        {
+          const Promise = onlineGame.gameloop(
+            {
+              "keyup"   : online_movment_keyup,
+              "keydown" : online_movment_keydown,
+              "keyaimfuction" : online_aim,
+              "mouseDown"     : null,
+              "ft_online"     : brodcast,
+            } 
+          )
+          Promise.then((data) => {
+            gameend = data;
+          })
+          .catch((error) => {
+              // console.log(`error => ${error}`);
+          });
+  
+        }
+        if (msg.subject == 'update' && objtype == 'listner')
+          onlineGame.update(msg)
+        
+        if (msg.subject == 'update' && objtype == 'sender')
+          onlineGame.update(msg)
+        
+        if (msg.subject == 'surrender')
+        {
+          onlineGame.surrender(msg.winer)
+          objtype = null;
+          arrowclickstat = false;
+          this.close();
+          gameend = msg;
+          preveGame = onlineGame;
+          onlineGame = null;
+          setTimeout(() => {
+            preveGame = null;
+          }, 2100)
+        }
+  
+        if (msg.subject == 'end')
+        {
+          onlineGame.end(msg.winer)
+          objtype = null;
+          arrowclickstat = false;
+          this.close(); 
+          gameend = msg;
+          preveGame = onlineGame;
+          onlineGame = null;
+          setTimeout(() => {
+            preveGame = null;
+          }, 2100)
+        } 
+      }
+      catch (e) {
+        onlineGame?.ayoubFuntionDelete();
+      }
+      
+    };
+
+    socket.onopen = function(event) {
+      while (messageQueue.length > 0) {
+          const message = messageQueue.shift();
+          this.send(message);
+      }
+    };
+
+    let message = JSON.stringify(vars.headers);
+    if (socket.readyState === WebSocket.OPEN) {
+      socket.send(message);
+    } else {
+        messageQueue.push(message);
+    }
 }
 
-export class CommandManager
+function brodcast(msg, sock)
 {
-  constructor(){
-    this.Board   = document.getElementById('board');
-    this.ball    = document.getElementById('ball');
-    this.p1      = document.getElementById('playerLeft');
-    this.p2      = document.getElementById('playerRigth');
-    this.counter = document.getElementById('counter');
-    this.counter2 = document.getElementById('counter2');
-    this.wh1     = document.getElementById('wh1');
-    this.wh2     = document.getElementById('wh2');
-    this.el      = document.getElementById('queue');
+  sock.send(JSON.stringify(msg));
+}
 
-    this.gameHolder = document.getElementById('gameHolder');
-    this.scoeHolder = document.getElementById('scoeHolder');
-    this.gameview = document.getElementById('gameview');
-
-    this.p1name = document.getElementById("playename1");
-    this.p2name = document.getElementById("playename2");
-    this.p1holder = document.getElementById("gameheader1");
-    this.p2holder = document.getElementById("gameheader2");
-    const {
-      host, hostname, href, origin, pathname, port, protocol, search
-    } = window.location;
-    this.host = host;
-    this.protocol = protocol;
- }
-
-  hide_queue() { this.el.hidden = true}
-  pannel(obj)
+//offline aime MvObj //add ball
+function  online_aim(obj, side)
+{
+  let vec = [];
+  let p = null;
+  if (side == 1)
   {
-    this.p1name.textContent = obj.login1;
-    this.p2name.textContent = obj.login2;
-    console.log(this.host)
-    var url1 = this.protocol + "//" + this.host + obj.iamge1
-    
-    var url2 = this.protocol + "//" + this.host + obj.iamge2
-    this.p1holder.style.backgroundImage = `url(${url1})`;
-    this.p2holder.style.backgroundImage = `url(${url2})`;
-    this.count_down_end();
+      vec = [this.consts.ballspeed, 0];
+      p = {
+            "up"    : obj.MvObj.p1up,
+            "down"  : obj.MvObj.p1down,
+        }
   }
-
-  count_down(time)
+  if (side == 2)
   {
-    this.Board.style.filter = "blur(5px)";
-    this.counter.textContent = time
+      vec = [-this.consts.ballspeed, 0];
+      p = {
+          "up"    : obj.MvObj.p2up,
+          "down"  : obj.MvObj.p2down,
+      }
   }
   
-  count_down_end()
-  {
-    this.Board.style.filter = "";
-    this.counter.textContent = '' 
-  }
-  set_score(vp1, vp2)
-  {
-    this.wh1.textContent = vp1
-    this.wh2.textContent = vp2
-  }
-  move_objs(vp1, vp2, ballX, ballY, printer)
-  {
-    printer.displayPlayer(vp1, this.p1)
-    printer.displayPlayer(vp2, this.p2)
-    printer.displayBall(ballX, ballY, this.ball)
-  }
-  allow_move(allowed, sock, printer)
-  {
-    console.log("allowe call as " + allowed);
-    if (allowed == true){
-      document.addEventListener('keydown', keyDownListner.bind(null, sock));
-      document.addEventListener('keyup', keyUpListner.bind(null, sock));
-      document.addEventListener('mousedown', ft_mouse_mouvment.bind(null, sock, printer));
-    }
-    if (allowed == false){
-      document.removeEventListener('keydown', keyDownListner);
-      document.removeEventListener('keyup', keyUpListner);
-      document.getElementById('board').removeEventListener('mousedown', ft_mouse_mouvment);
-    }
-  }
-  match_end(vmsg, reson)
-  {
-    this.Board.style.filter = "blur(5px)";
-    this.counter.textContent = vmsg
-    this.counter2.textContent = reson
-    sock.close()
-  }
-  msg(text) {console.log(text)}
-  update_score(p1, p2)
-  {
-    this.wh1.textContent = p1
-    this.wh2.textContent = p2
-  }
-  redirect(msg, url)
-  {
-    window.location.pathname = url;
-  }
-};
+  const shooting_angle = 60;
+  let range = [];
+  if (p.up == true && p.down == false)
+      range = [shooting_angle / 3, shooting_angle];
+  else if (p.down == true && p.up == false)
+      range = [-shooting_angle, -(shooting_angle / 3)];
+  else
+      range = [-(shooting_angle / 3), shooting_angle / 3];
 
-export function keyUpListner(sock ,event)
+  let randomAngle = Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
+  if(side == 1)
+      randomAngle *= -1;
+  const rotation = (vec, angle) =>{
+          const rad = angle * (Math.PI / 180);
+          const rotationMatrix = [
+              [Math.cos(rad), -Math.sin(rad)],
+              [Math.sin(rad), Math.cos(rad)]
+          ]
+
+          const numRows = rotationMatrix.length;
+          const numCols = rotationMatrix[0].length;
+          let result = [0,0];
+          for (let i = 0; i < numRows; i++) {
+              let sum = 0;
+              for (let j = 0; j < numCols; j++) {
+                  sum += rotationMatrix[i][j] * vec[j];
+              }
+              result[i] = sum;
+          }
+          return result;
+      }
+
+  return rotation(vec, randomAngle);
+}
+
+//spetil funtions
+function  online_movment_keydown(PlayerStat, event)
 {
-  let cmd = {
-    'cmd' : 'key_relese',
-    'key' : '',
-  }
-  if (event.key === 'w' || event.key === 'W'){
-    cmd.key = 'w';
-    sock.send(JSON.stringify(cmd))
-  }
-  else if (event.key === 's' || event.key === 'S')
-  {
-    cmd.key = 's';
-    sock.send(JSON.stringify(cmd))
+  if (event.code === 'ArrowUp')
+    PlayerStat.p1up = true;
+  else if (event.code === 'ArrowDown')
+    PlayerStat.p1down = true;
+
+  if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(event.code) > -1) {
+    event.preventDefault();
   }
 }
 
-export function keyDownListner(sock, event)
+function online_movment_keyup(PlayerStat,event)
 {
-
-  if (event)
-    console.log("evkey : " +event.key);
-  else return;
-  let cmd = {
-    'cmd' : 'key_press',
-    'key' : '',
-  }
-  if (event.key === 'w' || event.key === 'W'){
-    cmd.key = 'w';
-    sock.send(JSON.stringify(cmd))
-  }
-  else if (event.key === 's' || event.key === 'S')
-  {
-    cmd.key = 's';
-    console.log(event);
-    console.log(sock);
-    sock.send(JSON.stringify(cmd))
-  }
+  if (event.code === 'ArrowUp')
+      PlayerStat.p1up = false;
+  else if (event.key === 'ArrowDown')
+      PlayerStat.p1down = false;
 }
 
-export function ft_mouse_mouvment(sock, printer,event)
+function online_aim_keydown(PlayerStat,board, consts, event)
 {
-  if (event.target !== document.getElementById('counterHoler'))
+  // var x =  parseFloat(event.offsetX) / board.clientWidth;
+  // var y =  parseFloat(event.offsetY) / board.clientHeight;
+  // PlayerStat.p1aim.x = x * consts.board_width;
+  // PlayerStat.p1aim.y = y * consts.board_heigth;
+  // console.log(PlayerStat.p1aim.x)
+  // console.log(PlayerStat.p1aim.y)
+  // console.log('---------')
+}
+
+//lisner events
+function lisner_keydown(ws, event)
+{
+  let msg = {
+    'subject' : 'update',
+    'event' : 'Keydown',
+    'key' : ''
+  };
+
+  if (arrowclickstat == true)
+    return;
+  
+  arrowclickstat = true;
+
+  if (event.code === 'ArrowUp')
+    msg.key = 'up'
+  else if (event.key === 'ArrowDown')
+    msg.key = 'down'
+  
+  if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(event.code) > -1) {
+    event.preventDefault();
+  }
+
+  if (event.code == "Space")
     return
-  let cmd = {
-    'cmd' : 'mouse_press',
-    'x' : printer.get_vertual_scaleX(event.layerX),
-    'y' : printer.get_vertual_scaleY(event.layerY),
-  }
-  sock.send(JSON.stringify(cmd))
+
+  ws.send(JSON.stringify(msg));
 }
 
-   
+function lisner_keyup(ws, event)
+{
+  let msg = {
+    'subject' : 'update',
+    'event': 'Keyup',
+    'key'    : ''
+  };
+
+  arrowclickstat = false;
+
+  if (event.code === 'ArrowUp')
+    msg.key = 'up'
+  else if (event.key === 'ArrowDown')
+    msg.key = 'down'
+  else
+    return
+    ws.send(JSON.stringify(msg));
+}
+
+function lisner_aim_keydown(ws, board, deffsize, event)
+{
+  let msg = {
+    'subject' : 'update',
+    'event': 'aim',
+    'x'    : '',
+    'y'    : '',
+  }
+  var x =  parseFloat(event.layerX) / board.clientWidth;
+  var y =  parseFloat(event.layerY) / board.clientHeight;
+  msg.x = x * deffsize.x;
+  msg.y = y * deffsize.y;
+  // ws.send(JSON.stringify(msg));
+}

@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-x1x+@)cejblsvbj@-=gw=!t9k0&_jyu^7$+%ghjch4o#%jh&^q'
+SECRET_KEY =  os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -34,6 +34,8 @@ ALLOWED_HOSTS = ['*',]
 INSTALLED_APPS = [
     'channels',
     'redis',
+    'rest_framework',
+    'rest_framework_simplejwt',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -60,6 +62,9 @@ CACHES = {
     }
 }
 ROOT_URLCONF = 'main.urls'
+
+
+
 
 TEMPLATES = [
     {
@@ -109,7 +114,7 @@ DATABASES = {
 
         'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
 
-        'HOST': os.environ.get('POSTGRES_HOST'),
+        'HOST': 'matchmaking_db',
 
         'PORT': os.environ.get('POSTGRES_PORT'),
 
@@ -134,6 +139,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ALGORITHM': 'HS256',
+    
+    'ROTATE_REFRESH_TOKENS': True,  # Automatically issue new refresh token on refresh
+    'BLACKLIST_AFTER_ROTATION': True,  # Blacklist old refresh token
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

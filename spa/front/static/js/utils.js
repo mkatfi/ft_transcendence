@@ -1,70 +1,6 @@
-import { getCookie } from "./tools.js";
+import { getCookie, setLoader } from "./tools.js";
 
 
-export function  getMyUser(){
-    try {
-      let access_token = getCookie('access_token');
-      // console.log("access token :",access_token);
-      const parts = access_token.split('.');
-      if (parts.length !== 3) {
-          alert('Invalid JWT');
-          return;
-      }
-      // console.log("--------*--------*-------")
-      // console.log(parts[1]);
-      let user_data = JSON.parse(base64UrlDecode(parts[1]));
-      return user_data;
-      // console.log("payload",this.payload);
-      } catch (error) {
-          console.error('An err or occurred:', error);
-          // messageHandling("error",error)
-          // navigateTo("/login")
-      }
-      return null;
-  }
-
-export function base64UrlDecode(str) {
-    // Replace non-url compatible chars with base64 standard chars
-    str = str.replace(/-/g, '+').replace(/_/g, '/');
-    // Pad out with standard base64 required padding characters
-    switch (str.length % 4) {
-        case 0: break; // No pad chars in this case
-        case 2: str += '=='; break; // Two pad chars
-        case 3: str += '='; break; // One pad char
-        default: throw new Error('Invalid base64 string');
-    }
-    // Decode base64 string
-    return atob(str);
-  }
-
-export function creatChatSocket() {
-
-    let chat_socket = null;
-
-    const accessToken = getCookie('access_token');
-
-    var loc = window.location;
-    var wsStart = 'ws://';
-    if (loc.protocol == 'https:') {
-        wsStart = 'wss://'
-    }
-    var endpoint = wsStart + loc.host ;
-    if (accessToken) {
-        chat_socket = new WebSocket(`${endpoint}/ws/chat/`); // Adjust the URL as needed
-
-        chat_socket.onclose = function(event) {
-            console.log('WebSocket chat  is closed now.');
-        };
-
-        chat_socket.onerror = function(event) {
-            console.error('WebSocket error observed:', event);
-        };
-
-        return chat_socket;
-    } else {
-        console.error('No access token found, cannot create WebSocket connection.');
-    }
-}
 
 
 
@@ -72,23 +8,28 @@ export class CostumConfigDialog {
     
     constructor() {
         this.dlg = document.querySelector(".dlg-container");
-        this.dlgmsg = this.dlg.querySelector(".dlg-message");
-        this.okButton = this.dlg.querySelector(".dlg-ok");
-        this.cancelButton = this.dlg.querySelector(".dlg-cancel");
-        this.initEvents();  
+        if(this.dlg){
+            this.dlgmsg = this.dlg.querySelector(".dlg-message");
+            this.okButton = this.dlg.querySelector(".dlg-ok");
+            this.cancelButton = this.dlg.querySelector(".dlg-cancel");
+            this.initEvents();  
+        }
     }
 
     initEvents() {
-        this.okButton.addEventListener("click", () => this.ok());
-        this.cancelButton.addEventListener("click", () => this.close());
+       if (this.okButton) this.okButton.addEventListener("click", () => this.ok());
+       if (this.cancelButton) this.cancelButton.addEventListener("click", () => this.close());
     }
 
     showDialog(msg, callback) {
         this.msg = msg;
         this.call = callback;
-        this.dlgmsg.textContent = this.msg;
-        this.dlg.style.display = "block";
-        document.querySelector(".freez-all").style.display = "";
+
+        if(this.dlgmsg)   this.dlgmsg.textContent = this.msg;
+        if(this.dlg)  this.dlg.style.display = "block";
+
+        const freez = document.querySelector(".freez-all");
+        if (freez) freez.style.display = "";
     }
 
     ok() {
@@ -99,8 +40,10 @@ export class CostumConfigDialog {
     }
 
     close() {
-        this.dlg.style.display = "none";
-        document.querySelector(".freez-all").style.display = "none";
+        if(this.dlg)  this.dlg.style.display = "none";
+        
+        const freez = document.querySelector(".freez-all");
+        if (freez) freez.style.display = "none";
     }
 }
 
@@ -117,39 +60,108 @@ function iconNotif(type){
 }
 
 export function messageHandling(type,description) {
+    if (type == "error") {
+        const buttonEx = document.querySelector(".btn-exit");
+        if(buttonEx) buttonEx.click();
+        setLoader(0);
+    }
+    const templateMsg = document.querySelector(`#message-${type}-template`);
+    const messageHolder =   document.querySelector(`.message-holder`);
+    if (!templateMsg || !messageHolder ) return;
 
-    let template_msg = document.querySelector(`#message-${type}-template`);
-    let clonemsg = template_msg.content.cloneNode(true);
-    clonemsg.querySelector(".hold-msg-content ").innerHTML =  `      <p> ${iconNotif(type)} </p>
+    const  cloneMsg = templateMsg.content.cloneNode(true);
+    const msgContent =  cloneMsg.querySelector(".hold-msg-content");
+    const msgType =  cloneMsg.querySelector(`.message-${type}`);
+
+    if (!msgContent || !msgType)  return; 
+    msgContent.innerHTML =  ` 
+    <div class="position-absolute top-0 start-100 translate-middle close-alert"><i class="fa-solid fa-xmark"></i></div>
+    <p> ${iconNotif(type)} </p>
                                                         <p> ${description}</p>
                                                 `;
-    let messageHolder =   document.querySelector(`.message-holder`);
-    messageHolder.appendChild(clonemsg);
+    msgType.appendChild(msgContent);
+    messageHolder.appendChild(msgType);
+
+    const closeButton = msgType.querySelector(".close-alert");
+    if (closeButton ) closeButton.addEventListener("click", e=> msgType.remove());
+
     setTimeout(() => {
-        messageHolder.firstElementChild.remove();
+        msgType.remove();
     }, 10000);
 }
 
 
-export function notificationHtml({avatar,message}) {
-    let template_msg;
-    let clonemsg ;
-    let messageHolder;
+function listElement(isRead){
+    const listItem = document.createElement("li");
+    
+    if (!listItem) return null;
+    // Add fixed and conditional classes
+    listItem.classList.add("item-drop-custum");
+    listItem.classList.add("notif-not-read");
+    
+    listItem.setAttribute("data-link", "");
+    return listItem
+}
 
-    template_msg = document.querySelector(`#message-request-template`);
-    clonemsg = template_msg.content.cloneNode(true);
-    clonemsg.querySelector(".hold-msg-content ").innerHTML =  
+export function getTime(isoTimestamp) {
+    const date = new Date(isoTimestamp);
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+    const day = String(date.getUTCDate()).padStart(2, "0");
+    const hours = String(date.getUTCHours()).padStart(2, "0");
+    const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  }
+
+function addInNotificationList(id,is_read,message,time){
+ const notificationList = document.querySelector(".notification-list");
+ if (!notificationList) return; 
+
+ const listItem = listElement(is_read);
+ if (listItem) {
+    const content = `
+    <a class="dropdown-item mini-item-drop " href="/friends" data-id="${id}"  data-link> ${message}  | ${getTime(time)}</a>  
+        <button type="button" class="btn  btn-rm-notf btn-danger bg-danger rm-notification"   data-id="${id}">
+            <i class="fa fa-times"></i>
+        </button>`
+    listItem.innerHTML = content;
+    notificationList.insertBefore(listItem, notificationList.firstChild);
+ }
+ 
+
+}
+
+export function notificationHtml({id,avatar,is_read,message,time}) {
+
+    addInNotificationList(id,is_read,message,time);
+    const messageHolder =   document.querySelector(`.message-holder`);
+    const templateMsg = document.querySelector(`#message-request-template`);
+
+    if (!templateMsg || !messageHolder ) return;
+
+    const  cloneMsg = templateMsg.content.cloneNode(true);
+    const msgContent =  cloneMsg.querySelector(".hold-msg-content");
+    const msgType =  cloneMsg.querySelector(`.message-request`);
+
+    if (!msgContent || !msgType)  return; 
+    msgContent.innerHTML =  
     `     
-    <img src="${avatar}" alt=""> 
-    <p><i class="fa-solid fa-triangle-exclamation"></i> ${message}</p>   
+    <div class="position-absolute top-0 start-100 translate-middle close-alert"><i class="fa-solid fa-xmark"></i></div>
+
+    <p> ${message}</p>   
     <a href="/friends" data-link>
         <i class="fas fa-arrow-right"></i>
     </a>
     `;
-    messageHolder =   document.querySelector(`.message-holder`);
-    messageHolder.appendChild(clonemsg)
+
+    msgType.appendChild(msgContent);
+    messageHolder.appendChild(msgType);
+
+    const closeButton = msgType.querySelector(".close-alert");
+    if (closeButton ) closeButton.addEventListener("click", e=> msgType.remove());
+
     setTimeout(() => {
-        messageHolder.firstElementChild.remove();
+        msgType.remove();
     }, 10000);
 
 }

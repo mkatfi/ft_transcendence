@@ -43,7 +43,7 @@ client_secret = os.environ.get('client_secret')
 # @unauthentication_user
 def intra_authorize(request):
     
-    print("enter here remote \n")
+    # print("enter here remote \n")
     url = 'https://api.intra.42.fr/oauth/authorize'
     query_params = {
         'client_id': client_id,
@@ -69,15 +69,19 @@ def exchange_data(code):
     return post_data
 
 # download image of remote user from intra
-def download_image_from_url(user_prf, image_link):
+def download_image_from_url(user_prf :Profile, image_link):
     try:
+        # print("download_image_from_url enter",flush=True)
         img_temp = NamedTemporaryFile(delete=True)
         with urlopen(image_link) as img_link:
             img_temp.write(img_link.read())
             img_temp.flush()
         user_prf.avatar.save(f"image_{user_prf.pk}.jpg", File(img_temp))
+        user_prf.save()
+        # print("download_image_from_url call user_prf.save(), user_prf.avatar",user_prf.avatar,flush=True)
     except Exception as e:
-        return ValidationError(f"Failed to download image from {image_link}: {e}")
+        # print("Exception from download_image_from_url ===> ", e,flush=True)
+        raise ValidationError(f"Failed to download image from {image_link}: {e}")
 
 
 
@@ -88,37 +92,41 @@ def getRandemUsername(username):
 def UsercreateORupdate(access_token, user_data):
     login = user_data.get('login')
     email = user_data.get('email')
+    first_name = user_data.get('first_name')
+    last_name = user_data.get('last_name')
     id = user_data.get('id')
     image_link = user_data.get('image')['link']
+     
+    userP = User.objects.filter(username=login).first()  
+    if userP:  
+        checkUsername = Profile.objects.filter(user=userP, remote_user=True).exists()
+        useralready = Profile.objects.filter(ruser_id=id).first()
 
-    userP = User.objects.filter(username=login)
-    userP = userP[0]
-    if(userP):
-        checkUsername = Profile.objects.filter(user=userP,remote_user=True)
-        useralready = Profile.objects.filter(ruser_id=id)
         if useralready:
-            login = useralready[0].user.username
+            login = useralready.user.username  
         elif not checkUsername:
-            check = True  
-            while  check: 
-                login = getRandemUsername(login) 
-                check = User.objects.filter(username=login)
-     
-     
-                    
-    user, created = User.objects.get_or_create(username=login)
+            check = True
+            while check:
+                login = getRandemUsername(login)  
+                check = User.objects.filter(username=login).exists()
+
+    created = None
+    user_prf = Profile.objects.filter(ruser_id=id).first()
+    if user_prf is None:           
+        user, created = User.objects.get_or_create(username=login)
     if created: # create user from scrash
         user_prf = Profile.objects.get(user=user)
-        user_prf.access_token = access_token
         user_prf.remote_user = True
         user_prf.ruser_id = id
+        user.email = email
+        user.first_name = first_name
+        user.last_name = last_name
         download_image_from_url(user_prf, image_link)
         user_prf.save()
-        
-    else: # update user
-        user_prf = Profile.objects.get(user=user)
-        user_prf.access_token = access_token
-        user_prf.save()
+        user.save()
+        # print(" after last download_image_from_url call user_prf.save(), user_prf.avatar",user_prf.avatar,flush=True)
+    else:
+        user = user_prf.user
     return(get_tokens_for_user(user))    
 
 
@@ -134,22 +142,18 @@ def authorization_intra(request):
         access_token = post_data.get('access_token')
         if access_token:
             user_data = fetch_data(access_token)
-            token = UsercreateORupdate(access_token, user_data)
-
-            return JsonResponse(token)
+            tokens = UsercreateORupdate(access_token, user_data)
+            response = JsonResponse({'access_token': tokens['access_token']})
+            response.set_cookie(
+                'refresh_token', 
+                tokens['refresh_token'], 
+                httponly=True, 
+                samesite='Strict',    
+                path='/',
+                secure=True,         
+            )
+        return response
     return JsonResponse({'error': 'Invalid state or code'}, status=400)
-
-# @api_view(['GET'])
-# def afterauthorization(request):
-
-#     return Response({
-#         "user": userser.data,
-#         "access_token": access_token,
-#         "refresh_token": refresh_token
-#     })
-
-    
-
 
 def fetch_data(access_token):
     url = 'https://api.intra.42.fr/v2/me'
@@ -162,45 +166,4 @@ def fetch_data(access_token):
     except:
         return None
     return response.json()
-
-# def R_login(request):
-#     return render(request, 'registration/login.html')
-
-# @autenticated_only
-# def home(request):
-#     user_prf = get_user(request)
-#     if user_prf:
-#         request.user = user_prf.user
-#     context = {'user_prf':user_prf}
-#     return render(request, 'registration/home.html', context)
-
-# @autenticated_only
-# def _logout(request):
-#     logout(request)
-#     request.session.set_expiry(0)
-#     return redirect('R_login')
-
-
-def get_user(request):
-    # local user
-    if request.user.is_authenticated:
-        try:
-            user_prf = Profile.objects.get(user=request.user)
-            return user_prf
-        except:
-            return None
-
-    # remote user 
-    try:
-        access_token = request.session['access_token']
-    except:
-        return None
-    user_prf = None
-    if access_token:
-        try:
-            user_prf = Profile.objects.get(access_token=access_token)
-        except:
-            return None
-    return user_prf
-
 

@@ -1,52 +1,23 @@
-FILES =	"./docker-compose.yml"  \
-		"./docker-compose.nginx.yml" \
-		"./docker-compose.game.yml" \
-		"./docker-compose.match_making.yml" \
-		"./Tournament/docker-compose.yml" \
-		"./Chat/docker-compose.yml" \
+FILES =	-f "./docker-compose.yml"  
 
-define run_compose_files1
-    @for file in $(1); do \
-        echo "Running -f $${file}"; \
-		docker compose -f $$file $(2) $(3); \
-    done
-endef
-
-define run_compose_files2
-    @for file in $(1); do \
-        echo "Running -f $${file}"; \
-		docker compose -f $$file $(2); \
-    done
-endef
-
-define run_compose_reversed
-	@for file in $(shell echo $(1) | tr ' ' '\n' | tac); do \
-		echo "Running docker compose $$file $(2)"; \
-		docker compose -f "$$file" $(2); \
-	done
-endef
+all:
+	docker-compose up --build
 
 up:
-	$(call run_compose_files1, $(FILES), "up", "-d")
+	docker compose $(FILES) up -d
 
 down:
-	$(call run_compose_reversed, $(FILES), "down")
+	docker compose $(FILES) down
 
 restart:
-	$(call run_compose_files2, $(FILES), "restart")
+	docker compose $(FILES) restart
 
 start:
-	$(call run_compose_files2, $(FILES), "start")
+	docker compose $(FILES) start
 
 stop:
-	$(call run_compose_files2, $(FILES), "stop")
+	docker compose $(FILES) stop
 
 build:
-	$(call run_compose_files2, $(FILES), "build")
-
-
-vol:
-	mkdir ~/Desktop/volumes 
-	mkdir ~/Desktop/volumes/data
-	mkdir ~/Desktop/volumes/game
-
+	docker compose $(FILES) build
+	

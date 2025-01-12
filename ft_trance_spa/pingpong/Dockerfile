@@ -1,19 +1,21 @@
-FROM python:3.11.4
+
+FROM python:3.11
+
+RUN apt update -y && apt upgrade -y
+
+RUN apt install -y python3-django 
+
+COPY ./requirements.txt /user/app/requirements.txt
+
+RUN  pip install -r /user/app/requirements.txt
+
+WORKDIR /user/app
+
+EXPOSE 8000
+
+# COPY ./script.sh /user/app
+CMD ["bash", "./script.sh"]
 
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
 
-WORKDIR /usr/src/app
 
-RUN apt-get update \
-    && apt-get -y install libpq-dev gcc 
-
-COPY ./requirements.txt /usr/src/app/requirements.txt
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt   
-#--no-cache-dir 
-COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
-# COPY . /usr/src/app/
-ENTRYPOINT [ "/usr/src/app/entrypoint.sh" ]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

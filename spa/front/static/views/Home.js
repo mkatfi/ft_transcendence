@@ -8,45 +8,43 @@ export default class extends AbstractView {
   }
 
   async getHtml() {
-    await this.setPayload();
-    await this.setData();
     const headernav = await this.getHeader();
     return (
       headernav +
       `  
-    <div class="content_index flex-grow-1 p-3">
-    <div class="wrapper d-grid  gap-2">
-      <div class=" d-flex align-items-center justify-content-between box2 rounded-5 ">
-      <img src="static/images/droitvs.png" alt="">
-        <div class="ktab text-center  m-2">
-          <h3>Pingpong</h3>
-          <p class="text-wlc  m-3">W</p>
+      <div class="content_index flex-grow-1 p-3">
+      <div class="wrapper d-grid  gap-2">
+        <div class=" d-flex align-items-center justify-content-between box2 rounded-5 ">
+        <img src="static/images/droitvs.png" alt="">
+          <div class="ktab text-center  m-2">
+            <h3>Pingpong</h3>
+            <p class="text-wlc  m-3">W</p>
+          </div>
+          <img src="static/images/qauchevs.png" alt="">
         </div>
-        <img src="static/images/qauchevs.png" alt="">
-      </div>
-      <div class=" d-flex align-items-end justify-content-between box1 rounded-5"> 
-      <img src="static/images/tor-0.png" alt="">
-      <div class="ktab-box">
-      <p class=" text-box-1 ">Ping Pong Tournement</p>
-      <div class="play-now">
-      <a class="text-center btn btn-box  " href="/games"><i class="fa-solid fa-play"></i>
-      <span>START</span></a></div>
-      </div>
-      <img src="static/images/tor-1.png" alt="">
-      </div>
-      <div class=" d-flex align-items-center justify-content-center box3 rounded-5"> 
-       <div class="ktab-box-3 ">
-          <p class="text-box-3 ">WELCOME TO GIME PING PONG</p>
-          <div class="play-now">
-          <a class="text-center  btn btn-box-3" href="/games"><i class="fa-solid fa-play"></i>
-              <span> PlayNow</span></a>
-            </div>
+        <div class=" d-flex align-items-end  justify-content-between  box1 rounded-5"> 
+          <img src="static/images/file-12.png" alt="">
+          <div class="ktab-box-1 ">
+             <p class="text-box-3 ">Ready to play?</p>
+            <p class="text-home m-3">Join a quick match to test your skills against other players. Dive into the game, challenge yourself, and enjoy the action right away!</p>
+            <div class="play-now">
+            <a data-link class="text-center  btn btn-box-3" href="/games"><i class="fa-solid fa-play"></i>
+                <span>Play</span></a>
+              </div>
+          </div>
         </div>
-      <img src="static/images/bc.png" alt="" class="w-100 h-100">
+        <div class=" d-flex align-items-end justify-content-between box3 rounded-5"> 
+          <div class="ktab-box-3">
+            <p class=" text-box-1 ">Compete for the ultimate title!</p>
+            <p class="text-home m-3">Join our tournaments to face off against top players and rise through the ranks. Each tournament offers exciting rewards and a chance to showcase your skills. Prepare yourself for intense, competitive matches!</p>
+          <div class="play-now" >
+          <a data-link  class="text-center btn btn-box  " href="/tournament"><span>Join</span></a></div>
+          </div>
+          <img src="static/images/file-11.png" alt="" >
+          </div>
       </div>
-    </div>
-    </div>
-    `
+      </div>
+      `
     );
   }
   async afterRender() {
@@ -55,13 +53,11 @@ export default class extends AbstractView {
       ".text-wlc",
       "elcome to the pingpong world come join us for a game!"
     );
-    addEventListener("keydown", (e) => {
-      console.log("key here=>:   ", e.key);
-    });
+
   }
   async textWriter(element, txt) {
-    let textwr = document.querySelector(element);
-
+    const textwr = document.querySelector(element);
+    if (!textwr) return;
     for (let index = 0; index < txt.length; index++) {
       setTimeout(() => {
         textwr.innerHTML += txt[index];

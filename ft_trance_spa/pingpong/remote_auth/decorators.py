@@ -34,7 +34,7 @@ def get_user(request):
     # remote user 
     try:
         access_token = request.session['access_token']
-        print('access_token: ', access_token)
+        # print('access_token: ', access_token)
     except:
         return None
     user_prf = None

@@ -12,10 +12,8 @@ RUN python3 -m pip install Pillow
 
 RUN python -m pip install -U 'channels[daphne]'
 
-RUN pwd
-
 WORKDIR /user/app
 
-RUN cd /user/app
+EXPOSE 8000
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["bash", "./script.sh"]

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,19 +21,38 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5z$k6)fr+!(%0)#@n8-9frnf3wf&5ae*+45t14z%_mdg+9y#qe'
-
+SECRET_KEY =  os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['chat', '*']
+
+# Add this to settings.py to see JWT token errors in detail
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.security.jwt': {  # Logs JWT issues
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
 
 
+# CORS settings
+CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
     "channels",
     "daphne",
+    'corsheaders',
     'app',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,9 +60,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    
 ]
-
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +76,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'chat.urls'
+
+
+# settings.py
+# settings.py
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'app.my_custom_auth.CustomJWTAuthentication',
+    ],
+}
+
 
 TEMPLATES = [
     {
@@ -71,15 +104,38 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'chat.wsgi.application'
-ASGI_APPLICATION = "chat.asgi.application"
+ASGI_APPLICATION = 'chat.asgi.application'
+
+# channels setting
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [('redis', 6379)],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+import os
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'ENGINE': 'django.db.backends.postgresql',
+
+        'NAME': os.environ.get('POSTGRES_DB'),
+
+        'USER': os.environ.get('POSTGRES_USER'),
+
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+
+        'HOST': 'chat_db',
+
+        'PORT': os.environ.get('POSTGRES_PORT'),
     }
 }
 
@@ -102,16 +158,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-              "hosts": [('redis', 6379)],
-        },
-    },
+
+# settings.py (Auth Service)
+from datetime import timedelta
+...
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ALGORITHM': 'HS256',
+    
+    'ROTATE_REFRESH_TOKENS': True,  # Automatically issue new refresh token on refresh
+    'BLACKLIST_AFTER_ROTATION': True,  # Blacklist old refresh token
+    # "SIGNING_KEY": "IqwJA70lnUHZHfSnHwsFoMyavsyxp4StVW7Gamdj2G0=",
 }
 
-ALLOWED_HOSTS = ['*']
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 

@@ -1,55 +1,40 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
 from .models import Profile,Friend_Request,Notification
-
-
-
-# from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-# from rest_framework_simplejwt.views import TokenObtainPairView
-
-# class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-#     @classmethod
-#     def get_token(cls, user):
-#         token = super().get_token(user)
-
-#         # Add custom claims
-#         token['username'] = user.username
-#         token['email'] = user.email
-        
-#         # ...
-#         profile = Profile.objects.get(user=user)
-#         avatar_url = profile.avatar.url if profile.avatar else None
-#         print(avatar_url)
-#         token['profile']= {
-#             'bio': profile.bio,
-#             'avatar': avatar_url,
-#             'friends': [friend.username for friend in profile.friends.all()]
-#         }
-#         return token
-
+import os
+from rest_framework import serializers
+from rest_framework.validators import UniqueValidator
 
 class UserSerializer(serializers.ModelSerializer):
-    password1 = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
-    password2 = serializers.CharField(write_only=True, required=True, style={'input_type': 'password'})
+    password1 = serializers.CharField(write_only=True, required=True)
+    password2 = serializers.CharField(write_only=True, required=True)
     class Meta:
         model = User
-        fields = ['id','username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['id','username', 'email', 'password1', 'password2']
         
-        
+    def validate_username(self, username):
+        username_ = username.lower().strip()
+        if User.objects.filter(username__iexact=username_).exists():
+            raise serializers.ValidationError( "Username already exists!")
+        if len(username) < 3 or len(username) > 15:
+            raise serializers.ValidationError('Username must be between 3 and 15 characters long')
+        return username.lower()
+    
     def validate(self, data):
-        """
-        Check that the two password entries match.
-        """
-        if len(data['password1']) < 8:
+        super().validate(data)  
+        email = data.get("email").lower().strip()  
+        if User.objects.filter(email__iexact=email).exists():
+            raise serializers.ValidationError({"email": "Email already exists!"})  
+
+        if not (8 <= len(data['password1'])  <= 20):
             raise serializers.ValidationError({
-                'password1': "Password must be at least 8 characters long."
+                'password1': "Password must be 8-20 characters long."
             })
+        
         if data['password1'] != data['password2']:
             raise serializers.ValidationError({
                 'password2': "Passwords do not match."
             })
         return data
-
 
     def create(self, validated_data):
         password = validated_data.pop('password1')
@@ -61,50 +46,66 @@ class UserSerializer(serializers.ModelSerializer):
     
 
 class UpdateUserSerializser(serializers.ModelSerializer):
-    
-    
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email']
-        
+        fields = ['username', 'email']
+
+    def validate_username(self, username):
+        if len(username) < 3 or len(username) > 15:
+            raise serializers.ValidationError('Username must be between 3 and 15 characters long')
+        return username
+
+
+class FriendSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = Profile
+        fields = ['id','user', 'avatar', 'is_online']
 
 class ProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    friends = UserSerializer(many=True, read_only=True)  # To serialize friends as user details
-
+    friends = FriendSerializer(many=True, read_only=True)  
+    tournament_name = serializers.CharField(
+    required=False,
+    max_length=100,
+    validators=[UniqueValidator(queryset=Profile.objects.all(), message="This tournament name is already taken.")]
+    )
     class Meta:
         model = Profile
-        fields = ['user', 'avatar', 'bio', 'friends', 'access_token', 'remote_user', 'is_active','is_online']
+        fields = ['id','user', 'avatar',  'friends', 'remote_user', 'tournament_name','is_online']
+
+    def validate_tournament_name(self, tournament_name):
+        if len(tournament_name) < 3 or len(tournament_name) > 20:
+            raise serializers.ValidationError('Tournament name must be between 3 and 20 characters long')
+        return tournament_name
+    
+    def update(self, instance, validated_data):
         
+        new_avatar = validated_data.get('avatar', None)
+        tournament_name = validated_data.get('tournament_name', None)
+        old_avatar = instance.avatar
+        default_avatar_path = '/user/app/media/default.jpg'
+        if new_avatar and old_avatar:
+            if old_avatar.path != default_avatar_path and os.path.exists(old_avatar.path):
+                os.remove(old_avatar.path)
+        if new_avatar:
+            instance.avatar = new_avatar
+        if tournament_name:
+            instance.tournament_name = tournament_name
+        instance.save()
+        return instance
 
-class UserSerializerDetails(serializers.ModelSerializer):
-    profile = ProfileSerializer(read_only=True)
-
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'profile']  
 
 class FriendRequestSerializer(serializers.ModelSerializer):
-    sender = UserSerializerDetails(read_only=True)
-    receiver = UserSerializerDetails(read_only=True)
-
-    
+    sender = ProfileSerializer(read_only=True)
+    receiver = ProfileSerializer(read_only=True)
     
     class Meta:
         model = Friend_Request
-        fields = ["id","receiver","sender"]
+        fields = ["id","receiver","sender","timestamp"]
 
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
         fields = ["id","is_read","message","timestamp"]
-
-
-
-# class CreateFriendRequestSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Friend_Request
-#         fields = ["id","receiver","sender"]
-#     def create(self, validated_data):
-#         return Friend_Request.objects.create(**validated_data)

@@ -11,6 +11,7 @@ class Tournament(models.Model):
         default=Round.HF.value)
     create_date = models.DateTimeField(default=timezone.now)
     size = models.IntegerField(default=4)
+    created_at = models.DateTimeField(default=timezone.now)
     def __str__(self):
         return self.name
 

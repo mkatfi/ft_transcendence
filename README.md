@@ -66,7 +66,7 @@ The **ft_transcendence** project involves developing a fully functional real-tim
 ### 1. Clone the Repository
 Open your terminal and run:
 ```bash
-git clone https://github.com/orcaprog/orca-ft_transcendence
+git clone https://github.com/mkatfi/ft_transcendence
 ```
 
 ### 2. Navigate to the Project Directory
